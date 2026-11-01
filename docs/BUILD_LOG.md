@@ -24,3 +24,9 @@ Docs: `git show 18abc96:docs/BRIEF.md` and `git show 18abc96:docs/CONTRACT.md`.
    restart; non-broadcaster messages should be deleted and counted as pending at
    `/api/status`. Inspect `.data/live.sqlite` locally. No held text is sent to ws.
    Bot replies use the broadcaster's identity, so their echoes are skipped.
+
+5. Progress: with a message sealed for b3, run
+   `curl -H 'Content-Type: application/json' -d '{"beatId":"b3"}' http://localhost:3000/api/progress`.
+   Expect `{"currentBeat":"b3"}`, a reveal event, lower vault count and updated
+   leaderboard. Repeat it and check points stay fixed. Unknown beats return 400;
+   going backwards returns 409. A jump releases earlier beats too.

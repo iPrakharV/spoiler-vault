@@ -56,5 +56,23 @@ export class Store {
   logLatency(id: string, label: string, ms: number, outcome: string) {
     this.db.prepare('INSERT INTO latency (messageId,label,ms,outcome) VALUES (?,?,?,?)').run(id, label, ms, outcome);
   }
+  release(beatId: string, reachedIds: string[]) {
+    return this.db.transaction(() => {
+      this.db.prepare('UPDATE state SET value = ? WHERE key = ?').run(beatId, 'currentBeat');
+      const eligible = this.db.prepare(`SELECT * FROM holds WHERE kind = 'vault' AND released = 0
+        ORDER BY sealedAt, rowid`).all() as Held[];
+      const items = eligible.filter(item => item.beatId && reachedIds.includes(item.beatId));
+      const add = this.db.prepare(`INSERT INTO points VALUES (?, ?)
+        ON CONFLICT(user) DO UPDATE SET points = points + excluded.points`);
+      for (const item of items) {
+        this.db.prepare('UPDATE holds SET released = 1 WHERE id = ?').run(item.id);
+        add.run(item.user, 1);
+        const first = this.db.prepare('SELECT user FROM first_seal WHERE beatId = ?').get(item.beatId) as { user: string };
+        const bonus = this.db.prepare('INSERT OR IGNORE INTO state VALUES (?, ?)').run(`bonus:${item.beatId}`, 'awarded');
+        if (bonus.changes) add.run(first.user, 3);
+      }
+      return items;
+    })();
+  }
   close() { this.db.close(); }
 }
