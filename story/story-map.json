@@ -1,0 +1,9 @@
+{
+  "game": "The Last Lantern (placeholder)",
+  "beats": [
+    { "id": "b1", "order": 1, "chapter": "The quiet station", "summary": "You arrive at a dark station carrying an unlit lantern.", "secrets": [] },
+    { "id": "b2", "order": 2, "chapter": "The ticket window", "summary": "You find a brass key under the ticket counter and open the lantern cabinet.", "secrets": ["The brass key is hidden under the ticket counter.", "The key opens the lantern cabinet."] },
+    { "id": "b3", "order": 3, "chapter": "A familiar voice", "summary": "The station keeper is your future self, waiting to return the lantern.", "secrets": ["The station keeper is your future self.", "The keeper has been waiting to return the lantern."] },
+    { "id": "b4", "order": 4, "chapter": "The morning train", "summary": "Lighting the lantern brings the morning train home and frees the keeper from the loop.", "secrets": ["Lighting the lantern summons the morning train.", "The lantern breaks the time loop and frees the keeper."] }
+  ]
+}

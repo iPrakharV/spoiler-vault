@@ -40,3 +40,11 @@ Docs: `git show 18abc96:docs/BRIEF.md` and `git show 18abc96:docs/CONTRACT.md`.
    Twitch connection state, and safe chat. Use Next story beat and Release a hint.
    Restart the server and check automatic reconnection. Resize to a phone width.
    A chat message containing HTML must render as literal text.
+
+8. Replay: `npm run replay -- --offline`, then open `/dashboard/` immediately.
+   Expect sealed counts, vague hint first, b2/b3/b4 reveals and a leaderboard.
+   Final points: maya 8, niko 4, rowan 1. One explicit hint stays in the jar.
+   No Twitch account or API key is needed. Stop with Ctrl+C. For a fast smoke run:
+   `npm run replay -- --offline --speed=1000 --exit`.
+   Without `--offline`, set OPENAI_API_KEY to test the real classifier.
+   story/story-map.json and fixtures/demo-chat.json are teammate placeholders.

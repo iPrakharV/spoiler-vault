@@ -25,6 +25,7 @@ async function sync() {
   if (!sessionRes.ok || !stateRes.ok) throw new Error('Could not load the current session.');
   const session = await sessionRes.json(), state = await stateRes.json();
   beats = session.beats;
+  $('connect').hidden = state.mode === 'replay';
   $('game').textContent = session.game.toUpperCase();
   $('story-title').textContent = session.current.chapter;
   $('summary').textContent = session.current.summary;

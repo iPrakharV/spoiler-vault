@@ -1,0 +1,17 @@
+[
+  { "delayMs": 1800, "user": "river", "text": "This station is so quiet. Love the mood.", "label": "normal", "beatId": null, "hintLevel": null },
+  { "delayMs": 1500, "user": "maya", "text": "The brass key is under the ticket counter!", "label": "future_spoiler", "beatId": "b2", "hintLevel": null },
+  { "delayMs": 1600, "user": "niko", "text": "The keeper is literally your future self.", "label": "future_spoiler", "beatId": "b3", "hintLevel": null },
+  { "delayMs": 1500, "user": "ellie", "text": "Go left and inspect every drawer right now.", "label": "backseat", "beatId": null, "hintLevel": 5 },
+  { "delayMs": 1400, "user": "sage", "text": "Maybe take a moment to look around.", "label": "backseat", "beatId": null, "hintLevel": 1 },
+  { "delayMs": 1700, "user": "river", "text": "Let them cook chat", "label": "normal", "beatId": null, "hintLevel": null },
+  { "delayMs": 1600, "user": "broadcaster", "text": "!hint", "label": "normal", "beatId": null, "hintLevel": null },
+  { "delayMs": 2500, "progress": "b2" },
+  { "delayMs": 1600, "user": "maya", "text": "That brass key under the counter was a nice find.", "label": "past_talk", "beatId": "b2", "hintLevel": null },
+  { "delayMs": 1600, "user": "rowan", "text": "The keeper is you from the future. Calling it now.", "label": "future_spoiler", "beatId": "b3", "hintLevel": null },
+  { "delayMs": 1800, "user": "maya", "text": "The lantern breaks the time loop and frees the keeper.", "label": "future_spoiler", "beatId": "b4", "hintLevel": null },
+  { "delayMs": 2500, "progress": "b3" },
+  { "delayMs": 1600, "user": "river", "text": "YOU WERE THE KEEPER?? what a reveal", "label": "past_talk", "beatId": "b3", "hintLevel": null },
+  { "delayMs": 2000, "progress": "b4" },
+  { "delayMs": 1500, "user": "sage", "text": "What a way to end a shift.", "label": "normal", "beatId": null, "hintLevel": null }
+]

@@ -1,1 +1,68 @@
-console.log('Replay pipeline is added in step 8.');
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { randomUUID } from 'node:crypto';
+import { setTimeout as pause } from 'node:timers/promises';
+import { config, root } from './config.js';
+import { loadStory, findBeat } from './story.js';
+import { openAIClassifier } from './classifier.js';
+import { createRuntime } from './runtime.js';
+import { labels, type Classification, type Classifier } from './types.js';
+
+type Entry = { progress: string; delayMs?: number } | {
+  delayMs: number; user: string; text: string; label: Classification['label'];
+  beatId: string | null; hintLevel: number | null;
+};
+const offline = process.argv.includes('--offline');
+const exit = process.argv.includes('--exit');
+const speed = Number(process.argv.find(arg => arg.startsWith('--speed='))?.split('=')[1] || 1);
+if (!Number.isFinite(speed) || speed <= 0) throw new Error('--speed must be a positive number');
+if (!offline && !config.openaiKey) throw new Error('Set OPENAI_API_KEY or run npm run replay -- --offline');
+const story = loadStory();
+const entries: Entry[] = JSON.parse(readFileSync(join(root, 'fixtures/demo-chat.json'), 'utf8'));
+if (!Array.isArray(entries)) throw new Error('demo-chat.json must be an array');
+for (const entry of entries) {
+  if ('progress' in entry) findBeat(story, entry.progress);
+  else if (typeof entry.text !== 'string' || typeof entry.user !== 'string' || !labels.includes(entry.label) ||
+    !Number.isFinite(entry.delayMs) || entry.delayMs < 0) throw new Error('Invalid replay message');
+}
+let expected: Classification;
+const classify: Classifier = offline ? async (_text, currentBeat) => {
+  if (expected.label === 'future_spoiler' && expected.beatId &&
+      findBeat(story, expected.beatId).order <= findBeat(story, currentBeat).order) {
+    return { ...expected, label: 'past_talk' };
+  }
+  return expected;
+} : openAIClassifier(story);
+const runtime = createRuntime({ story, file: ':memory:', classify, mode: 'replay', classifierReady: true,
+  transport: {
+    deleteMessage: async id => { console.log(`[replay delete] ${id}`); },
+    reply: async text => { console.log(`[replay reply] ${text}`); },
+  },
+});
+await runtime.listen(config.port);
+console.log(`Replay ${offline ? 'OFFLINE (stored labels, no API calls)' : 'with OpenAI'}: http://localhost:${config.port}/dashboard/`);
+console.log('Fresh in-memory SQLite session. Press Ctrl+C to stop.');
+let stopped = false;
+const abort = new AbortController();
+for (const signal of ['SIGINT', 'SIGTERM']) process.on(signal, () => {
+  if (stopped) return;
+  stopped = true; abort.abort();
+  void runtime.close().then(() => process.exit(0));
+});
+try {
+  await pause(2000 / speed, undefined, { signal: abort.signal });
+  for (const entry of entries) {
+    await pause((entry.delayMs ?? 1500) / speed, undefined, { signal: abort.signal });
+    if ('progress' in entry) runtime.controls.progress(entry.progress);
+    else {
+      expected = { label: entry.label, beatId: entry.beatId, hintLevel: entry.hintLevel, confidence: 1 };
+      await runtime.pipeline.process({ id: randomUUID(), user: entry.user, text: entry.text,
+        broadcaster: entry.user.toLowerCase() === 'broadcaster' });
+    }
+  }
+  console.log(`Replay complete. ${JSON.stringify(runtime.pipeline.status())}`);
+  console.log(`Prophets: ${JSON.stringify(runtime.store.leaderboard())}`);
+  if (exit) { stopped = true; await runtime.close(); }
+} catch (error) {
+  if (!stopped) { await runtime.close(); throw error; }
+}
