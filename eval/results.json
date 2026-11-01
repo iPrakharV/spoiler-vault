@@ -1,0 +1,1276 @@
+{
+  "mode": "baseline",
+  "model": null,
+  "columns": [
+    "normal",
+    "past_talk",
+    "future_spoiler",
+    "backseat",
+    "pending"
+  ],
+  "confusion": {
+    "normal": {
+      "normal": 37,
+      "past_talk": 0,
+      "future_spoiler": 0,
+      "backseat": 1,
+      "pending": 0
+    },
+    "past_talk": {
+      "normal": 29,
+      "past_talk": 7,
+      "future_spoiler": 0,
+      "backseat": 2,
+      "pending": 0
+    },
+    "future_spoiler": {
+      "normal": 15,
+      "past_talk": 0,
+      "future_spoiler": 23,
+      "backseat": 0,
+      "pending": 0
+    },
+    "backseat": {
+      "normal": 5,
+      "past_talk": 0,
+      "future_spoiler": 0,
+      "backseat": 31,
+      "pending": 0
+    }
+  },
+  "scores": [
+    {
+      "label": "normal",
+      "support": 38,
+      "precision": 0.43023255813953487,
+      "recall": 0.9736842105263158,
+      "f1": 0.596774193548387
+    },
+    {
+      "label": "past_talk",
+      "support": 38,
+      "precision": 1,
+      "recall": 0.18421052631578946,
+      "f1": 0.3111111111111111
+    },
+    {
+      "label": "future_spoiler",
+      "support": 38,
+      "precision": 1,
+      "recall": 0.6052631578947368,
+      "f1": 0.7540983606557378
+    },
+    {
+      "label": "backseat",
+      "support": 36,
+      "precision": 0.9117647058823529,
+      "recall": 0.8611111111111112,
+      "f1": 0.8857142857142858
+    }
+  ],
+  "p50": 0.005666000000005056,
+  "p95": 0.013833999999988578,
+  "errors": 0,
+  "details": [
+    {
+      "index": 1,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.13758299999999224
+    },
+    {
+      "index": 2,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.09016599999999642
+    },
+    {
+      "index": 3,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.011250000000003979
+    },
+    {
+      "index": 4,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.007457999999999743
+    },
+    {
+      "index": 5,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.008290999999999826
+    },
+    {
+      "index": 6,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.006791999999990139
+    },
+    {
+      "index": 7,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.006957999999997355
+    },
+    {
+      "index": 8,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.005750000000006139
+    },
+    {
+      "index": 9,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.006916999999987183
+    },
+    {
+      "index": 10,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.006666999999993095
+    },
+    {
+      "index": 11,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.007750000000001478
+    },
+    {
+      "index": 12,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.007542000000000826
+    },
+    {
+      "index": 13,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.009041999999993777
+    },
+    {
+      "index": 14,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.008290999999999826
+    },
+    {
+      "index": 15,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.0062910000000044874
+    },
+    {
+      "index": 16,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.006000000000000227
+    },
+    {
+      "index": 17,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.004875000000012619
+    },
+    {
+      "index": 18,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.005875000000003183
+    },
+    {
+      "index": 19,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.005583999999998923
+    },
+    {
+      "index": 20,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.005832999999995536
+    },
+    {
+      "index": 21,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.005000000000009663
+    },
+    {
+      "index": 22,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.005832999999995536
+    },
+    {
+      "index": 23,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.006000000000000227
+    },
+    {
+      "index": 24,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.004874999999998408
+    },
+    {
+      "index": 25,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.005000000000009663
+    },
+    {
+      "index": 26,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.006083000000003835
+    },
+    {
+      "index": 27,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.005875000000003183
+    },
+    {
+      "index": 28,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.0049169999999918446
+    },
+    {
+      "index": 29,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.006292000000001963
+    },
+    {
+      "index": 30,
+      "actual": "normal",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.00695899999999483
+    },
+    {
+      "index": 31,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.006624999999999659
+    },
+    {
+      "index": 32,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.0049999999999954525
+    },
+    {
+      "index": 33,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.27420899999999904
+    },
+    {
+      "index": 34,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.008458000000004517
+    },
+    {
+      "index": 35,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.006500000000002615
+    },
+    {
+      "index": 36,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.0062080000000008795
+    },
+    {
+      "index": 37,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.005749999999991928
+    },
+    {
+      "index": 38,
+      "actual": "normal",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.08275000000000432
+    },
+    {
+      "index": 39,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b1",
+      "beatId": null,
+      "ms": 0.009457999999995081
+    },
+    {
+      "index": 40,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b1",
+      "beatId": null,
+      "ms": 0.007208000000005654
+    },
+    {
+      "index": 41,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b1",
+      "beatId": null,
+      "ms": 0.13279199999999491
+    },
+    {
+      "index": 42,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b1",
+      "beatId": null,
+      "ms": 0.008499999999997954
+    },
+    {
+      "index": 43,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b1",
+      "beatId": null,
+      "ms": 0.006042000000007874
+    },
+    {
+      "index": 44,
+      "actual": "past_talk",
+      "predicted": "backseat",
+      "expectedBeatId": "b1",
+      "beatId": null,
+      "ms": 0.006000000000000227
+    },
+    {
+      "index": 45,
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b2",
+      "beatId": "b2",
+      "ms": 0.006000000000000227
+    },
+    {
+      "index": 46,
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b2",
+      "beatId": "b2",
+      "ms": 0.005500000000012051
+    },
+    {
+      "index": 47,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b2",
+      "beatId": null,
+      "ms": 0.0049579999999878055
+    },
+    {
+      "index": 48,
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b2",
+      "beatId": "b2",
+      "ms": 0.004541000000003237
+    },
+    {
+      "index": 49,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b2",
+      "beatId": null,
+      "ms": 0.00491600000000858
+    },
+    {
+      "index": 50,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b2",
+      "beatId": null,
+      "ms": 0.004917000000006055
+    },
+    {
+      "index": 51,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b2",
+      "beatId": null,
+      "ms": 0.005041999999988889
+    },
+    {
+      "index": 52,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b2",
+      "beatId": null,
+      "ms": 0.0050420000000030996
+    },
+    {
+      "index": 53,
+      "actual": "past_talk",
+      "predicted": "backseat",
+      "expectedBeatId": "b2",
+      "beatId": null,
+      "ms": 0.004792000000009011
+    },
+    {
+      "index": 54,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b2",
+      "beatId": null,
+      "ms": 0.004792000000009011
+    },
+    {
+      "index": 55,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b2",
+      "beatId": null,
+      "ms": 0.0049169999999918446
+    },
+    {
+      "index": 56,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b2",
+      "beatId": null,
+      "ms": 0.004917000000006055
+    },
+    {
+      "index": 57,
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b3",
+      "beatId": "b3",
+      "ms": 0.004416000000006193
+    },
+    {
+      "index": 58,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b3",
+      "beatId": null,
+      "ms": 0.0049999999999954525
+    },
+    {
+      "index": 59,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b3",
+      "beatId": null,
+      "ms": 0.004792000000009011
+    },
+    {
+      "index": 60,
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b3",
+      "beatId": "b3",
+      "ms": 0.0050829999999990605
+    },
+    {
+      "index": 61,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b3",
+      "beatId": null,
+      "ms": 0.005624999999994884
+    },
+    {
+      "index": 62,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b3",
+      "beatId": null,
+      "ms": 0.0049169999999918446
+    },
+    {
+      "index": 63,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b3",
+      "beatId": null,
+      "ms": 0.005000000000009663
+    },
+    {
+      "index": 64,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b3",
+      "beatId": null,
+      "ms": 0.004833000000004972
+    },
+    {
+      "index": 65,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b3",
+      "beatId": null,
+      "ms": 0.004666999999997756
+    },
+    {
+      "index": 66,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b3",
+      "beatId": null,
+      "ms": 0.004958000000002016
+    },
+    {
+      "index": 67,
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b4",
+      "beatId": "b4",
+      "ms": 0.00416700000000958
+    },
+    {
+      "index": 68,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b4",
+      "beatId": null,
+      "ms": 0.004874999999998408
+    },
+    {
+      "index": 69,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b4",
+      "beatId": null,
+      "ms": 0.0051250000000067075
+    },
+    {
+      "index": 70,
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b4",
+      "beatId": "b4",
+      "ms": 0.004291999999992413
+    },
+    {
+      "index": 71,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b4",
+      "beatId": null,
+      "ms": 0.004833000000004972
+    },
+    {
+      "index": 72,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b4",
+      "beatId": null,
+      "ms": 0.005250000000003752
+    },
+    {
+      "index": 73,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b4",
+      "beatId": null,
+      "ms": 0.004874999999998408
+    },
+    {
+      "index": 74,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b4",
+      "beatId": null,
+      "ms": 0.004750000000001364
+    },
+    {
+      "index": 75,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b4",
+      "beatId": null,
+      "ms": 0.004832999999990761
+    },
+    {
+      "index": 76,
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b4",
+      "beatId": null,
+      "ms": 0.006541999999996051
+    },
+    {
+      "index": 77,
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b2",
+      "beatId": "b2",
+      "ms": 0.0049999999999954525
+    },
+    {
+      "index": 78,
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b2",
+      "beatId": "b2",
+      "ms": 0.004416999999989457
+    },
+    {
+      "index": 79,
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b2",
+      "beatId": "b2",
+      "ms": 0.005832999999995536
+    },
+    {
+      "index": 80,
+      "actual": "future_spoiler",
+      "predicted": "normal",
+      "expectedBeatId": "b2",
+      "beatId": null,
+      "ms": 0.00637499999999136
+    },
+    {
+      "index": 81,
+      "actual": "future_spoiler",
+      "predicted": "normal",
+      "expectedBeatId": "b2",
+      "beatId": null,
+      "ms": 0.00549999999999784
+    },
+    {
+      "index": 82,
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b2",
+      "beatId": "b2",
+      "ms": 0.009208000000000993
+    },
+    {
+      "index": 83,
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b2",
+      "beatId": "b2",
+      "ms": 0.00520899999999358
+    },
+    {
+      "index": 84,
+      "actual": "future_spoiler",
+      "predicted": "normal",
+      "expectedBeatId": "b2",
+      "beatId": null,
+      "ms": 0.004874999999998408
+    },
+    {
+      "index": 85,
+      "actual": "future_spoiler",
+      "predicted": "normal",
+      "expectedBeatId": "b2",
+      "beatId": null,
+      "ms": 0.0061659999999932324
+    },
+    {
+      "index": 86,
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b2",
+      "beatId": "b2",
+      "ms": 0.0051250000000067075
+    },
+    {
+      "index": 87,
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b2",
+      "beatId": "b2",
+      "ms": 0.005250000000003752
+    },
+    {
+      "index": 88,
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b2",
+      "beatId": "b2",
+      "ms": 0.004457999999999629
+    },
+    {
+      "index": 89,
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b3",
+      "beatId": "b3",
+      "ms": 0.005041000000005624
+    },
+    {
+      "index": 90,
+      "actual": "future_spoiler",
+      "predicted": "normal",
+      "expectedBeatId": "b3",
+      "beatId": null,
+      "ms": 0.016832999999991216
+    },
+    {
+      "index": 91,
+      "actual": "future_spoiler",
+      "predicted": "normal",
+      "expectedBeatId": "b3",
+      "beatId": null,
+      "ms": 0.005916999999996619
+    },
+    {
+      "index": 92,
+      "actual": "future_spoiler",
+      "predicted": "normal",
+      "expectedBeatId": "b3",
+      "beatId": null,
+      "ms": 0.0049999999999954525
+    },
+    {
+      "index": 93,
+      "actual": "future_spoiler",
+      "predicted": "normal",
+      "expectedBeatId": "b3",
+      "beatId": null,
+      "ms": 0.005750000000006139
+    },
+    {
+      "index": 94,
+      "actual": "future_spoiler",
+      "predicted": "normal",
+      "expectedBeatId": "b3",
+      "beatId": null,
+      "ms": 0.006083000000003835
+    },
+    {
+      "index": 95,
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b3",
+      "beatId": "b3",
+      "ms": 0.0050829999999990605
+    },
+    {
+      "index": 96,
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b3",
+      "beatId": "b3",
+      "ms": 0.00591700000001083
+    },
+    {
+      "index": 97,
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b3",
+      "beatId": "b3",
+      "ms": 0.004375000000010232
+    },
+    {
+      "index": 98,
+      "actual": "future_spoiler",
+      "predicted": "normal",
+      "expectedBeatId": "b3",
+      "beatId": null,
+      "ms": 0.013958000000002357
+    },
+    {
+      "index": 99,
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b3",
+      "beatId": "b3",
+      "ms": 0.007832999999990875
+    },
+    {
+      "index": 100,
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b3",
+      "beatId": "b3",
+      "ms": 0.005374999999986585
+    },
+    {
+      "index": 101,
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b3",
+      "beatId": "b3",
+      "ms": 0.004417000000003668
+    },
+    {
+      "index": 102,
+      "actual": "future_spoiler",
+      "predicted": "normal",
+      "expectedBeatId": "b3",
+      "beatId": null,
+      "ms": 0.005667000000002531
+    },
+    {
+      "index": 103,
+      "actual": "future_spoiler",
+      "predicted": "normal",
+      "expectedBeatId": "b3",
+      "beatId": null,
+      "ms": 0.008957999999992694
+    },
+    {
+      "index": 104,
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b3",
+      "beatId": "b3",
+      "ms": 0.005207999999996105
+    },
+    {
+      "index": 105,
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b4",
+      "beatId": "b4",
+      "ms": 0.004499999999993065
+    },
+    {
+      "index": 106,
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b4",
+      "beatId": "b4",
+      "ms": 0.004750000000001364
+    },
+    {
+      "index": 107,
+      "actual": "future_spoiler",
+      "predicted": "normal",
+      "expectedBeatId": "b4",
+      "beatId": null,
+      "ms": 0.0061249999999972715
+    },
+    {
+      "index": 108,
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b4",
+      "beatId": "b4",
+      "ms": 0.004915999999994369
+    },
+    {
+      "index": 109,
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b4",
+      "beatId": "b4",
+      "ms": 0.005832999999995536
+    },
+    {
+      "index": 110,
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b4",
+      "beatId": "b4",
+      "ms": 0.004166999999995369
+    },
+    {
+      "index": 111,
+      "actual": "future_spoiler",
+      "predicted": "normal",
+      "expectedBeatId": "b4",
+      "beatId": null,
+      "ms": 0.0060419999999936636
+    },
+    {
+      "index": 112,
+      "actual": "future_spoiler",
+      "predicted": "normal",
+      "expectedBeatId": "b4",
+      "beatId": null,
+      "ms": 0.0061670000000049185
+    },
+    {
+      "index": 113,
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b4",
+      "beatId": "b4",
+      "ms": 0.00549999999999784
+    },
+    {
+      "index": 114,
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b4",
+      "beatId": "b4",
+      "ms": 0.005291999999997188
+    },
+    {
+      "index": 115,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.005791999999999575
+    },
+    {
+      "index": 116,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.005583000000001448
+    },
+    {
+      "index": 117,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.005458000000004404
+    },
+    {
+      "index": 118,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.004417000000003668
+    },
+    {
+      "index": 119,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.005375000000000796
+    },
+    {
+      "index": 120,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.005457999999990193
+    },
+    {
+      "index": 121,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.013750000000001705
+    },
+    {
+      "index": 122,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.007041999999998438
+    },
+    {
+      "index": 123,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.006583000000006223
+    },
+    {
+      "index": 124,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.010874999999998636
+    },
+    {
+      "index": 125,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.006249999999994316
+    },
+    {
+      "index": 126,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.0061659999999932324
+    },
+    {
+      "index": 127,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.0050829999999990605
+    },
+    {
+      "index": 128,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.00549999999999784
+    },
+    {
+      "index": 129,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.0057910000000021
+    },
+    {
+      "index": 130,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.005750000000006139
+    },
+    {
+      "index": 131,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.004917000000006055
+    },
+    {
+      "index": 132,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.0061249999999972715
+    },
+    {
+      "index": 133,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.005458000000004404
+    },
+    {
+      "index": 134,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.004958999999999492
+    },
+    {
+      "index": 135,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.0049169999999918446
+    },
+    {
+      "index": 136,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.0061670000000049185
+    },
+    {
+      "index": 137,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.005916999999996619
+    },
+    {
+      "index": 138,
+      "actual": "backseat",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.004874999999998408
+    },
+    {
+      "index": 139,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.005958000000006791
+    },
+    {
+      "index": 140,
+      "actual": "backseat",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.006000000000000227
+    },
+    {
+      "index": 141,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.005666000000005056
+    },
+    {
+      "index": 142,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.005541999999991276
+    },
+    {
+      "index": 143,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.004792000000009011
+    },
+    {
+      "index": 144,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.0071249999999878355
+    },
+    {
+      "index": 145,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.0059590000000042664
+    },
+    {
+      "index": 146,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.005707999999998492
+    },
+    {
+      "index": 147,
+      "actual": "backseat",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.005708999999995967
+    },
+    {
+      "index": 148,
+      "actual": "backseat",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.005000000000009663
+    },
+    {
+      "index": 149,
+      "actual": "backseat",
+      "predicted": "backseat",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.005542000000005487
+    },
+    {
+      "index": 150,
+      "actual": "backseat",
+      "predicted": "normal",
+      "expectedBeatId": null,
+      "beatId": null,
+      "ms": 0.013833999999988578
+    }
+  ]
+}

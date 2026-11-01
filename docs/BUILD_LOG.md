@@ -48,3 +48,10 @@ Docs: `git show 18abc96:docs/BRIEF.md` and `git show 18abc96:docs/CONTRACT.md`.
    `npm run replay -- --offline --speed=1000 --exit`.
    Without `--offline`, set OPENAI_API_KEY to test the real classifier.
    story/story-map.json and fixtures/demo-chat.json are teammate placeholders.
+
+9. Eval: `npm run eval` with OPENAI_API_KEY evaluates 150 synthetic labeled
+   examples. Expect precision/recall/F1, confusion matrix, errors, release target
+   accuracy and classifier latency p50/p95 in terminal and eval/results.md.
+   `npm run eval -- --offline` runs a simple heuristic baseline without a key.
+   Baseline numbers are not OpenAI accuracy. Per-row predictions are in
+   eval/results.json. Pending predictions count as misses, never get dropped.
