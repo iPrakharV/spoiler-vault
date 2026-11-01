@@ -33,7 +33,7 @@ const events = new EventSub(twitch, async (event, at) => {
     broadcaster: event.chatter_user_id === twitch.broadcasterId });
 }, state => { console.log(`Twitch: ${state}`); broadcast({ type: 'connection', state }, true); });
 twitch.mountAuth(app, () => events.start());
-app.get('/api/status', (_req, res) => res.json({ ...pipeline.status(), twitch: events.state }));
+app.get('/api/status', (_req, res) => res.json({ ...pipeline.status(), twitch: events.state, mode: 'live', classifierReady: !!config.openaiKey }));
 app.use(errorHandler);
 if (twitch.hasTokens) events.start().catch(error => console.error(error.message));
 setInterval(() => {

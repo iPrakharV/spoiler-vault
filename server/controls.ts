@@ -37,6 +37,14 @@ export class Controls {
     return { released: true };
   }
   mount(app: Express) {
+    app.get('/api/session', (_req, res) => {
+      const { story, store } = this.pipeline;
+      const current = findBeat(story, store.currentBeat);
+      res.json({ game: story.game,
+        beats: story.beats.map(({ id, order, chapter }) => ({ id, order, chapter })),
+        current: { id: current.id, chapter: current.chapter, summary: current.summary },
+      });
+    });
     app.post('/api/hint', route(async (_req, res) => { res.json(await this.hint()); }));
     app.post('/api/progress', route((req, res) => {
       if (typeof req.body?.beatId !== 'string') throw new HttpError(400, 'beatId is required');

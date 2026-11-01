@@ -35,3 +35,8 @@ Docs: `git show 18abc96:docs/BRIEF.md` and `git show 18abc96:docs/CONTRACT.md`.
    type `!hint` or POST `/api/hint`. Expect one hint event and one chat reply,
    with the vague advice first. A viewer's `!hint` must not release advice.
    Repeat until empty, then expect `{"released":false}` from the endpoint.
+
+7. Dashboard: open `/dashboard/`. Check large vault/jar counts, current beat,
+   Twitch connection state, and safe chat. Use Next story beat and Release a hint.
+   Restart the server and check automatic reconnection. Resize to a phone width.
+   A chat message containing HTML must render as literal text.

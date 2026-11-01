@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spoiler Vault | Streamer desk</title>
+  <link rel="stylesheet" href="/dashboard/style.css">
+  <script src="/dashboard/app.js" defer></script>
+</head>
+<body>
+  <aside>
+    <a class="brand" href="/dashboard/" aria-label="Spoiler Vault home"><span class="logo">SV</span><span>SPOILER<br>VAULT<span class="brand-dot">.</span></span></a>
+    <div class="sidebar-label">BROADCAST TOOLS</div>
+    <div class="nav active"><span aria-hidden="true">◈</span> Streamer desk</div>
+    <div class="sidebar-bottom"><span class="small-label">THE RULE IS SIMPLE</span><p>Be right.<br>Just be right later.</p><div class="tag">CODEX x TWITCHCON 2026</div></div>
+  </aside>
+  <main>
+    <header><div class="crumb">YOUR STREAM / <strong>CONTROL ROOM</strong></div><div class="connection"><span id="dot"></span><span id="connection">Connecting</span></div></header>
+    <section class="intro"><div><div class="eyebrow">A LITTLE LESS BACKSEATING.</div><h1>Let the story happen<span>.</span></h1><p>Your chat gets to react. You get to discover.</p></div><a class="button secondary" href="/auth/login" id="connect">Connect Twitch <span aria-hidden="true">↗</span></a></section>
+    <div id="notice" class="notice" role="status" hidden></div>
+    <section class="stats" aria-label="Live counts">
+      <div class="stat"><div class="stat-top"><span>SEALED IN THE VAULT</span><span class="stat-icon purple">▣</span></div><strong id="vault">0</strong><p>Waiting for their moment</p></div>
+      <div class="stat"><div class="stat-top"><span>IN THE HINT JAR</span><span class="stat-icon amber">✧</span></div><strong id="jar">0</strong><p>Advice, only when you ask</p></div>
+      <div class="stat progress-stat"><div class="stat-top"><span>CURRENT STORY BEAT</span><span class="small-label" id="beat-index">01 / 01</span></div><strong id="beat">Loading</strong><p id="chapter">Finding your place in the story</p><div class="progress-track"><div id="progress-fill"></div></div></div>
+    </section>
+    <section class="desk">
+      <article class="panel chat-panel"><div class="panel-heading"><h2><span class="safe-dot"></span> Safe chat</h2><span class="pill">FILTERED</span></div><div class="chat-description">All the reactions. None of the reveals.</div><div id="chat" class="chat" aria-live="polite" aria-relevant="additions"><div id="empty-chat" class="empty"><div class="empty-icon">◌</div><h3>Room for a good plot twist.</h3><p>Safe messages will appear here.<br>The vault keeps future reveals sealed.</p></div></div><div class="chat-footer"><span class="safe-dot"></span> Future secrets stay out of this feed</div></article>
+      <div class="right-column">
+        <article class="panel story-panel"><div class="panel-heading"><h2>Your place in the story</h2><span class="pill" id="game">STORY</span></div><div class="story-content"><div class="eyebrow">REACHED SO FAR</div><h3 id="story-title">One beat at a time.</h3><p id="summary">Loading the current story beat.</p><button id="next" class="button primary" disabled>Next story beat <span aria-hidden="true">→</span></button><div class="fine-print">Releases messages for the beat you reach.</div></div></article>
+        <article class="panel hint-panel"><div class="hint-heading"><span class="hint-spark">✧</span><div><h2>A nudge, on your terms.</h2><p>One hint at a time. Vaguest first.</p></div></div><button id="hint" class="button secondary" disabled>Release a hint <span class="command">!hint</span></button><div id="latest-hint" class="latest-hint" role="status" hidden></div></article>
+        <article class="panel leaderboard-panel"><div class="panel-heading"><h2>Prophets</h2><span class="small-label">POINTS</span></div><ol id="leaderboard"><li class="leader-empty">Good predictions need good timing.</li></ol></article>
+      </div>
+    </section>
+    <footer><span>SPOILER VAULT / KEEP THE REVEAL.</span><span id="pending">No messages pending review</span></footer>
+  </main>
+</body>
+</html>
