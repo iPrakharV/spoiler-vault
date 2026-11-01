@@ -1,0 +1,6 @@
+- Folders: /server, /dashboard, /eval (owner Prakhar); /game, /overlay, /story, /fixtures (owner teammate).
+- /story/story-map.json: { "game": string, "beats": [ { "id": "b1", "order": 1, "chapter": string, "summary": string, "secrets": [string] } ] }
+- Game to server: POST http://localhost:3000/api/progress { "beatId": "b3" } -> 200 { "currentBeat": "b3" }
+- Server to overlay/dashboard over ws://localhost:3000/ws, JSON: status {currentBeat, vaultCount, jarCount}; sealed {user, beatId, at}; reveal {beatId, items:[{user, text, sealedAt}]}; hint {text, user, level}; leaderboard {entries:[{user, points}]}; chat {user, text, label} (dashboard only).
+- Classifier output: { label: normal | past_talk | future_spoiler | backseat, beatId: string|null, confidence: 0-1, hintLevel: 1-5|null }
+- Points: +1 per revealed sealed message, +3 for first person to seal a given beat.
