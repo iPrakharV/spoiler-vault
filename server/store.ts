@@ -1,0 +1,60 @@
+import Database from 'better-sqlite3';
+import { mkdirSync } from 'node:fs';
+import { dirname } from 'node:path';
+import type { Classification, Message, Story } from './types.js';
+
+export interface Held {
+  id: string; user: string; text: string; kind: 'vault' | 'hint' | 'pending';
+  beatId: string | null; hintLevel: number | null; sealedAt: string; released: number;
+  deleted: number; reason: string | null;
+}
+export class Store {
+  db: Database.Database;
+  constructor(file: string, story: Story) {
+    if (file !== ':memory:') mkdirSync(dirname(file), { recursive: true, mode: 0o700 });
+    this.db = new Database(file);
+    this.db.pragma('journal_mode = WAL');
+    this.db.exec(`
+      CREATE TABLE IF NOT EXISTS state (key TEXT PRIMARY KEY, value TEXT NOT NULL);
+      CREATE TABLE IF NOT EXISTS seen (id TEXT PRIMARY KEY);
+      CREATE TABLE IF NOT EXISTS holds (
+        id TEXT PRIMARY KEY, user TEXT NOT NULL, text TEXT NOT NULL, kind TEXT NOT NULL,
+        beatId TEXT, hintLevel INTEGER, sealedAt TEXT NOT NULL, released INTEGER NOT NULL DEFAULT 0,
+        deleted INTEGER NOT NULL DEFAULT 0, reason TEXT
+      );
+      CREATE TABLE IF NOT EXISTS latency (id INTEGER PRIMARY KEY, messageId TEXT, label TEXT, ms REAL, outcome TEXT);
+      CREATE TABLE IF NOT EXISTS points (user TEXT PRIMARY KEY, points INTEGER NOT NULL);
+      CREATE TABLE IF NOT EXISTS first_seal (beatId TEXT PRIMARY KEY, user TEXT NOT NULL);
+    `);
+    this.db.prepare('INSERT OR IGNORE INTO state VALUES (?, ?)').run('currentBeat', story.beats[0].id);
+    const fingerprint = JSON.stringify(story);
+    this.db.prepare('INSERT OR IGNORE INTO state VALUES (?, ?)').run('storyMap', fingerprint);
+    const saved = this.db.prepare('SELECT value FROM state WHERE key = ?').get('storyMap') as { value: string };
+    if (saved.value !== fingerprint) throw new Error('Story map changed. Use a fresh .data database for the new story.');
+  }
+  get currentBeat() {
+    return (this.db.prepare('SELECT value FROM state WHERE key = ?').get('currentBeat') as { value: string }).value;
+  }
+  claim(id: string) { return this.db.prepare('INSERT OR IGNORE INTO seen VALUES (?)').run(id).changes > 0; }
+  hold(message: Message, kind: Held['kind'], result?: Classification, reason: string | null = null) {
+    this.db.prepare(`INSERT INTO holds (id,user,text,kind,beatId,hintLevel,sealedAt,reason)
+      VALUES (@id,@user,@text,@kind,@beatId,@hintLevel,@sealedAt,@reason)`).run({
+      id: message.id, user: message.user.toLowerCase(), text: message.text, kind,
+      beatId: result?.beatId ?? null, hintLevel: result?.hintLevel ?? null,
+      sealedAt: message.at || new Date().toISOString(), reason,
+    });
+    if (kind === 'vault' && result?.beatId) {
+      this.db.prepare('INSERT OR IGNORE INTO first_seal VALUES (?, ?)').run(result.beatId, message.user.toLowerCase());
+    }
+  }
+  markDeleted(id: string) { this.db.prepare('UPDATE holds SET deleted = 1 WHERE id = ?').run(id); }
+  counts() {
+    const count = (kind: string) => (this.db.prepare('SELECT count(*) AS n FROM holds WHERE kind = ? AND released = 0').get(kind) as { n: number }).n;
+    return { vaultCount: count('vault'), jarCount: count('hint'), pendingCount: count('pending') };
+  }
+  leaderboard() { return this.db.prepare('SELECT user, points FROM points ORDER BY points DESC, user').all() as { user: string; points: number }[]; }
+  logLatency(id: string, label: string, ms: number, outcome: string) {
+    this.db.prepare('INSERT INTO latency (messageId,label,ms,outcome) VALUES (?,?,?,?)').run(id, label, ms, outcome);
+  }
+  close() { this.db.close(); }
+}

@@ -16,3 +16,11 @@ Docs: `git show 18abc96:docs/BRIEF.md` and `git show 18abc96:docs/CONTRACT.md`.
    non-mod account; expect `Chat received from <login>`. Disconnect the network
    briefly, restore it, and expect `reconnecting_gap` then `connected`.
    Twitch does not replay messages lost during a network drop.
+
+4. Pipeline: connect Twitch, set OPENAI_API_KEY, add story/story-map.json (step 8
+   provides the placeholder). Send a future secret from a non-mod account and
+   expect deletion plus `@user sealed until the reveal`. Send advice and expect
+   `@user saved to the hint jar`. Social chat passes. Remove OPENAI_API_KEY and
+   restart; non-broadcaster messages should be deleted and counted as pending at
+   `/api/status`. Inspect `.data/live.sqlite` locally. No held text is sent to ws.
+   Bot replies use the broadcaster's identity, so their echoes are skipped.
