@@ -56,6 +56,14 @@ export class Store {
   logLatency(id: string, label: string, ms: number, outcome: string) {
     this.db.prepare('INSERT INTO latency (messageId,label,ms,outcome) VALUES (?,?,?,?)').run(id, label, ms, outcome);
   }
+  nextHint() {
+    return this.db.transaction(() => {
+      const item = this.db.prepare(`SELECT * FROM holds WHERE kind = 'hint' AND released = 0
+        ORDER BY hintLevel ASC, sealedAt ASC, rowid ASC LIMIT 1`).get() as Held | undefined;
+      if (item) this.db.prepare('UPDATE holds SET released = 1 WHERE id = ?').run(item.id);
+      return item;
+    })();
+  }
   release(beatId: string, reachedIds: string[]) {
     return this.db.transaction(() => {
       this.db.prepare('UPDATE state SET value = ? WHERE key = ?').run(beatId, 'currentBeat');

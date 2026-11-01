@@ -30,3 +30,8 @@ Docs: `git show 18abc96:docs/BRIEF.md` and `git show 18abc96:docs/CONTRACT.md`.
    Expect `{"currentBeat":"b3"}`, a reveal event, lower vault count and updated
    leaderboard. Repeat it and check points stay fixed. Unknown beats return 400;
    going backwards returns 409. A jump releases earlier beats too.
+
+6. Hint jar: send two advice messages, one explicit and one vague. As broadcaster
+   type `!hint` or POST `/api/hint`. Expect one hint event and one chat reply,
+   with the vague advice first. A viewer's `!hint` must not release advice.
+   Repeat until empty, then expect `{"released":false}` from the endpoint.

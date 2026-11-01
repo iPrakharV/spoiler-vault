@@ -8,6 +8,7 @@ export class HttpError extends Error {
 }
 export class Controls {
   constructor(readonly pipeline: Pipeline) {
+    pipeline.releaseHint = () => this.hint();
     pipeline.releaseReached = () => { this.progress(pipeline.store.currentBeat); };
   }
   progress(beatId: string) {
@@ -23,7 +24,20 @@ export class Controls {
     broadcast(this.pipeline.status());
     return { currentBeat: beatId };
   }
+  async hint() {
+    const { store, broadcast } = this.pipeline;
+    const item = store.nextHint();
+    if (!item) {
+      await this.pipeline.reply('The hint jar is empty.');
+      return { released: false };
+    }
+    broadcast({ type: 'hint', text: item.text, user: item.user, level: item.hintLevel });
+    broadcast(this.pipeline.status());
+    await this.pipeline.reply(`Hint from @${item.user}: ${item.text}`.slice(0, 500));
+    return { released: true };
+  }
   mount(app: Express) {
+    app.post('/api/hint', route(async (_req, res) => { res.json(await this.hint()); }));
     app.post('/api/progress', route((req, res) => {
       if (typeof req.body?.beatId !== 'string') throw new HttpError(400, 'beatId is required');
       res.json(this.progress(req.body.beatId));
