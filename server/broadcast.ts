@@ -4,7 +4,8 @@ import type { Broadcast } from './types.js';
 
 export function createHub(server: Server, snapshot: () => object[]) {
   const hub = new WebSocketServer({ server, path: '/ws', maxPayload: 1024,
-    verifyClient: ({ req }: { req: IncomingMessage }) => !req.headers.origin || req.headers.origin === `http://${req.headers.host}`,
+    verifyClient: ({ req }: { req: IncomingMessage }) => !!req.headers.host && /^(localhost|127\.0\.0\.1)(:\d+)?$/.test(req.headers.host) &&
+      (!req.headers.origin || req.headers.origin === `http://${req.headers.host}`),
   });
   const roles = new WeakMap<WebSocket, boolean>();
   hub.on('connection', (socket, req) => {

@@ -55,3 +55,19 @@ Docs: `git show 18abc96:docs/BRIEF.md` and `git show 18abc96:docs/CONTRACT.md`.
    `npm run eval -- --offline` runs a simple heuristic baseline without a key.
    Baseline numbers are not OpenAI accuracy. Per-row predictions are in
    eval/results.json. Pending predictions count as misses, never get dropped.
+
+10. Tests: with Node 20, run `npm test`, `npm run check`, and `npm run build`.
+    Tests cover routing, validation, safe-chat visibility, holds on errors and
+    timeout, duplicate messages, hint order, progress races, point persistence,
+    OAuth state/refresh, strict OpenAI requests, EventSub reconnects and eval math.
+    Then repeat the offline replay smoke command from step 8.
+
+Local verification: the test suite, Node 20 native SQLite pipeline, offline
+replay, and 150-row heuristic baseline were run. A DOM harness checked dashboard
+counts, controls, vague hint release and literal HTML chat rendering. A full
+Chrome render could not run because Chrome aborted under the sandbox. Live
+Twitch OAuth/deletion and real model latency still need project credentials.
+
+Final local result: 23 tests passed. Type check and build passed. Compiled server
+returned 200 for health, status, session and dashboard. Offline replay completed
+with fetch blocked and made zero fetch calls. No live service credentials used.

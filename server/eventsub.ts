@@ -17,7 +17,8 @@ export class EventSub {
   state = 'disconnected';
   constructor(private twitch: Twitch,
     private onChat: (event: ChatEvent, at: string) => Promise<void>,
-    private onState: (state: string) => void = console.log) {}
+    private onState: (state: string) => void = console.log,
+    private openSocket: (url: string) => WebSocket = url => new WebSocket(url, { handshakeTimeout: 10_000 })) {}
   private report(state: string) { this.state = state; this.onState(state); }
   async start() {
     this.stop();
@@ -44,7 +45,7 @@ export class EventSub {
     if (target.protocol !== 'wss:' || target.hostname !== 'eventsub.wss.twitch.tv') {
       this.report('invalid_reconnect_url'); this.stop(); return;
     }
-    const socket = new WebSocket(url, { handshakeTimeout: 10_000 });
+    const socket = this.openSocket(url);
     this.sockets.add(socket);
     let timeoutMs = 12_000;
     let watchdog: NodeJS.Timeout;
