@@ -1,4 +1,4 @@
-# BlindSight: The Twitch Prophet Engine
+# Spoiler Vault showcase: The Twitch Prophet Engine
 
 > Real-time spoiler quarantine, backseat hint jar, and community prediction reveals for Twitch story streams.
 
@@ -11,7 +11,9 @@
   <img src="https://img.shields.io/badge/Codex%20x%20TwitchCon-2026-1E2126?style=flat&amp;labelColor=16181C" alt="Codex x TwitchCon 2026">
 </p>
 
-Story-game chat spoils plot twists and drops unsolicited advice before streamers ask for it. Twitch has never shipped native spoiler tags. BlindSight (Spoiler Vault) tracks story progress, holds future spoilers and backseat advice inside Twitch's 6-second non-mod delay, and turns accurate predictions into on-stream reveals and community Prophet points when the broadcaster reaches that story beat.
+Story-game chat spoils plot twists and drops unsolicited advice before streamers ask for it. Twitch has never shipped native spoiler tags. Spoiler Vault showcase tracks story progress, holds future spoilers and backseat advice inside Twitch's 6-second non-mod delay, and turns accurate predictions into on-stream reveals and community Prophet points when the broadcaster reaches that story beat.
+
+[TODO: add the full YouTube demo link](https://www.youtube.com/watch?v=TODO_VIDEO_ID).
 
 ## What it does
 
@@ -22,10 +24,22 @@ Story-game chat spoils plot twists and drops unsolicited advice before streamers
 - **Universal Story Mapper**: Generates dynamic story beat maps for any game using structured OpenAI output or custom beat maps.
 
 ### Core Interfaces
-- **[BlindSight Showcase](http://localhost:3000/showcase/)**: Unified split-screen interface featuring the Streamer Console with Safe Chat and the OBS Broadcast Overlay side-by-side, along with a live EventSub ingest tester and SLA telemetry waterfall.
+- **[Spoiler Vault showcase](http://localhost:3000/showcase/)**: Unified split-screen interface featuring the Streamer Console with Safe Chat and the OBS Broadcast Overlay side-by-side, along with a live EventSub ingest tester and SLA telemetry waterfall.
 - **[Streamer Dashboard](http://localhost:3000/dashboard/)**: Broadcaster controls, safe redacted chat, story progress tracking, and on-demand hint jar.
 - **[OBS Stream Overlay](http://localhost:3000/overlay/)**: 1080p transparent browser source with animated wax seals, Prophet reveals, and community points.
 - **[The Orison File (Mystery Game)](http://localhost:3000/game/)**: An interactive 6-beat lighthouse mystery game demonstrating real-time spoiler detection.
+
+## Tested live
+
+In our live Twitch test, a viewer spoiler was deleted. The bot replied
+"sealed until the reveal", and the dashboard showed "caught in 1277 ms".
+
+<table>
+  <tr>
+    <td width="50%" valign="top"><img src="docs/media/live-dashboard.png" alt="Live dashboard showing a spoiler caught in 1277 ms."><br><sub>Dashboard: the spoiler was caught in 1277 ms.</sub></td>
+    <td width="50%" valign="top"><img src="docs/media/live-phone.png" alt="Twitch chat showing the deleted spoiler and the bot reply."><br><sub>Twitch chat: the spoiler was deleted and the bot replied.</sub></td>
+  </tr>
+</table>
 
 ## Try it in 60 seconds
 
@@ -39,7 +53,7 @@ npm ci
 npm run replay -- --offline --auto
 ```
 
-Open [the dashboard](http://localhost:3000/dashboard/) and [the overlay](http://localhost:3000/overlay/) before the first reveal, or explore [the BlindSight showcase](http://localhost:3000/showcase/) for a side-by-side view with live pipeline tester. Chat starts after two seconds. The story advances through b2 to b6 in about 90 seconds, with reveals, points and a leaderboard. The server stays open afterward. Ctrl+C stops it.
+Open [the dashboard](http://localhost:3000/dashboard/) and [the overlay](http://localhost:3000/overlay/) before the first reveal, or explore [the Spoiler Vault showcase](http://localhost:3000/showcase/) for a side-by-side view with live pipeline tester. Chat starts after two seconds. The story advances through b2 to b6 in about 90 seconds, with reveals, points and a leaderboard. The server stays open afterward. Ctrl+C stops it.
 
 [The game](http://localhost:3000/game/) is our original mystery, The Orison file. To play it at your own pace, leave out `--auto`. **N** advances a beat. **H** releases a hint. Each replay starts fresh.
 
@@ -163,7 +177,7 @@ Both write `eval/results.md` and `eval/results.json`. Pending predictions count 
 ├── server/      Chat pipeline, Twitch, SQLite and local APIs
 ├── dashboard/   Safe chat and broadcaster controls
 ├── overlay/     OBS browser source and reveal animations
-├── showcase/    BlindSight dual-pane showcase and SLA waterfall
+├── showcase/    Spoiler Vault showcase with two panes and SLA waterfall
 ├── game/        The Orison file
 ├── story/       Beat map, secrets and game scenes
 ├── fixtures/    Replay messages and 150 eval labels
@@ -175,7 +189,7 @@ Both write `eval/results.md` and `eval/results.json`. Pending predictions count 
 
 ## Known limits
 
-- Live Twitch login, non-Affiliate deletion and real model accuracy still need a credentialed end-to-end run.
+- Real model accuracy still needs a credentialed eval run.
 - Delay exemptions, network gaps and API failures can let a spoiler through. EventSub does not replay missed messages.
 - Pending holds stay private in SQLite. There is no review screen yet.
 - Replay labels demonstrate the flow. The timeout rows are explicit simulations.
