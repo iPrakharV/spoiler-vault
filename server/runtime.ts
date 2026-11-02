@@ -34,7 +34,7 @@ export function createRuntime(options: Options) {
     listen(port: number): Promise<number> {
       return new Promise((resolve, reject) => {
         server.once('error', reject);
-        server.listen(port, '127.0.0.1', () => {
+        server.listen(port, '0.0.0.0', () => {
           server.off('error', reject);
           resolve((server.address() as { port: number }).port);
         });

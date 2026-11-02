@@ -7,8 +7,8 @@ export function createApp() {
   app.disable('x-powered-by');
   app.use((req, res, next) => {
     const host = req.headers.host;
-    if (!host || !/^(localhost|127\.0\.0\.1)(:\d+)?$/.test(host)) {
-      res.status(403).json({ error: 'Use localhost or 127.0.0.1' }); return;
+    if (!host || !/^(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+|172\.(1[6-9]|2\d|3[01])\.\d+\.\d+|.*\.local)(:\d+)?$/.test(host)) {
+      res.status(403).json({ error: 'Use localhost, 127.0.0.1, or local network IP' }); return;
     }
     if (req.headers.origin && req.headers.origin !== `http://${host}`) {
       res.status(403).json({ error: 'Open controls on the local server origin' }); return;
