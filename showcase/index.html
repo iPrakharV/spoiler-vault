@@ -782,7 +782,8 @@
       });
 
       // WebSocket live feed synchronization
-      const wsUrl = `ws://${location.host}/ws?role=dashboard`;
+      const wsProto = location.protocol === 'https:' ? 'wss:' : 'ws:';
+      const wsUrl = `${wsProto}//${location.host}/ws?role=dashboard`;
       const ws = new WebSocket(wsUrl);
       ws.onmessage = (event) => {
         try {

@@ -256,7 +256,8 @@ document.addEventListener('keydown', (event) => {
   if (event.key.toLowerCase() === 'h' && !$('release').disabled) $('release').click();
 });
 function connect() {
-  const socket = new WebSocket(`ws://${location.host}/ws?role=dashboard`);
+  const wsProto = location.protocol === 'https:' ? 'wss:' : 'ws:';
+  const socket = new WebSocket(`${wsProto}//${location.host}/ws?role=dashboard`);
   socket.onopen = () => {
     online = true;
     sync();

@@ -189,7 +189,8 @@ function fit() {
 addEventListener('resize', fit);
 fit();
 function connect() {
-  const socket = new WebSocket(`ws://${location.host}/ws`);
+  const wsProto = location.protocol === 'https:' ? 'wss:' : 'ws:';
+  const socket = new WebSocket(`${wsProto}//${location.host}/ws`);
   socket.onmessage = (e) => {
     void event(JSON.parse(e.data));
   };
