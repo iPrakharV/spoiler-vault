@@ -43,7 +43,9 @@ export class Controls {
     app.get('/api/awards', (_req, res) => {
       const { store, story } = this.pipeline;
       const reached = story.beats.filter(b => b.order <= findBeat(story, store.currentBeat).order).map(b => b.id);
-      const entries = store.db.prepare('SELECT beatId, user FROM first_seal').all() as { beatId: string; user: string }[];
+      const entries = store.db.prepare(`SELECT f.beatId, f.user,
+        (SELECT sealedAt FROM holds h WHERE h.beatId = f.beatId AND h.user = f.user AND h.kind = 'vault' ORDER BY rowid LIMIT 1) AS sealedAt
+        FROM first_seal f`).all() as { beatId: string; user: string; sealedAt: string }[];
       res.json(entries.filter(e => reached.includes(e.beatId)));
     });
     app.get('/api/session', (_req, res) => {

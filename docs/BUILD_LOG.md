@@ -1,73 +1,20 @@
 # Build checks
 
-Docs: `git show 18abc96:docs/BRIEF.md` and `git show 18abc96:docs/CONTRACT.md`.
+The first pass committed the brief, then ten implementation steps. The polish
+pass adds three commits: audit and fixes, redesign, and verification.
 
-1. Scaffold: Node 20, `npm ci`, `npm run check`, `npm run build`, `npm start`.
-   Open http://localhost:3000/api/health and expect `{"ok":true}`.
+Use Node 20. Run these from the repository root:
 
-2. OAuth: register a Twitch confidential app with redirect
-   `http://localhost:3000/auth/callback`. Copy `.env.example` to `.env`, fill Twitch
-   values, restart, open `/auth/login`, and sign in as TWITCH_CHANNEL's owner.
-   Expect a redirect to `/dashboard/` and `.data/twitch-tokens.json` with mode 600.
-   Opening `/auth/callback?code=fake&state=fake` must return 400.
+```sh
+npm run typecheck
+npm test
+npm run build
+npm run replay -- --offline
+npm run eval
+```
 
-3. EventSub: after OAuth, expect `connected` in the terminal. In Twitch chat
-   settings, verify non-mod delay is 6 seconds. Send a message from a second,
-   non-mod account; expect `Chat received from <login>`. Disconnect the network
-   briefly, restore it, and expect `reconnecting_gap` then `connected`.
-   Twitch does not replay messages lost during a network drop.
+Model eval requires OPENAI_API_KEY. Without it, run `npm run eval -- --offline`
+for the marked baseline. The normal command must not silently substitute it.
 
-4. Pipeline: connect Twitch, set OPENAI_API_KEY, add story/story-map.json (step 8
-   provides the placeholder). Send a future secret from a non-mod account and
-   expect deletion plus `@user sealed until the reveal`. Send advice and expect
-   `@user saved to the hint jar`. Social chat passes. Remove OPENAI_API_KEY and
-   restart; non-broadcaster messages should be deleted and counted as pending at
-   `/api/status`. Inspect `.data/live.sqlite` locally. No held text is sent to ws.
-   Bot replies use the broadcaster's identity, so their echoes are skipped.
-
-5. Progress: with a message sealed for b3, run
-   `curl -H 'Content-Type: application/json' -d '{"beatId":"b3"}' http://localhost:3000/api/progress`.
-   Expect `{"currentBeat":"b3"}`, a reveal event, lower vault count and updated
-   leaderboard. Repeat it and check points stay fixed. Unknown beats return 400;
-   going backwards returns 409. A jump releases earlier beats too.
-
-6. Hint jar: send two advice messages, one explicit and one vague. As broadcaster
-   type `!hint` or POST `/api/hint`. Expect one hint event and one chat reply,
-   with the vague advice first. A viewer's `!hint` must not release advice.
-   Repeat until empty, then expect `{"released":false}` from the endpoint.
-
-7. Dashboard: open `/dashboard/`. Check large vault/jar counts, current beat,
-   Twitch connection state, and safe chat. Use Next story beat and Release a hint.
-   Restart the server and check automatic reconnection. Resize to a phone width.
-   A chat message containing HTML must render as literal text.
-
-8. Replay: `npm run replay -- --offline`, then open `/dashboard/` immediately.
-   Expect sealed counts, vague hint first, b2/b3/b4 reveals and a leaderboard.
-   Final points: maya 8, niko 4, rowan 1. One explicit hint stays in the jar.
-   No Twitch account or API key is needed. Stop with Ctrl+C. For a fast smoke run:
-   `npm run replay -- --offline --speed=1000 --exit`.
-   Without `--offline`, set OPENAI_API_KEY to test the real classifier.
-   story/story-map.json and fixtures/demo-chat.json are teammate placeholders.
-
-9. Eval: `npm run eval` with OPENAI_API_KEY evaluates 150 synthetic labeled
-   examples. Expect precision/recall/F1, confusion matrix, errors, release target
-   accuracy and classifier latency p50/p95 in terminal and eval/results.md.
-   `npm run eval -- --offline` runs a simple heuristic baseline without a key.
-   Baseline numbers are not OpenAI accuracy. Per-row predictions are in
-   eval/results.json. Pending predictions count as misses, never get dropped.
-
-10. Tests: with Node 20, run `npm test`, `npm run check`, and `npm run build`.
-    Tests cover routing, validation, safe-chat visibility, holds on errors and
-    timeout, duplicate messages, hint order, progress races, point persistence,
-    OAuth state/refresh, strict OpenAI requests, EventSub reconnects and eval math.
-    Then repeat the offline replay smoke command from step 8.
-
-Local verification: the test suite, Node 20 native SQLite pipeline, offline
-replay, and 150-row heuristic baseline were run. A DOM harness checked dashboard
-counts, controls, vague hint release and literal HTML chat rendering. A full
-Chrome render could not run because Chrome aborted under the sandbox. Live
-Twitch OAuth/deletion and real model latency still need project credentials.
-
-Final local result: 23 tests passed. Type check and build passed. Compiled server
-returned 200 for health, status, session and dashboard. Offline replay completed
-with fetch blocked and made zero fetch calls. No live service credentials used.
+The detailed requirement table, initial command results, visual checklist and
+remaining external checks are in AUDIT.md. Screenshots go in docs/screenshots/.

@@ -63,3 +63,15 @@ Phase 3 adds the screenshot checklist, deviations and final command results here
 Phase 1: typecheck, 24 tests, offline replay and baseline eval passed. Credential
 pattern scan of git history and tracked paths passed. All seven environment entries
 are present. Model eval and real Twitch checks remain credential-dependent.
+
+## Phase 2
+
+The three screens now share the requested colors, radii, border rules and IBM
+Plex families. Fonts came from Google Fonts and are served locally with licenses.
+The dashboard uses safe HTTP metadata for caught rows and never adds held text
+to the DOM. Future steps use only their beat number. N and H control progress
+and hint release. The overlay includes queued toasts, timed reveal items,
+first-call tags, hints, leaderboard and reduced-motion alternatives.
+
+Typecheck and 24 tests passed after the redesign. Screenshot inspection follows
+in phase 3. Live service checks remain the two external items marked partial.

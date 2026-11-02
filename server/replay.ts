@@ -13,6 +13,7 @@ type Entry = { progress: string; delayMs?: number } | {
   beatId: string | null; hintLevel: number | null; fault?: 'timeout';
 };
 const offline = process.argv.includes('--offline');
+const manual = process.argv.includes('--manual');
 const exit = process.argv.includes('--exit');
 const speed = Number(process.argv.find(arg => arg.startsWith('--speed='))?.split('=')[1] || 1);
 if (!Number.isFinite(speed) || speed <= 0) throw new Error('--speed must be a positive number');
@@ -33,6 +34,7 @@ const classify: Classifier = offline ? async (_text, currentBeat) => {
       findBeat(story, expected.beatId).order <= findBeat(story, currentBeat).order) {
     return { ...expected, label: 'past_talk' };
   }
+  if (expected.label === 'past_talk' && expected.beatId && findBeat(story, expected.beatId).order > findBeat(story, currentBeat).order) return { ...expected, label: 'future_spoiler' };
   return expected;
 } : openAIClassifier(story);
 const runtime = createRuntime({ story, file: ':memory:', classify, mode: 'replay', classifierReady: true,
@@ -55,7 +57,7 @@ try {
   await pause(2000 / speed, undefined, { signal: abort.signal });
   for (const entry of entries) {
     await pause((entry.delayMs ?? 1500) / speed, undefined, { signal: abort.signal });
-    if ('progress' in entry) runtime.controls.progress(entry.progress);
+    if ('progress' in entry) { if (!manual && findBeat(story, entry.progress).order >= findBeat(story, runtime.store.currentBeat).order) runtime.controls.progress(entry.progress); }
     else {
       fault = entry.fault;
       expected = { label: entry.label, beatId: entry.beatId, hintLevel: entry.hintLevel, confidence: 1 };

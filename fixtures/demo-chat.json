@@ -274,6 +274,15 @@
   },
   {
     "delayMs": 650,
+    "user": "ash",
+    "text": "Taking a note before the next page.",
+    "label": "normal",
+    "beatId": null,
+    "hintLevel": null,
+    "fault": "timeout"
+  },
+  {
+    "delayMs": 650,
     "user": "robyn",
     "text": "Mara was the captain all along.",
     "label": "past_talk",

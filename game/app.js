@@ -11,6 +11,7 @@ async function load() {
     const button = document.createElement('button'); button.type = 'button'; button.textContent = choice.text;
     button.addEventListener('click', () => answer(choice.id)); $('choices').append(button);
   }
+  await fetch('/api/progress', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ beatId }) });
   $('record').textContent = scene.index === scene.total ? 'Case closed' : `Entry ${scene.index} of ${scene.total}`;
 }
 async function answer(answer) {
