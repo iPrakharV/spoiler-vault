@@ -1,0 +1,174 @@
+{
+  "status": "passed",
+  "themes": [
+    {
+      "theme": "light",
+      "images": [
+        {
+          "src": "docs/media/banner.svg",
+          "width": 1280,
+          "height": 320
+        },
+        {
+          "src": "https://img.shields.io/badge/Node-20-1E2126?style=flat&labelColor=16181C",
+          "width": 62,
+          "height": 20
+        },
+        {
+          "src": "https://img.shields.io/badge/TypeScript-16181C?style=flat",
+          "width": 69,
+          "height": 20
+        },
+        {
+          "src": "https://img.shields.io/badge/tests-28%20passing-1E2126?style=flat&labelColor=16181C",
+          "width": 106,
+          "height": 20
+        },
+        {
+          "src": "https://img.shields.io/badge/license-MIT-1E2126?style=flat&labelColor=16181C",
+          "width": 78,
+          "height": 20
+        },
+        {
+          "src": "https://img.shields.io/badge/built%20with-Codex-1E2126?style=flat&labelColor=16181C",
+          "width": 106,
+          "height": 20
+        },
+        {
+          "src": "https://img.shields.io/badge/Codex%20x%20TwitchCon-2026-1E2126?style=flat&labelColor=16181C",
+          "width": 152,
+          "height": 20
+        },
+        {
+          "src": "docs/media/demo.gif",
+          "width": 1200,
+          "height": 674
+        },
+        {
+          "src": "docs/media/dashboard.png",
+          "width": 2880,
+          "height": 1800
+        },
+        {
+          "src": "docs/media/overlay-reveal.png",
+          "width": 3840,
+          "height": 2160
+        },
+        {
+          "src": "docs/media/overlay-hint.png",
+          "width": 3840,
+          "height": 2160
+        },
+        {
+          "src": "docs/media/game.png",
+          "width": 2880,
+          "height": 1800
+        }
+      ],
+      "headings": [
+        "What it does",
+        "Try it in 60 seconds",
+        "Run it live on Twitch",
+        "How it works",
+        "Accuracy",
+        "How we used Codex",
+        "Project layout",
+        "Known limits",
+        "Team"
+      ],
+      "diagram": 1,
+      "nodes": 13,
+      "scrollWidth": 1200,
+      "width": 1200,
+      "badgeRows": [
+        313
+      ],
+      "gridRows": 2
+    },
+    {
+      "theme": "dark",
+      "images": [
+        {
+          "src": "docs/media/banner.svg",
+          "width": 1280,
+          "height": 320
+        },
+        {
+          "src": "https://img.shields.io/badge/Node-20-1E2126?style=flat&labelColor=16181C",
+          "width": 62,
+          "height": 20
+        },
+        {
+          "src": "https://img.shields.io/badge/TypeScript-16181C?style=flat",
+          "width": 69,
+          "height": 20
+        },
+        {
+          "src": "https://img.shields.io/badge/tests-28%20passing-1E2126?style=flat&labelColor=16181C",
+          "width": 106,
+          "height": 20
+        },
+        {
+          "src": "https://img.shields.io/badge/license-MIT-1E2126?style=flat&labelColor=16181C",
+          "width": 78,
+          "height": 20
+        },
+        {
+          "src": "https://img.shields.io/badge/built%20with-Codex-1E2126?style=flat&labelColor=16181C",
+          "width": 106,
+          "height": 20
+        },
+        {
+          "src": "https://img.shields.io/badge/Codex%20x%20TwitchCon-2026-1E2126?style=flat&labelColor=16181C",
+          "width": 152,
+          "height": 20
+        },
+        {
+          "src": "docs/media/demo.gif",
+          "width": 1200,
+          "height": 674
+        },
+        {
+          "src": "docs/media/dashboard.png",
+          "width": 2880,
+          "height": 1800
+        },
+        {
+          "src": "docs/media/overlay-reveal.png",
+          "width": 3840,
+          "height": 2160
+        },
+        {
+          "src": "docs/media/overlay-hint.png",
+          "width": 3840,
+          "height": 2160
+        },
+        {
+          "src": "docs/media/game.png",
+          "width": 2880,
+          "height": 1800
+        }
+      ],
+      "headings": [
+        "What it does",
+        "Try it in 60 seconds",
+        "Run it live on Twitch",
+        "How it works",
+        "Accuracy",
+        "How we used Codex",
+        "Project layout",
+        "Known limits",
+        "Team"
+      ],
+      "diagram": 1,
+      "nodes": 13,
+      "scrollWidth": 1200,
+      "width": 1200,
+      "badgeRows": [
+        313
+      ],
+      "gridRows": 2
+    }
+  ],
+  "browser": "156.0.8078.4"
+}

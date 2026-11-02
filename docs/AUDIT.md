@@ -150,31 +150,16 @@ required dashboard sizes.
 | Game progress uses the contract endpoint | done | game/app.js and server/game.ts. |
 | Required README sections and diagram | done | README.md in the requested order. |
 
-## Capture files
+## Current media evidence
 
-- screenshots/dashboard-1440.png
-- screenshots/dashboard-1280.png
-- screenshots/overlay-reveal.png
-- screenshots/overlay-hint.png
-- screenshots/overlay-toast.png
-- screenshots/overlay-leaderboard.png
-- screenshots/game.png
+The current assets are in docs/media. The earlier process screenshots listed in
+this audit were superseded and removed. Browser result reports remain in
+verification/ui.json and verification/auto.json. The new README checks and media
+measurements are in verification/readme.json and verification/media.json.
 
-The dashboard captures follow 34 processed replay messages, including sealed,
-advice, pending and past-talk rows. The machine-readable browser report is
-screenshots/verification.json. It includes measured bounds and timing results.
-The headless browser runs in single-process mode because the normal multi-process
-launch cannot register its macOS process service inside this sandbox.
-
-To repeat the captures, stop the running app first, use Node 20, then run:
-
-```sh
-PLAYWRIGHT_BROWSERS_PATH="$PWD/work/browsers" node node_modules/playwright/cli.js install chromium-headless-shell
-npm run verify
-```
-
-The script starts offline replay, captures and checks the screens, then stops its
-own server. It records failures rather than leaving a passing report on error.
+The four new screenshots are captured at 2x device scale. The demo is an edited
+Playwright recording of actual automatic offline replay, encoded with a separate
+ffmpeg palette pass. docs/MEDIA.md records how to rebuild it.
 
 ## Final command results
 
@@ -244,3 +229,30 @@ Replay is left running with --offline --auto on localhost:3000 after this commit
 Default replay still uses N or game choices. Reproduce browser checks with
 npm run verify and npm run verify:auto after stopping that running instance.
 Live Twitch and model eval still need the project credentials, as noted above.
+
+
+## Repository presentation, Nov 2
+
+| Requirement | Status | Evidence |
+| --- | --- | --- |
+| Token-colored banner with outlined IBM Plex text | done | docs/media/banner.svg; no text nodes or external font dependency. |
+| 12 to 15 second, 1200px GIF below 8 MB and MP4 | done | docs/media/demo.gif and demo.mp4; measurements in verification/media.json. |
+| Four fresh 2x screenshots | done | docs/media; checked exact image dimensions. |
+| 1280x640 social card | done | docs/media/social-preview.png. Upload in GitHub settings by hand. |
+| README order, badges, gallery and setup | done | GitHub Markdown API output checked in light and dark. All 12 images loaded. |
+| Mermaid renders in both themes | done | Exact GitHub-recognized source, with explicit solid token colors. |
+| Baseline and real model results clearly separated | done | Accuracy labels the baseline and says the model run is unavailable. |
+| MIT license and package metadata | done | LICENSE and package.json. Fonts keep their OFL notices. |
+| Secrets, SQLite and Playwright output ignored | done | .gitignore. Test captures now go to work/playwright. |
+| Old screenshots and scratch output removed from tracked files | done | Replaced process PNGs with the eight intended docs/media assets. |
+| Repository description, topics and privacy | done | Updated with gh. Repository remains private. |
+
+The social-title check caught invalid coordinates from the font library's path
+serializer. The generator now writes checked numeric path coordinates. The first
+Mermaid preview used defaults outside our design. The README now supplies solid
+colors and disables that styling. Both fixes were rerendered and inspected in
+light and dark. Video sample frames were opened to check the caught row, intact
+seal, typed reveal and leaderboard.
+
+Intentional TODOs remain for the YouTube URL, Codex session ID and team names.
+They were requested as placeholders and are not broken project asset paths.

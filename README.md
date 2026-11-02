@@ -1,131 +1,175 @@
-# Spoiler vault
+<p align="center">
+  <img src="docs/media/banner.svg" width="1280" alt="Spoiler Vault. Chat can call the twist. Nobody sees it until the streamer gets there.">
+</p>
 
-Spoiler Vault keeps story spoilers out of a streamer's chat until the story
-catches up. It knows the current beat, holds future reveals, and gives their
-authors points when those reveals happen. Advice goes into a hint jar. The
-streamer decides when to ask for it.
+<p align="center">
+  <img src="https://img.shields.io/badge/Node-20-1E2126?style=flat&amp;labelColor=16181C" alt="Node 20">
+  <img src="https://img.shields.io/badge/TypeScript-16181C?style=flat" alt="TypeScript">
+  <img src="https://img.shields.io/badge/tests-28%20passing-1E2126?style=flat&amp;labelColor=16181C" alt="28 tests passing">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-1E2126?style=flat&amp;labelColor=16181C" alt="License MIT"></a>
+  <img src="https://img.shields.io/badge/built%20with-Codex-1E2126?style=flat&amp;labelColor=16181C" alt="Built with Codex">
+  <img src="https://img.shields.io/badge/Codex%20x%20TwitchCon-2026-1E2126?style=flat&amp;labelColor=16181C" alt="Codex x TwitchCon 2026">
+</p>
 
-## 60 second offline replay
+Story-game chat spoils twists and drops advice before streamers ask for it. Twitch never shipped spoiler tags. Spoiler Vault tracks story progress, holds future spoilers and advice, and releases them when the streamer gets there.
+
+<a href="https://www.youtube.com/watch?v=TODO_VIDEO_ID"><img src="docs/media/demo.gif" width="1200" alt="Offline replay: the dashboard catches a spoiler, the seal cracks, and the overlay shows the reveal and leaderboard."></a>
+
+[TODO: add the full YouTube demo link](https://www.youtube.com/watch?v=TODO_VIDEO_ID). This clip uses offline replay labels. It shows the product flow, not model accuracy. [MP4 version](docs/media/demo.mp4).
+
+## What it does
+
+- Catches future story details against the current beat. Past talk passes.
+- Seals spoilers inside Twitch's six second non-mod chat delay.
+- Reveals saved predictions on stream and awards Prophet points.
+- Holds advice in a hint jar. The broadcaster types `!hint` to release one, vaguest first.
+
+<table>
+  <tr>
+    <td width="50%" valign="top"><img src="docs/media/dashboard.png" alt="Dashboard with safe chat, redacted spoilers, story progress and hint jar."><br><sub><strong>Dashboard</strong><br>Caught messages stay redacted.</sub></td>
+    <td width="50%" valign="top"><img src="docs/media/overlay-reveal.png" alt="Overlay reveal with a cracked seal, prediction, author and first-call points."><br><sub><strong>Overlay reveal</strong><br>The prediction opens at its story beat.</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><img src="docs/media/overlay-hint.png" alt="Amber hint card over a dark checkerboard, with status counts below."><br><sub><strong>Overlay hint</strong><br>One piece of advice, only when asked.</sub></td>
+    <td width="50%" valign="top"><img src="docs/media/game.png" alt="The Orison file, an original lighthouse mystery presented as a case file."><br><sub><strong>Game</strong><br>Our six-beat lighthouse mystery has two puzzles.</sub></td>
+  </tr>
+</table>
+
+## Try it in 60 seconds
 
 Use Node 20. No Twitch account or API key is needed.
 
 ```sh
-cd ~/spoiler-vault
+git clone https://github.com/iPrakharV/spoiler-vault.git
+cd spoiler-vault
 nvm use
 npm ci
-npm run replay -- --offline
+npm run replay -- --offline --auto
 ```
 
-Open [the dashboard](http://localhost:3000/dashboard/),
-[the game](http://localhost:3000/game/) and
-[the overlay](http://localhost:3000/overlay/).
-Manual progress is the default. Use N or the game choices to advance. Add
-`--auto` for a roughly 90 second run through b2 to b6, with reveals and points. The
-`--manual` flag still works as an explicit alias for the default. Stop with Ctrl+C. A new replay starts with an empty SQLite session.
+Open [the dashboard](http://localhost:3000/dashboard/) and [the overlay](http://localhost:3000/overlay/) before the first reveal. Chat starts after two seconds. The story advances through b2 to b6 in about 90 seconds, with reveals, points and a leaderboard. The server stays open afterward. Ctrl+C stops it.
 
-The game is The Orison file, our own six-beat lighthouse mystery. There are
-puzzles at beats 2 and 4. The next-beat button also works as a demo control.
-N advances a beat. H releases the next hint. The dashboard never shows held
-spoiler text, even after release. The overlay does the reveal.
+[The game](http://localhost:3000/game/) is our original mystery, The Orison file. To play it at your own pace, leave out `--auto`. **N** advances a beat. **H** releases a hint. Each replay starts fresh.
 
-For an overlay preview without a server connection, open `/overlay/?demo=1`.
-It cycles sample events. Add `&scene=toast`, `hint`, `reveal` or `leaderboard`
-to preview one scene.
+## Run it live on Twitch
 
-## Live Twitch setup
+1. Enable **2FA** on the broadcaster's Twitch account. Twitch requires it to [register an app](https://dev.twitch.tv/docs/authentication/register-app/).
+2. In the [developer console](https://dev.twitch.tv/console/apps), register a confidential app. Set its redirect URL to **`http://localhost:3000/auth/callback`**, exactly.
+3. Copy `.env.example` to `.env`. Fill `TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SECRET`, `TWITCH_CHANNEL` and `OPENAI_API_KEY`. `OPENAI_MODEL` defaults to `gpt-4o-mini`. Keep `PORT=3000`. Do not commit `.env`.
+4. Run `npm run dev`. Open [Connect Twitch](http://localhost:3000/auth/login) and sign in as the broadcaster. Bot replies use that same account.
+5. Confirm **Live on Twitch** on the dashboard. The server enables a **six second non-mod chat delay** before subscribing. Check that setting in Twitch too.
+6. Test chat with an **alt account that is not a moderator**. Broadcaster and moderator messages have different delay and deletion rules.
+7. In OBS, add a **Browser source** with URL `http://localhost:3000/overlay/`, width **1920**, height **1080**. The page background is transparent. Use the dashboard as the streamer's safe chat feed.
+8. Advance with the game or **N**. Type `!hint` as the broadcaster, or use **H** on the dashboard. Turn off the Twitch delay in chat settings when you are done.
 
-1. Register a confidential app in the
-   [Twitch developer console](https://dev.twitch.tv/console/apps).
-   Use `http://localhost:3000/auth/callback` as the redirect URL.
-2. Copy `.env.example` to `.env`. Fill the Twitch client ID, secret, channel login
-   and OpenAI key. Keep PORT=3000 for that callback URL. The example lists all
-   six required settings. OPENAI_MODEL defaults to gpt-4o-mini.
-3. Run `npm run dev`, or `npm run build && npm start`.
-4. Open [Connect Twitch](http://localhost:3000/auth/login) as the channel owner.
-   Grant user:read:chat, user:write:chat, moderator:manage:chat_messages and
-   moderator:manage:chat_settings. The broadcaster identity also sends bot replies.
-5. Check the connection label. The app sets a six second non-mod delay before
-   subscribing to chat. Try a message from a second, non-mod account.
-6. Play the game or advance the beat from the desk. Type `!hint` as the broadcaster
-   to release one piece of advice. Viewer commands do not release hints.
+<details>
+<summary>Scopes and local checks</summary>
 
-This uses no Affiliate-only feature. A real account run still needs credentials.
-Tokens are refreshed and saved with mode 600 in ignored `.data/`. The live SQLite
-session persists too. If you replace the story map, stop the app and rename `.data`
-to `.data-archive` before starting a new session. Never commit `.env` or tokens.
+The app requests `user:read:chat`, `user:write:chat`, `moderator:manage:chat_messages` and `moderator:manage:chat_settings`. Tokens are refreshed and stored with mode 600 in ignored `.data/`. No Affiliate-only API is used.
+
+```sh
+npm run typecheck
+npm test
+npm run build
+```
+
+A compiled server starts with `npm start`. `/overlay/?demo=1` previews sample overlay events without a Twitch or API connection. The [audit](docs/AUDIT.md) records the checks and remaining credential-dependent tests.
+
+</details>
 
 ## How it works
 
 ```mermaid
-flowchart LR
-    A[Twitch chat or replay] --> B[Current beat + story map]
-    B --> C[Classify within 3.5 seconds]
-    C -->|Normal or past talk| D[Safe chat]
-    C -->|Future spoiler| E[Delete and seal]
-    C -->|Advice| F[Hint jar]
-    C -->|Error or timeout| G[Delete and hold]
-    H[Game progress] --> I[Release reached beats]
-    E --> I
-    I --> J[Overlay reveal + points]
-    F -->|Broadcaster asks| K[One hint, vaguest first]
+%%{init: {"theme":"base","look":"classic","themeVariables":{"primaryColor":"#16181C","primaryTextColor":"#E8E6E1","primaryBorderColor":"#2A2E35","lineColor":"#8B8F98","secondaryColor":"#1E2126","tertiaryColor":"#1E2126","edgeLabelBackground":"#16181C","fontFamily":"system-ui, sans-serif","fontSize":"15px"},"themeCSS":".node rect,.node polygon,.node path{filter:none!important}","flowchart":{"nodeSpacing":24,"rankSpacing":32,"padding":12}}}%%
+flowchart TD
+    chat["Twitch EventSub chat"] --> classify["Classifier + current beat"]
+    game["Game"] --> progress["POST /api/progress"]
+    progress --> classify
+    classify -->|normal or past talk| pass["Pass"]
+    classify -->|future spoiler| seal["Delete + seal"]
+    classify -->|advice| jar["Hint jar"]
+    classify -->|timeout or error| pending["Delete + hold"]
+    seal --> vault["SQLite vault"]
+    vault --> release["Release reached beats"]
+    progress --> release
+    pass --> ws["WebSocket /ws"]
+    jar -->|!hint| ws
+    release -->|reveal + points| ws
+    ws -->|status, reveals, hints| overlay["Overlay"]
+    ws -->|safe chat + status| dashboard["Dashboard"]
+    classDef default fill:#16181C,stroke:#2A2E35,color:#E8E6E1,stroke-width:1px,filter:none;
+    linkStyle default stroke:#8B8F98,stroke-width:1px;
 ```
 
-Each revealed message earns one point. The first person to seal a beat gets three
-extra points when it opens. The bonus is saved once. Jumping ahead releases earlier
-beats too. Repeating a progress call does not repeat awards.
+Twitch holds non-mod messages for six seconds, giving the bot time to delete spoilers before viewers see them. The classifier gets reached summaries and future secrets, with a 3.5 second timeout. Timeouts, errors and low confidence trigger deletion and a private pending hold. Reached beats open on the overlay and award +1 per message, plus +3 for the first call. Delivery lag, permissions and API errors can still let a message through.
 
-The wire formats are in `docs/CONTRACT.md`. They have no extra fields.
-`/api/desk` supplies safe row metadata, redacted vault lengths, jar levels and
-classifier stats. `/api/session` hides future chapter names. The six-beat game
-keeps its answer checks on the server.
+## Accuracy
 
-## Eval results
-
-The fixture has 150 unique synthetic messages for this story. The table below is
-an offline heuristic baseline. It does not measure the OpenAI model. The baseline
-does not read the expected labels.
+**Offline heuristic baseline**, 150 synthetic messages for this story. These numbers do not measure the OpenAI model. The baseline reads the story map, not the expected labels.
 
 | Label | Precision | Recall | F1 |
 | --- | ---: | ---: | ---: |
-| normal | 0.722 | 0.975 | 0.830 |
-| past_talk | 1.000 | 0.829 | 0.906 |
-| future_spoiler | 1.000 | 1.000 | 1.000 |
-| backseat | 0.963 | 0.743 | 0.839 |
+| `normal` | 0.722 | 0.975 | 0.830 |
+| `past_talk` | 1.000 | 0.829 | 0.906 |
+| `future_spoiler` | 1.000 | 1.000 | 1.000 |
+| `backseat` | 0.963 | 0.743 | 0.839 |
 
-Baseline latency p50: 0.01 ms. p95: 0.03 ms.
+| Run | Latency p50 | Latency p95 |
+| --- | ---: | ---: |
+| Offline baseline | 0.01 ms | 0.03 ms |
+| Real OpenAI model | Not run | Not run |
 
+**Real model results are not available yet.** They require `OPENAI_API_KEY`. Baseline timings are local rule checks, not API latency. The saved [report](eval/results.md) includes the confusion matrix and release-target count.
 
-Run `npm run eval` with a key for real model results. It reports precision,
-recall, F1, confusion, release-target accuracy and latency p50/p95. Failed and
-uncertain calls count as pending misses. Classification latency excludes Twitch
-API calls. `npm run eval -- --offline` runs the baseline. Both write
-`eval/results.md` and `eval/results.json`.
+<details>
+<summary>Rerun the eval</summary>
+
+```sh
+# No key: heuristic baseline.
+npm run eval -- --offline
+
+# With OPENAI_API_KEY in .env: real model.
+npm run eval
+```
+
+Both write `eval/results.md` and `eval/results.json`. Pending predictions count as misses. Latency includes errors and timeouts, but excludes Twitch deletion and replies. The fixture is synthetic and story-specific. It is not a production benchmark.
+
+</details>
 
 ## How we used Codex
 
-Codex scaffolded the server, wrote the OAuth and EventSub integration, and built
-the first dashboard. We used it again to audit the contract, write the original
-case file, replace the screens, and run local tests and screenshot checks.
-We gave it the design tokens, layout and motion timings. The audit records what
-was checked and what still needs a real account.
+- Codex wrote the server, OAuth and EventSub integration, classifier plumbing, replay and tests.
+- We set the contract, failure policy, design tokens, screen layouts and motion timings. We reviewed the output against that spec.
+- Codex drafted the original game from our lighthouse premise. We added checks for redaction, points, hint order and automatic reveals.
+- Review caught replay defaults, hint state and reveal timing bugs. We fixed them and checked fresh Playwright captures.
+- Session ID: **TODO: add the Codex session ID**.
+
+## Project layout
+
+```text
+.
+├── server/      Chat pipeline, Twitch, SQLite and local APIs
+├── dashboard/   Safe chat and broadcaster controls
+├── overlay/     OBS browser source and reveal animations
+├── game/        The Orison file
+├── story/       Beat map, secrets and game scenes
+├── fixtures/    Replay messages and 150 eval labels
+├── eval/        Harness and saved baseline results
+├── shared/      Tokens, SVG icons and licensed fonts
+├── scripts/     Browser checks and media capture tools
+└── docs/        Contract, audit and project media
+```
 
 ## Known limits
 
-- Live Twitch login, non-Affiliate deletion and OpenAI accuracy still need keys
-  and a real end-to-end check. No model score has been invented.
-- Delivery lag, rate limits and API errors can let a message appear before it is
-  deleted. Moderator and broadcaster messages have different Twitch rules.
-- Pending items remain private in SQLite. There is no review screen yet.
-- A dropped EventSub connection loses messages Twitch does not replay. A missed
-  overlay animation is not replayed on reconnect.
-- The six second Twitch delay remains enabled after shutdown. Turn it off in
-  Twitch's chat settings when finished.
-- Replay labels test the product flow. They do not measure classification quality.
-  The timeout rows are explicit fixture simulations.
-- These are local controls. The app binds to 127.0.0.1 and checks Host and Origin.
-  It is not an internet-facing account service.
+- Live Twitch login, non-Affiliate deletion and real model accuracy still need a credentialed end-to-end run.
+- Delay exemptions, network gaps and API failures can let a spoiler through. EventSub does not replay missed messages.
+- Pending holds stay private in SQLite. There is no review screen yet.
+- Replay labels demonstrate the flow. The timeout rows are explicit simulations.
+- The app is local. It binds to `127.0.0.1`; it is not an internet-facing account service.
 
-Run `npm run typecheck`, `npm test` and `npm run build` for code checks. The
-Playwright verification is documented in `docs/AUDIT.md`. All screens use the
-shared tokens and locally served IBM Plex fonts from Google Fonts, under their
-included font licenses. The icons, game text and overlay motion are our own.
+## Team
+
+TODO: add team member names and roles.
+
+License: [MIT](LICENSE). The IBM Plex fonts retain their included [OFL licenses](shared/fonts/).

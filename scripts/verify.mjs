@@ -5,7 +5,7 @@ import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
-const out = join(root, 'docs/screenshots');
+const out = join(root, 'work/playwright/screenshots');
 mkdirSync(out, { recursive: true });
 let node20 = process.execPath;
 if (!process.version.startsWith('v20.')) {

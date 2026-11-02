@@ -8,3 +8,21 @@ dist/
 work/
 *.log
 .DS_Store
+
+# Local credentials and database sidecars.
+**/twitch-tokens.json
+**/twitch-tokens.json.tmp
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+*.db
+*.db-*
+
+# Browser recordings and generated test output.
+playwright-report/
+playwright/.cache/
+.playwright/
+test-results/
+blob-report/
+docs/screenshots/

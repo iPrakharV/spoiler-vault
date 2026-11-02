@@ -1,11 +1,12 @@
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
-import { readdirSync, writeFileSync } from 'node:fs';
+import { readdirSync, writeFileSync, mkdirSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root = resolve(fileURLToPath(new URL('..', import.meta.url))),
-  out = join(root, 'docs/screenshots');
+  out = join(root, 'work/playwright/screenshots');
+mkdirSync(out, { recursive: true });
 const child = spawn(
   process.execPath,
   ['--import', 'tsx', 'server/replay.ts', '--offline', '--auto', '--speed=4'],

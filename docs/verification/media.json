@@ -1,0 +1,51 @@
+{
+  "gif": {
+    "duration": 12.579999999999998,
+    "bytes": 1225076,
+    "width": 1200,
+    "clips": [
+      [
+        6.987,
+        9.458
+      ],
+      [
+        34.163,
+        41.668
+      ],
+      [
+        41.891,
+        44.495
+      ]
+    ],
+    "height": 674
+  },
+  "pngDimensions": {
+    "dashboard.png": [
+      2880,
+      1800
+    ],
+    "overlay-reveal.png": [
+      3840,
+      2160
+    ],
+    "game.png": [
+      2880,
+      1800
+    ],
+    "social-preview.png": [
+      1280,
+      640
+    ],
+    "overlay-hint.png": [
+      3840,
+      2160
+    ]
+  },
+  "banner": [
+    1280,
+    320
+  ],
+  "bannerText": "Outlined IBM Plex Sans 600 and 400",
+  "source": "Our Playwright recording of replay --offline --auto and our SVG paths.",
+  "gifEncoding": "Palette generation, then palette application in a second ffmpeg pass."
+}
