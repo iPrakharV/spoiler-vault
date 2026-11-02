@@ -47,7 +47,7 @@ npm ci
 npm run replay -- --offline --auto
 ```
 
-Open [the dashboard](http://localhost:3000/dashboard/) and [the overlay](http://localhost:3000/overlay/) before the first reveal. Chat starts after two seconds. The story advances through b2 to b6 in about 90 seconds, with reveals, points and a leaderboard. The server stays open afterward. Ctrl+C stops it.
+Open [the dashboard](http://localhost:3000/dashboard/) and [the overlay](http://localhost:3000/overlay/) before the first reveal, or explore [the BlindSight showcase](http://localhost:3000/showcase/) for a side-by-side view with live pipeline tester. Chat starts after two seconds. The story advances through b2 to b6 in about 90 seconds, with reveals, points and a leaderboard. The server stays open afterward. Ctrl+C stops it.
 
 [The game](http://localhost:3000/game/) is our original mystery, The Orison file. To play it at your own pace, leave out `--auto`. **N** advances a beat. **H** releases a hint. Each replay starts fresh.
 
@@ -171,6 +171,7 @@ Both write `eval/results.md` and `eval/results.json`. Pending predictions count 
 ├── server/      Chat pipeline, Twitch, SQLite and local APIs
 ├── dashboard/   Safe chat and broadcaster controls
 ├── overlay/     OBS browser source and reveal animations
+├── showcase/    BlindSight dual-pane showcase and SLA waterfall
 ├── game/        The Orison file
 ├── story/       Beat map, secrets and game scenes
 ├── fixtures/    Replay messages and 150 eval labels
