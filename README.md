@@ -25,19 +25,10 @@ Story-game chat spoils plot twists and drops unsolicited advice before streamers
 
 ### Core interfaces
 
-- **Spoiler Vault showcase**: Unified split-screen interface featuring the Streamer Console with Safe Chat and the OBS Broadcast Overlay side-by-side, along with a live EventSub ingest tester and SLA telemetry waterfall.
-
-- **Streamer dashboard**: Broadcaster controls, safe redacted chat, story progress tracking, and on-demand hint jar.
-
-  ![Streamer dashboard with safe chat, story progress, vault and hint jar.](docs/media/dashboard.png)
-
-- **OBS stream overlay**: 1080p transparent browser source with animated wax seals, Prophet reveals, and community points.
-
-  ![Stream overlay showing a revealed prediction and its author.](docs/media/overlay-reveal.png)
-
-- **The Orison file (mystery game)**: An interactive 6-beat lighthouse mystery game demonstrating real-time spoiler detection.
-
-  ![The Orison file mystery game.](docs/media/game.png)
+- **[Spoiler Vault Showcase](http://localhost:3000/showcase/)**: Unified split-screen interface featuring the Streamer Console with Safe Chat and the OBS Broadcast Overlay side-by-side, along with a live EventSub ingest tester and SLA telemetry waterfall.
+- **[Streamer Dashboard](http://localhost:3000/dashboard/)**: Broadcaster controls, safe redacted chat, story progress tracking, and on-demand hint jar.
+- **[OBS Stream Overlay](http://localhost:3000/overlay/)**: 1080p transparent browser source with animated wax seals, Prophet reveals, and community points.
+- **[The Orison File (Mystery Game)](http://localhost:3000/game/)**: An interactive 6-beat lighthouse mystery game demonstrating real-time spoiler detection.
 
 ## Tested live
 
