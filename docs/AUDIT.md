@@ -272,3 +272,34 @@ They were requested as placeholders and are not broken project asset paths.
 Generation is verified with mocked OpenAI output. Real game facts and free-text
 progress matching still need a live model check. Default replay always starts
 with the demo map. Changing maps stops the remaining demo fixture messages.
+
+
+## Reveal clips and caught timing, Nov 2
+
+| Requirement | Status | Evidence |
+| --- | --- | --- |
+| Add clips:edit and request reauthorization | done | server/twitch.ts and README Reveal clips. |
+| One nonblocking Helix request per reveal | done | server/clips.ts; mocked Helix test checks method, query, stored ID and edit URL. Duplicate progress makes no extra call. |
+| Failure cannot stop reveal or points | done | Slow rejected request test observes the reveal and awarded points before rejecting the clip request. |
+| Store clip metadata with the reveal | done | SQLite reveals table; map reset also clears old clip records. |
+| Exact clip event shape | done | Contract and websocket routing test assert type, beatId, clipId and url only. |
+| Quiet failure on dashboard only | done | Muted lastClip error text. No error event goes to the overlay. Offline 404 is labeled channel offline. |
+| Replay placeholder and overlay author line | done | Automatic replay uses example.com links labeled replay clip. Overlay credits the first revealed item after the band for four seconds. |
+| Caught time on each new held row | done | Desk joins measured processing time to each feed ID. Classification avg and p95 are unchanged. |
+| Fresh browser checks | done | scripts/verify-features.mjs, docs/verification/features.json and the five setup/clip PNGs beside it. |
+
+Opened the setup before/after images, the missing-key state, dashboard clip/timing
+image and overlay clip image. The setup uses only beat numbers, with no plot text.
+The overlay line uses Plex Mono, muted text and our seal SVG over transparency.
+Caught timing and the last clip fit the existing panels. No extra controls were added.
+The browser capture initially omitted some glyphs after navigation. A fresh browser
+capture fixed the evidence without changing the UI.
+
+Typecheck, all 35 tests and build pass. The browser preview mocks the server's
+OpenAI request; it does not replace the browser response with a story map.
+Automatic offline replay still reaches b6, releases beats and awards points.
+Live OpenAI game coverage, progress matching and Twitch clip publication still
+need real credentials and a live broadcast. Clip requests can return before
+[Twitch finishes creating the clip](https://dev.twitch.tv/docs/api/clips/).
+
+The generator follows the [OpenAI structured outputs guide](https://developers.openai.com/api/docs/guides/structured-outputs?api-mode=responses).

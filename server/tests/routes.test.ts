@@ -61,7 +61,7 @@ test('websocket snapshots reconnect cleanly and safe chat reaches dashboard only
 test('wire events keep exact contract keys and caught text stays out of desk data', async t => {
   const { runtime, base, ws } = await boot(); t.after(() => runtime.close());
   const keys: Record<string, string[]> = { status: ['type','currentBeat','vaultCount','jarCount'], sealed: ['type','user','beatId','at'],
-    reveal: ['type','beatId','items'], hint: ['type','text','user','level'], leaderboard: ['type','entries'], chat: ['type','user','text','label'] };
+    reveal: ['type','beatId','items'], hint: ['type','text','user','level'], leaderboard: ['type','entries'], chat: ['type','user','text','label'], clip: ['type','beatId','clipId','url'] };
   const socket = new WebSocket(`${ws}?role=dashboard`); const events: Record<string, unknown>[] = [];
   socket.on('message', raw => events.push(JSON.parse(raw.toString()))); await once(socket, 'open');
   runtime.store.hold(message('private text', 'alice'), 'vault', { label:'future_spoiler',beatId:'b3',confidence:1,hintLevel:null });

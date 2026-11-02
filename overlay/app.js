@@ -12,6 +12,7 @@ let entries = [],
   hintTimer,
   boardTimer;
 const demoCounts = { vaultCount: 3, jarCount: 2 };
+const clipEvents = new Map(), clipShown = new Set(), clipWaiting = new Map();
 const toasts = [],
   reveals = [];
 function beatNumber(id) {
@@ -77,6 +78,19 @@ function board() {
   show('leaderboard');
   boardTimer = setTimeout(() => hide('leaderboard'), 6000);
 }
+async function showClip(data) {
+  if (clipShown.has(data)) return;
+  if (!clipEvents.has(data.beatId)) { clipWaiting.set(data.beatId, data); return; }
+  clipWaiting.delete(data.beatId);
+  clipShown.add(data);
+  const first = data.items[0];
+  const minutes = Math.max(0, Math.floor((Date.now() - Date.parse(first.sealedAt)) / 60000));
+  const replay = clipEvents.get(data.beatId).clipId.startsWith('replay-');
+  $('clip-copy').textContent = `${replay ? 'Replay clip' : 'Clipped'}. @${first.user} called it ${minutes} min ago.`;
+  scene('clip'); show('clip-note');
+  await wait(4000);
+  await hide('clip-note');
+}
 async function runReveals() {
   if (revealRunning) return;
   revealRunning = true;
@@ -124,6 +138,7 @@ async function runReveals() {
       await wait(1500);
     }
     await hide('reveal');
+    await showClip(data);
   }
   revealRunning = false;
   board();
@@ -136,6 +151,11 @@ function event(data) {
       demoCounts.vaultCount = Math.max(0, demoCounts.vaultCount - data.items.length);
     setCount('sealed-count', demoCounts.vaultCount);
     setCount('hint-count', demoCounts.jarCount);
+  }
+  if (data.type === 'clip') {
+    clipEvents.set(data.beatId, data);
+    const waiting = clipWaiting.get(data.beatId);
+    if (waiting) void showClip(waiting);
   }
   if (data.type === 'status') {
     setCount('sealed-count', data.vaultCount);

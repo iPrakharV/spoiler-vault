@@ -88,7 +88,7 @@ export class Pipeline {
       }
     } finally {
       const ms = performance.now() - start;
-      if (version === this.storyVersion) this.store.logLatency(message.id, result?.label || 'pending', classifyMs, outcome);
+      if (version === this.storyVersion) this.store.logLatency(message.id, result?.label || 'pending', classifyMs, outcome, ms);
       console.log(JSON.stringify({ type: 'latency', id: message.id, label: result?.label || 'pending', outcome, ms: Math.round(ms) }));
     }
   }

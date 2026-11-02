@@ -21,6 +21,7 @@ const runtime = createRuntime({ story, file: join(root, '.data/live.sqlite'), cl
       if (!response.data[0]?.is_sent) throw new Error('Twitch did not send bot reply');
     },
   },
+  createClip: () => twitch.createClip(),
   configure: app => twitch.mountAuth(app, () => events.start()),
 });
 events = new EventSub(twitch, async (event, at) => {

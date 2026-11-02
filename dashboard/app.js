@@ -52,6 +52,9 @@ function renderProgress() {
     $('stepper').append(row);
   }
 }
+function caughtTime(item) {
+  return Number.isFinite(item.caughtMs) ? `caught in ${Math.round(item.caughtMs)} ms` : '';
+}
 function row(item) {
   const el = document.createElement('div'),
     stamp = document.createElement('time'),
@@ -82,11 +85,19 @@ function row(item) {
         : item.kind === 'hint'
           ? `@${item.user} added a hint (level ${item.hintLevel})`
           : `@${item.user} held, classifier timed out`;
-    el.append(stamp, text);
+    const timing = document.createElement('span');
+    timing.className = 'timing mono';
+    timing.textContent = caughtTime(item);
+    el.append(stamp, text, timing);
   }
   return el;
 }
 function renderFeed(items) {
+  const byId = new Map(items.map(item => [item.id, item]));
+  for (const el of $('chat').querySelectorAll('.caught')) {
+    const item = byId.get(el.dataset.id);
+    if (item) el.querySelector('.timing').textContent = caughtTime(item);
+  }
   if (items.length === feedCount && items.at(-1)?.id === lastId) return;
   const chat = $('chat');
   const existing = new Set([...chat.querySelectorAll('[data-id]')].map((el) => el.dataset.id));
@@ -103,6 +114,15 @@ function renderFeed(items) {
   $('jump').hidden = follow;
 }
 function renderDesk() {
+  $('last-clip').replaceChildren();
+  $('last-clip').hidden = !desk.lastClip?.url && !desk.lastClip?.error;
+  if (desk.lastClip?.error) $('last-clip').textContent = desk.lastClip.error;
+  else if (desk.lastClip?.url) {
+    const link = document.createElement('a');
+    link.href = desk.lastClip.url; link.target = '_blank'; link.rel = 'noopener noreferrer';
+    link.textContent = desk.lastClip.replay ? 'replay clip' : 'Open clip';
+    $('last-clip').append('Last clip: ', link);
+  }
   $('vault-count').textContent = desk.vaultCount;
   $('jar-count').textContent = desk.jarCount;
   $('processed').textContent = desk.stats.processed;

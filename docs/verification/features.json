@@ -4,6 +4,6 @@
   "generatedBeatCount": 10,
   "currentBeat": "b4",
   "noBrowserStoryContent": true,
-  "clips": false,
+  "clips": true,
   "browser": "156.0.8078.4"
 }

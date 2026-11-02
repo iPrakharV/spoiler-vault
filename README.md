@@ -5,7 +5,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Node-20-1E2126?style=flat&amp;labelColor=16181C" alt="Node 20">
   <img src="https://img.shields.io/badge/TypeScript-16181C?style=flat" alt="TypeScript">
-  <img src="https://img.shields.io/badge/tests-28%20passing-1E2126?style=flat&amp;labelColor=16181C" alt="28 tests passing">
+  <img src="https://img.shields.io/badge/tests-35%20passing-1E2126?style=flat&amp;labelColor=16181C" alt="35 tests passing">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-1E2126?style=flat&amp;labelColor=16181C" alt="License MIT"></a>
   <img src="https://img.shields.io/badge/built%20with-Codex-1E2126?style=flat&amp;labelColor=16181C" alt="Built with Codex">
   <img src="https://img.shields.io/badge/Codex%20x%20TwitchCon-2026-1E2126?style=flat&amp;labelColor=16181C" alt="Codex x TwitchCon 2026">
@@ -76,7 +76,7 @@ misplace plot details. Real game coverage has not been checked yet.
 <details>
 <summary>Scopes and local checks</summary>
 
-The app requests `user:read:chat`, `user:write:chat`, `moderator:manage:chat_messages` and `moderator:manage:chat_settings`. Tokens are refreshed and stored with mode 600 in ignored `.data/`. No Affiliate-only API is used.
+The app requests `user:read:chat`, `user:write:chat`, `moderator:manage:chat_messages`, `moderator:manage:chat_settings` and `clips:edit`. Tokens are refreshed and stored with mode 600 in ignored `.data/`. No Affiliate-only API is used.
 
 ```sh
 npm run typecheck
@@ -87,6 +87,15 @@ npm run build
 A compiled server starts with `npm start`. `/overlay/?demo=1` previews sample overlay events without a Twitch or API connection. The [audit](docs/AUDIT.md) records the checks and remaining credential-dependent tests.
 
 </details>
+
+## Reveal clips
+
+Each live reveal requests one Twitch clip without holding up the reveal. Log in
+again at `/auth/login` to grant the new `clips:edit` scope. Enable clips in Twitch's
+stream settings. The dashboard links the last clip. A short overlay line credits
+the prediction's author. Failed requests stay on the dashboard and in the log.
+Replay uses a placeholder link labeled **replay clip**, with no Twitch call.
+[Twitch creates clips asynchronously](https://dev.twitch.tv/docs/api/clips/), so a returned link can take a moment to work.
 
 ## How it works
 

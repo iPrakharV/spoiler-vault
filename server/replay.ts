@@ -97,6 +97,7 @@ try {
     if (runtime.pipeline.storyVersion) { console.log('Replay stopped: story map changed.'); break; }
     if ('progress' in entry && !auto) continue;
     await pause((entry.delayMs ?? 1500) / speed, undefined, { signal: abort.signal });
+    if (runtime.pipeline.storyVersion) break;
     if ('progress' in entry) {
       if (auto && findBeat(story, entry.progress).order >= findBeat(story, runtime.store.currentBeat).order)
         runtime.controls.progress(entry.progress);

@@ -125,7 +125,9 @@ try {
     assert.deepEqual(state.headings, [
       'What it does',
       'Try it in 60 seconds',
+      'Use it with any game',
       'Run it live on Twitch',
+      'Reveal clips',
       'How it works',
       'Accuracy',
       'How we used Codex',

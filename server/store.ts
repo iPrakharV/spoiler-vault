@@ -16,6 +16,10 @@ export class Store {
     this.db = new Database(file);
     this.db.pragma('journal_mode = WAL');
     this.db.exec(`
+      CREATE TABLE IF NOT EXISTS reveals (
+        id TEXT PRIMARY KEY, beatId TEXT NOT NULL, at TEXT NOT NULL, user TEXT NOT NULL, sealedAt TEXT NOT NULL,
+        clipId TEXT, editUrl TEXT, url TEXT, error TEXT, replay INTEGER NOT NULL DEFAULT 0
+      );
       CREATE TABLE IF NOT EXISTS feed (id TEXT PRIMARY KEY, user TEXT, at TEXT, kind TEXT, label TEXT, text TEXT, beatId TEXT, hintLevel INTEGER);
       CREATE TABLE IF NOT EXISTS state (key TEXT PRIMARY KEY, value TEXT NOT NULL);
       CREATE TABLE IF NOT EXISTS seen (id TEXT PRIMARY KEY);
@@ -28,6 +32,8 @@ export class Store {
       CREATE TABLE IF NOT EXISTS points (user TEXT PRIMARY KEY, points INTEGER NOT NULL);
       CREATE TABLE IF NOT EXISTS first_seal (beatId TEXT PRIMARY KEY, user TEXT NOT NULL);
     `);
+    if (!(this.db.prepare('PRAGMA table_info(latency)').all() as { name: string }[]).some(c => c.name === 'caughtMs'))
+      this.db.exec('ALTER TABLE latency ADD COLUMN caughtMs REAL');
     this.db.prepare('INSERT OR IGNORE INTO state VALUES (?, ?)').run('currentBeat', story.beats[0].id);
     const fingerprint = JSON.stringify(story);
     this.db.prepare('INSERT OR IGNORE INTO state VALUES (?, ?)').run('storyMap', fingerprint);
@@ -36,7 +42,7 @@ export class Store {
   }
   resetStory(story: Story, currentBeat: string) {
     this.db.transaction(() => {
-      for (const table of ['feed', 'state', 'seen', 'holds', 'latency', 'points', 'first_seal']) this.db.exec(`DELETE FROM ${table}`);
+      for (const table of ['feed', 'state', 'seen', 'holds', 'latency', 'points', 'first_seal', 'reveals']) this.db.exec(`DELETE FROM ${table}`);
       this.db.prepare('INSERT INTO state VALUES (?,?)').run('storyMap', JSON.stringify(story));
       this.db.prepare('INSERT INTO state VALUES (?,?)').run('currentBeat', currentBeat);
     })();
@@ -63,8 +69,8 @@ export class Store {
     return { vaultCount: count('vault'), jarCount: count('hint'), pendingCount: count('pending') };
   }
   leaderboard() { return this.db.prepare('SELECT user, points FROM points ORDER BY points DESC, user').all() as { user: string; points: number }[]; }
-  logLatency(id: string, label: string, ms: number, outcome: string) {
-    this.db.prepare('INSERT INTO latency (messageId,label,ms,outcome) VALUES (?,?,?,?)').run(id, label, ms, outcome);
+  logLatency(id: string, label: string, ms: number, outcome: string, caughtMs = ms) {
+    this.db.prepare('INSERT INTO latency (messageId,label,ms,outcome,caughtMs) VALUES (?,?,?,?,?)').run(id, label, ms, outcome, caughtMs);
   }
   nextHint() {
     return this.db.transaction(() => {
@@ -101,7 +107,7 @@ export class Store {
       result?.beatId || null, result?.hintLevel || null);
   }
   desk() {
-    const rows = this.db.prepare('SELECT * FROM feed ORDER BY rowid DESC LIMIT 300').all().reverse();
+    const rows = this.db.prepare('SELECT feed.*, (SELECT caughtMs FROM latency WHERE messageId=feed.id ORDER BY id DESC LIMIT 1) AS caughtMs FROM feed ORDER BY rowid DESC LIMIT 300').all().reverse();
     const vault = (this.db.prepare(`SELECT user, beatId, sealedAt, length(text) AS length FROM holds
       WHERE kind = 'vault' AND released = 0 ORDER BY sealedAt`).all());
     const levels = [1, 2, 3, 4, 5].map(level => (this.db.prepare(`SELECT count(*) AS n FROM holds
@@ -114,7 +120,8 @@ export class Store {
       hints: latency.filter(r => r.outcome === 'jar').length,
       avg: sorted.length ? sorted.reduce((a, b) => a + b, 0) / sorted.length : 0,
       p95: sorted[Math.max(0, Math.ceil(sorted.length * .95) - 1)] || 0 };
-    return { feed: rows, vault, levels, lastHint, stats, warning: this.warning, ...this.counts() };
+    const lastClip = this.db.prepare('SELECT beatId, clipId, url, error, replay FROM reveals ORDER BY rowid DESC LIMIT 1').get() || null;
+    return { lastClip, feed: rows, vault, levels, lastHint, stats, warning: this.warning, ...this.counts() };
   }
   close() { this.db.close(); }
 }

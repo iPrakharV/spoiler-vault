@@ -24,6 +24,7 @@ added to these events.
 | reveal | `{beatId, items:[{user, text, sealedAt}]}` |
 | hint | `{text, user, level}` |
 | leaderboard | `{entries:[{user, points}]}` |
+| clip | `{beatId, clipId, url}` |
 | chat | `{user, text, label}`; dashboard only |
 
 `sealed` never includes original message text. Dashboard caught-message rows,
@@ -44,3 +45,17 @@ future facts, use the latest beat needed to make the whole message safe.
 
 Points: +1 per revealed sealed message. +3 for the first person to seal each
 beat, awarded once when that beat is reached. Reveals are sorted by sealedAt.
+
+
+Setup uses `POST /api/storymap/generate` with `{game, howFar?}` and
+`POST /api/storymap/select` with `{map:"demo"}`. The browser response contains
+`{ready, beatCount, currentBeat, currentOrder, beats:[{id,order}], demo}`.
+`GET /api/storymap` also returns `canGenerate`. No summaries, secrets or chapter
+names are returned by these endpoints. Generated maps remain server-side.
+
+The clip event has exactly `{type:"clip", beatId, clipId, url}`. Clip errors are
+only in `/api/desk.lastClip`, never overlay events. `/api/reveal-clips` returns
+successful reveal metadata without message text. SQLite stores clip IDs and edit
+URLs beside their reveal. Replay clip IDs start with `replay-` and use an example.com
+placeholder. Caught row timing comes from `/api/desk.feed[].caughtMs`; avg and p95
+still measure classification time.

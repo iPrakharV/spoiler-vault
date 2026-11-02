@@ -1,4 +1,5 @@
 import type { Express } from 'express';
+import type { Held } from './store.js';
 import type { Pipeline } from './pipeline.js';
 import { findBeat } from './story.js';
 import { isDemoStory } from './storymap.js';
@@ -9,7 +10,7 @@ export class HttpError extends Error {
   constructor(readonly status: number, message: string) { super(message); }
 }
 export class Controls {
-  constructor(readonly pipeline: Pipeline) {
+  constructor(readonly pipeline: Pipeline, private onReveal: (beatId: string, items: Held[]) => void = () => {}) {
     pipeline.releaseHint = () => this.hint();
     pipeline.releaseReached = () => { this.progress(pipeline.store.currentBeat); };
   }
@@ -21,7 +22,10 @@ export class Controls {
       throw new HttpError(409, 'Progress cannot move backwards. Start a fresh session to replay.');
     }
     const released = store.release(beatId, story.beats.filter(b => b.order <= target.order).map(b => b.id));
-    if (released.length) broadcast({ type: 'reveal', beatId, items: released.map(({ user, text, sealedAt }) => ({ user, text, sealedAt })) });
+    if (released.length) {
+      broadcast({ type: 'reveal', beatId, items: released.map(({ user, text, sealedAt }) => ({ user, text, sealedAt })) });
+      this.onReveal(beatId, released);
+    }
     broadcast({ type: 'leaderboard', entries: store.leaderboard() });
     broadcast(this.pipeline.status());
     return { currentBeat: beatId };
@@ -40,6 +44,8 @@ export class Controls {
   }
   mount(app: Express) {
     mountGame(app, this);
+    app.get('/api/reveal-clips', (_req, res) => res.json(this.pipeline.store.db.prepare(
+      'SELECT beatId, clipId, url, user, sealedAt, replay FROM reveals WHERE clipId IS NOT NULL ORDER BY rowid').all()));
     app.get('/api/desk', (_req, res) => res.json(this.pipeline.store.desk()));
     app.get('/api/awards', (_req, res) => {
       const { store, story } = this.pipeline;

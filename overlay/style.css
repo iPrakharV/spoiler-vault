@@ -328,3 +328,6 @@ body {
     animation: fade-out 220ms both;
   }
 }
+
+.clip-note { position: absolute; left: 80px; bottom: 116px; display: flex; align-items: center; gap: 10px; font-size: 16px; line-height: 20px; }
+.clip-note [data-icon] { display: inline-flex; height: 18px; }

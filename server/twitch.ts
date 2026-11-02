@@ -5,7 +5,7 @@ import type { Express, RequestHandler } from 'express';
 import { config, root } from './config.js';
 
 export const scopes = ['user:read:chat', 'user:write:chat',
-  'moderator:manage:chat_messages', 'moderator:manage:chat_settings'];
+  'moderator:manage:chat_messages', 'moderator:manage:chat_settings', 'clips:edit'];
 const redirectUri = 'http://localhost:3000/auth/callback';
 interface Tokens { access_token: string; refresh_token: string; expiresAt: number }
 interface User { id: string; login: string }
@@ -68,6 +68,12 @@ export class Twitch {
     }
     if (!res.ok) throw new Error(`Twitch ${method} ${path.split('?')[0]} failed (${res.status})`);
     return (res.status === 204 ? undefined : await res.json()) as T;
+  }
+  async createClip() {
+    const result = await this.api<{ data: { id: string; edit_url: string }[] }>(
+      `clips?${new URLSearchParams({ broadcaster_id: this.broadcasterId, has_delay: 'true' })}`, 'POST');
+    if (!result.data[0]) throw new Error('Twitch returned no clip');
+    return result.data[0];
   }
   async identify(retry = true): Promise<void> {
     await this.refresh();
