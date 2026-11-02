@@ -23,6 +23,7 @@ export function createApp() {
   app.use('/dashboard', express.static(join(root, 'dashboard')));
   app.use('/overlay', express.static(join(root, 'overlay')));
   app.use('/game', express.static(join(root, 'game')));
+  app.use('/showcase', express.static(join(root, 'showcase')));
   return app;
 }
 

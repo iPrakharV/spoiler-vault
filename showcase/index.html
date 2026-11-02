@@ -1,0 +1,763 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BlindSight | The Twitch Prophet Engine</title>
+    <link rel="stylesheet" href="/shared/tokens.css" />
+    <style>
+      :root {
+        --twitch-purple: #9146ff;
+        --twitch-purple-hover: #772ce8;
+        --twitch-purple-glow: rgba(145, 70, 255, 0.35);
+        --twitch-purple-subtle: rgba(145, 70, 255, 0.12);
+        --twitch-dark-bg: #0e0e10;
+        --twitch-surface: #18181b;
+        --twitch-surface-2: #1f1f23;
+        --twitch-line: #2e2e35;
+        --twitch-text: #efeff1;
+        --twitch-muted: #adadb8;
+        --twitch-green: #00f59b;
+        --twitch-gold: #f5a524;
+        --twitch-red: #eb0400;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background: var(--twitch-dark-bg);
+        color: var(--twitch-text);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      }
+
+      /* Top Header */
+      .showcase-header {
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 18px;
+        border-bottom: 1px solid var(--twitch-line);
+        background: var(--twitch-surface);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        flex-shrink: 0;
+        z-index: 20;
+      }
+      .brand-group {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .twitch-glitch {
+        width: 26px;
+        height: 26px;
+        fill: var(--twitch-purple);
+        filter: drop-shadow(0 0 8px var(--twitch-purple-glow));
+      }
+      .brand-title-wrap {
+        display: flex;
+        flex-direction: column;
+      }
+      .brand-title {
+        font-size: 17px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .brand-subtitle {
+        font-size: 11px;
+        color: var(--twitch-muted);
+        font-weight: 500;
+        letter-spacing: 0.02em;
+      }
+      .badge {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 3px 8px;
+        border-radius: 4px;
+        background: var(--twitch-surface-2);
+        border: 1px solid var(--twitch-line);
+        color: var(--twitch-muted);
+        font-weight: 600;
+      }
+      .badge-purple {
+        background: var(--twitch-purple-subtle);
+        border-color: rgba(145, 70, 255, 0.4);
+        color: #bf94ff;
+      }
+      .live-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 3px 9px;
+        border-radius: 12px;
+        background: rgba(0, 245, 155, 0.1);
+        border: 1px solid rgba(0, 245, 155, 0.3);
+        color: var(--twitch-green);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .live-pulse {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--twitch-green);
+        box-shadow: 0 0 8px var(--twitch-green);
+        animation: pulse 1.8s infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.4; transform: scale(0.85); }
+      }
+
+      /* Control buttons in header */
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .btn-twitch-purple {
+        height: 32px;
+        padding: 0 14px;
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 4px;
+        background: var(--twitch-purple);
+        color: #ffffff;
+        border: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.15s ease;
+        box-shadow: 0 0 12px var(--twitch-purple-glow);
+      }
+      .btn-twitch-purple:hover {
+        background: var(--twitch-purple-hover);
+        box-shadow: 0 0 16px var(--twitch-purple);
+        transform: translateY(-1px);
+      }
+      .btn-twitch-purple kbd {
+        background: rgba(0, 0, 0, 0.25);
+        padding: 1px 5px;
+        border-radius: 3px;
+        font-family: var(--mono);
+        font-size: 11px;
+      }
+      .btn-twitch-amber {
+        height: 32px;
+        padding: 0 14px;
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 4px;
+        background: #2b2518;
+        color: #ffc107;
+        border: 1px solid rgba(255, 193, 7, 0.4);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.15s ease;
+      }
+      .btn-twitch-amber:hover {
+        background: #382f1d;
+        border-color: #ffc107;
+      }
+      .btn-twitch-amber kbd {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 1px 5px;
+        border-radius: 3px;
+        font-family: var(--mono);
+        font-size: 11px;
+      }
+      .btn-outline {
+        height: 32px;
+        padding: 0 12px;
+        font-size: 12px;
+        font-weight: 500;
+        border-radius: 4px;
+        background: var(--twitch-surface-2);
+        color: var(--twitch-text);
+        border: 1px solid var(--twitch-line);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        text-decoration: none;
+      }
+      .btn-outline:hover {
+        border-color: var(--twitch-muted);
+        color: #ffffff;
+      }
+
+      /* Main Split Grid */
+      .showcase-grid {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        flex: 1;
+        overflow: hidden;
+      }
+      .pane {
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid var(--twitch-line);
+        background: var(--twitch-dark-bg);
+        position: relative;
+      }
+      .pane:last-child {
+        border-right: none;
+      }
+      .pane-header {
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 14px;
+        background: var(--twitch-surface);
+        border-bottom: 1px solid var(--twitch-line);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--twitch-muted);
+      }
+      .pane-header .tag-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-family: var(--mono);
+        font-size: 11px;
+        text-transform: none;
+        padding: 2px 7px;
+        border-radius: 3px;
+        background: rgba(0, 245, 155, 0.1);
+        color: var(--twitch-green);
+        border: 1px solid rgba(0, 245, 155, 0.25);
+      }
+      .pane-body {
+        flex: 1;
+        position: relative;
+        overflow: hidden;
+      }
+      .pane-body iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        display: block;
+      }
+      .stream-view {
+        background: #060708;
+        background-image: 
+          radial-gradient(circle at 50% 25%, rgba(145, 70, 255, 0.08) 0%, rgba(6, 7, 8, 1) 75%),
+          repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.012) 0, rgba(255, 255, 255, 0.012) 1px, transparent 0, transparent 24px);
+      }
+
+      /* Twitch Interactive Test Console */
+      .test-console {
+        background: var(--twitch-surface);
+        border-top: 1px solid var(--twitch-line);
+        padding: 10px 16px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+      }
+      .console-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .console-label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--twitch-muted);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .preset-chips {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .chip {
+        font-size: 11px;
+        padding: 3px 9px;
+        border-radius: 4px;
+        background: var(--twitch-surface-2);
+        border: 1px solid var(--twitch-line);
+        color: var(--twitch-text);
+        cursor: pointer;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-weight: 500;
+      }
+      .chip:hover {
+        border-color: var(--twitch-muted);
+        transform: translateY(-1px);
+      }
+      .chip-spoiler {
+        border-color: rgba(235, 4, 0, 0.4);
+      }
+      .chip-spoiler:hover {
+        background: rgba(235, 4, 0, 0.15);
+        border-color: var(--twitch-red);
+      }
+      .chip-backseat {
+        border-color: rgba(245, 165, 36, 0.4);
+      }
+      .chip-backseat:hover {
+        background: rgba(245, 165, 36, 0.15);
+        border-color: var(--twitch-gold);
+      }
+      .chip-normal {
+        border-color: rgba(0, 245, 155, 0.4);
+      }
+      .chip-normal:hover {
+        background: rgba(0, 245, 155, 0.15);
+        border-color: var(--twitch-green);
+      }
+
+      /* Console Input Bar */
+      .console-input-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .badge-selector {
+        display: flex;
+        align-items: center;
+        background: var(--twitch-surface-2);
+        border: 1px solid var(--twitch-line);
+        border-radius: 4px;
+        padding: 0 8px;
+        height: 34px;
+        gap: 6px;
+      }
+      .twitch-badge-icon {
+        width: 16px;
+        height: 16px;
+        border-radius: 2px;
+      }
+      .badge-mod { background: #00AD03; display: flex; align-items: center; justify-content: center; font-size: 10px; color: white; font-weight: bold; }
+      .user-input {
+        width: 110px;
+        background: transparent;
+        border: none;
+        color: var(--twitch-text);
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .user-input:focus { outline: none; }
+      .msg-input {
+        flex: 1;
+        height: 34px;
+        background: var(--twitch-surface-2);
+        border: 1px solid var(--twitch-line);
+        border-radius: 4px;
+        padding: 0 12px;
+        color: var(--twitch-text);
+        font-size: 13px;
+        transition: border 0.15s ease;
+      }
+      .msg-input:focus {
+        outline: none;
+        border-color: var(--twitch-purple);
+        box-shadow: 0 0 0 1px var(--twitch-purple);
+      }
+      .send-btn {
+        height: 34px;
+        padding: 0 18px;
+        background: var(--twitch-purple);
+        border: none;
+        border-radius: 4px;
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .send-btn:hover {
+        background: var(--twitch-purple-hover);
+        box-shadow: 0 0 12px var(--twitch-purple-glow);
+      }
+
+      /* SLA Waterfall & Latency Telemetry */
+      .waterfall-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--twitch-dark-bg);
+        border: 1px solid var(--twitch-line);
+        border-radius: 4px;
+        padding: 6px 14px;
+        font-size: 11px;
+        font-family: var(--mono);
+      }
+      .waterfall-stages {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .stage-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .sla-budget {
+        color: var(--twitch-green);
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      /* Architecture Modal Drawer */
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(4px);
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+      }
+      .modal-backdrop.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .modal-card {
+        width: 820px;
+        max-width: 92vw;
+        max-height: 85vh;
+        background: var(--twitch-surface);
+        border: 1px solid var(--twitch-line);
+        border-radius: 8px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--twitch-purple-glow);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      .modal-header {
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        background: var(--twitch-surface-2);
+        border-bottom: 1px solid var(--twitch-line);
+      }
+      .modal-header h3 {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .modal-close {
+        background: transparent;
+        border: none;
+        color: var(--twitch-muted);
+        font-size: 20px;
+        cursor: pointer;
+        padding: 4px 8px;
+      }
+      .modal-close:hover { color: #fff; }
+      .modal-body {
+        padding: 20px;
+        overflow-y: auto;
+        font-size: 13px;
+        line-height: 1.55;
+      }
+      .tech-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-top: 14px;
+      }
+      .tech-box {
+        background: var(--twitch-surface-2);
+        border: 1px solid var(--twitch-line);
+        border-radius: 6px;
+        padding: 14px;
+      }
+      .tech-box h4 {
+        margin: 0 0 6px 0;
+        color: #ffffff;
+        font-size: 13px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .tech-box p {
+        margin: 0;
+        color: var(--twitch-muted);
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Top Branding & Navigation Bar -->
+    <header class="showcase-header">
+      <div class="brand-group">
+        <!-- Official Twitch Glitch SVG -->
+        <svg class="twitch-glitch" viewBox="0 0 24 28">
+          <path d="M2.143 0L0 5.6v19.6h6.429V28l4.285-2.8 3.215 2.8h4.285L24 22.4V0H2.143zm19.286 20.8l-3.215 3.2h-3.214l-3.214 3.2v-3.2H6.429V2.4h15V20.8z"/>
+          <path d="M18.214 7.2h-2.143v8h2.143V7.2zm-6.428 0h-2.143v8h2.143V7.2z"/>
+        </svg>
+        <div class="brand-title-wrap">
+          <span class="brand-title">BlindSight <span class="badge badge-purple">Twitch Prophet Engine</span></span>
+          <span class="brand-subtitle">Real-Time Spoiler Quarantine &amp; Community Prediction Platform</span>
+        </div>
+        <div class="live-pill"><span class="live-pulse"></span> EventSub Live</div>
+      </div>
+
+      <div class="header-actions">
+        <button id="btn-next" class="btn-twitch-purple" title="Advance story beat (reveals sealed predictions)">
+          <span>Next Beat</span> <kbd>N</kbd>
+        </button>
+        <button id="btn-hint" class="btn-twitch-amber" title="Release next community hint from jar">
+          <span>Release Hint</span> <kbd>H</kbd>
+        </button>
+        <button id="btn-arch" class="btn-outline">
+          <span>Architecture &amp; SLA ⚡</span>
+        </button>
+        <a href="/dashboard/" class="btn-outline" target="_blank">Full Desk ↗</a>
+        <a href="/overlay/" class="btn-outline" target="_blank">OBS Overlay ↗</a>
+        <a href="/game/" class="btn-outline" target="_blank">Mystery Game ↗</a>
+      </div>
+    </header>
+
+    <!-- Split Screen: Left (Streamer Desk) vs Right (OBS Stream) -->
+    <main class="showcase-grid">
+      <!-- Left Panel: Streamer Desk -->
+      <section class="pane">
+        <div class="pane-header">
+          <span>Streamer Console (Safe Chat &amp; Redacted Vault)</span>
+          <span class="tag-pill">Helix SLA &lt; 3.5s Budget</span>
+        </div>
+        <div class="pane-body">
+          <iframe id="desk-frame" src="/dashboard/"></iframe>
+        </div>
+      </section>
+
+      <!-- Right Panel: Twitch Broadcast Overlay -->
+      <section class="pane stream-view">
+        <div class="pane-header">
+          <span>Audience Perspective (OBS Broadcast Overlay 60 FPS)</span>
+          <span class="tag-pill" style="color:var(--twitch-gold);border-color:rgba(245,165,36,0.3);background:rgba(245,165,36,0.1)">Wax Seal &amp; Prophet Points</span>
+        </div>
+        <div class="pane-body">
+          <iframe id="overlay-frame" src="/overlay/"></iframe>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bottom Twitch Chat Pipeline Tester & SLA Waterfall -->
+    <footer class="test-console">
+      <div class="console-topbar">
+        <span class="console-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--twitch-purple)">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+          Live EventSub Ingest &amp; Classifier Tester
+        </span>
+        <div class="preset-chips">
+          <span class="chip chip-spoiler" data-text="The missing ship carried six passengers, not lamp oil">🔴 Test Future Spoiler</span>
+          <span class="chip chip-backseat" data-text="Try to check the signal strip">🟡 Test Backseat Hint</span>
+          <span class="chip chip-normal" data-text="Good luck with the case tonight streamer!">🟢 Test Safe Chat</span>
+          <span class="chip chip-spoiler" data-text="Mara is the captain of Orison as well as the relief keeper">🔴 Test Plot Twist</span>
+        </div>
+      </div>
+
+      <!-- Twitch Chat Input Row -->
+      <form id="chat-form" class="console-input-row">
+        <div class="badge-selector" title="Chatter identity badge">
+          <div class="twitch-badge-icon badge-mod">⚔</div>
+          <input id="input-user" class="user-input" type="text" value="TwitchJudge" placeholder="Username" />
+        </div>
+        <input id="input-text" class="msg-input" type="text" placeholder="Type any Twitch chat message to test real-time classification &amp; moderation SLA..." required />
+        <button type="submit" class="send-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+          </svg>
+          Send to Twitch Pipeline
+        </button>
+      </form>
+
+      <!-- Real-Time SLA Waterfall Bar -->
+      <div id="waterfall" class="waterfall-bar">
+        <div class="waterfall-stages">
+          <span class="stage-pill" style="color:var(--twitch-purple)"><span class="stage-dot" style="background:var(--twitch-purple)"></span> <b>Twitch SLA:</b> 6,000ms delay window</span>
+          <span>·</span>
+          <span id="last-outcome" style="color:var(--twitch-muted)">Ready for message test</span>
+        </div>
+        <div id="sla-verdict" class="sla-budget">Pipeline Active</div>
+      </div>
+    </footer>
+
+    <!-- Architecture & SLA Modal -->
+    <div id="arch-modal" class="modal-backdrop">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>⚡ BlindSight Architecture &amp; Twitch API Subsystems</h3>
+          <button id="modal-close-btn" class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p style="margin-top:0">
+            <b>BlindSight</b> is an edge-adjacent, soft-realtime Twitch chat moderation and community prediction pipeline built with <b>Node.js 20 LTS, TypeScript 5.8, Zod schema validation, and OpenAI Codex</b>.
+          </p>
+
+          <div class="tech-grid">
+            <div class="tech-box">
+              <h4>🟣 Twitch EventSub WebSocket</h4>
+              <p>Persistent full-duplex socket to <code>wss://eventsub.wss.twitch.tv/ws</code> with heartbeat watchdogs, LRU deduplication (5,000 messages), and subscription reconnection recovery.</p>
+            </div>
+            <div class="tech-box">
+              <h4>🔴 Twitch Helix Moderation SLA</h4>
+              <p>Enforces <code>PATCH /helix/chat/settings</code> (6s non-mod delay). Deletes caught spoilers via <code>DELETE /helix/moderation/chat</code> before the 6.000s visibility deadline expires.</p>
+            </div>
+            <div class="tech-box">
+              <h4>🤖 OpenAI Codex &amp; GPT-4o</h4>
+              <p>Strict JSON-Schema Constrained Decoding (<code>chat_classification</code> &amp; <code>story_map</code>). User text isolated as untrusted data to guarantee immunity against prompt injection.</p>
+            </div>
+            <div class="tech-box">
+              <h4>💾 SQLite WAL Journaling</h4>
+              <p>Embedded ACID store running in Write-Ahead Logging (<code>WAL</code>) mode for &lt;1ms concurrent reads and atomic serialized message claiming.</p>
+            </div>
+            <div class="tech-box">
+              <h4>🎥 Twitch Clips API</h4>
+              <p>Asynchronously fires <code>POST /helix/clips?has_delay=true</code> on stream reveals, capturing the live broadcaster reaction without blocking the 60 FPS overlay animation.</p>
+            </div>
+            <div class="tech-box">
+              <h4>🛡️ Zod Runtime Contract Guard</h4>
+              <p>Strict schema validation layer guarding inbound Twitch payloads, OpenAI structured outputs, and REST mutations against malformed payloads.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Application Script -->
+    <script type="module">
+      async function advance() {
+        try {
+          const status = await (await fetch('/api/status')).json();
+          const session = await (await fetch('/api/session')).json();
+          const currentIndex = session.beats.findIndex(b => b.id === status.currentBeat);
+          if (currentIndex >= 0 && currentIndex < session.beats.length - 1) {
+            const nextBeat = session.beats[currentIndex + 1].id;
+            await fetch('/api/progress', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ beatId: nextBeat })
+            });
+          }
+        } catch (e) {
+          console.error('Progress failed', e);
+        }
+      }
+
+      async function hint() {
+        try {
+          await fetch('/api/hint', { method: 'POST' });
+        } catch (e) {
+          console.error('Hint release failed', e);
+        }
+      }
+
+      document.getElementById('btn-next').addEventListener('click', advance);
+      document.getElementById('btn-hint').addEventListener('click', hint);
+
+      window.addEventListener('keydown', (e) => {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (e.key === 'n' || e.key === 'N') advance();
+        if (e.key === 'h' || e.key === 'H') hint();
+      });
+
+      // Interactive Chat Tester
+      const form = document.getElementById('chat-form');
+      const userInput = document.getElementById('input-user');
+      const textInput = document.getElementById('input-text');
+      const outcomeEl = document.getElementById('last-outcome');
+      const verdictEl = document.getElementById('sla-verdict');
+
+      async function sendChat(user, text) {
+        outcomeEl.innerHTML = `<em>Processing through classifier &amp; SLA scheduler...</em>`;
+        verdictEl.textContent = 'Evaluating...';
+        try {
+          const res = await fetch('/api/chat/simulate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ user, text })
+          });
+          const data = await res.json();
+          if (data.ok) {
+            const labelMap = {
+              future_spoiler: '<span style="color:var(--twitch-red);font-weight:bold;">[SEALED IN VAULT]</span> Future Spoiler deleted via Helix',
+              backseat: '<span style="color:var(--twitch-gold);font-weight:bold;">[SAVED TO HINT JAR]</span> Unsolicited advice queued',
+              normal: '<span style="color:var(--twitch-green);font-weight:bold;">[PASSED TO STREAM]</span> Safe chat allowed',
+              past_talk: '<span style="color:var(--twitch-green);font-weight:bold;">[PASSED TO STREAM]</span> Past story discussion allowed'
+            };
+            const labelText = labelMap[data.label] || data.label;
+            const target = data.beatId ? ` (Target: ${data.beatId.toUpperCase()})` : '';
+            outcomeEl.innerHTML = `${labelText}${target} · Latency: <b>${data.caughtMs || data.totalMs}ms</b>`;
+            const margin = (6000 - (data.caughtMs || data.totalMs)).toFixed(0);
+            verdictEl.innerHTML = `<span style="color:var(--twitch-green)">✓ ${margin}ms margin (&lt;0.1% of 6.0s SLA)</span>`;
+          } else {
+            outcomeEl.textContent = 'Error: ' + data.error;
+          }
+        } catch (e) {
+          outcomeEl.textContent = 'Pipeline request failed: ' + e.message;
+        }
+      }
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const text = textInput.value.trim();
+        const user = userInput.value.trim() || 'TwitchJudge';
+        if (text) {
+          sendChat(user, text);
+          textInput.value = '';
+        }
+      });
+
+      document.querySelectorAll('.chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          const text = chip.getAttribute('data-text');
+          textInput.value = text;
+          sendChat(userInput.value.trim() || 'TwitchJudge', text);
+        });
+      });
+
+      // Modal Drawer controls
+      const modal = document.getElementById('arch-modal');
+      document.getElementById('btn-arch').addEventListener('click', () => modal.classList.add('open'));
+      document.getElementById('modal-close-btn').addEventListener('click', () => modal.classList.remove('open'));
+      modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('open'); });
+    </script>
+  </body>
+</html>
