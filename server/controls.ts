@@ -1,3 +1,5 @@
+import { randomUUID } from 'node:crypto';
+import { performance } from 'node:perf_hooks';
 import type { Express } from 'express';
 import type { Held } from './store.js';
 import type { Pipeline } from './pipeline.js';
@@ -5,6 +7,7 @@ import { findBeat } from './story.js';
 import { isDemoStory } from './storymap.js';
 import { mountGame } from './game.js';
 import { route } from './twitch.js';
+import { ProgressRequestSchema } from './schemas.js';
 
 export class HttpError extends Error {
   constructor(readonly status: number, message: string) { super(message); }
@@ -66,8 +69,38 @@ export class Controls {
     });
     app.post('/api/hint', route(async (_req, res) => { res.json(await this.hint()); }));
     app.post('/api/progress', route((req, res) => {
-      if (typeof req.body?.beatId !== 'string') throw new HttpError(400, 'beatId is required');
-      res.json(this.progress(req.body.beatId));
+      const parsed = ProgressRequestSchema.safeParse(req.body);
+      if (!parsed.success) throw new HttpError(400, 'beatId is required');
+      res.json(this.progress(parsed.data.beatId));
+    }));
+    app.post('/api/chat/simulate', route(async (req, res) => {
+      const { user = 'viewer', text } = req.body || {};
+      if (typeof text !== 'string' || !text.trim()) throw new HttpError(400, 'text is required');
+      const id = randomUUID();
+      const chatter = String(user).trim() || 'viewer';
+      const start = performance.now();
+      await this.pipeline.process({
+        id,
+        user: chatter,
+        text: text.trim(),
+        broadcaster: chatter.toLowerCase() === 'broadcaster',
+      });
+      const elapsed = Number((performance.now() - start).toFixed(2));
+      const desk = this.pipeline.store.desk();
+      const feed = desk.feed as Array<{ id: string; label?: string; kind?: string; beatId?: string | null; hintLevel?: number | null; caughtMs?: number | null }>;
+      const entry = feed.find(f => f.id === id);
+      res.json({
+        ok: true,
+        id,
+        user: chatter,
+        text: text.trim(),
+        label: entry?.label || 'normal',
+        kind: entry?.kind || 'chat',
+        beatId: entry?.beatId ?? null,
+        hintLevel: entry?.hintLevel ?? null,
+        caughtMs: entry?.caughtMs ?? elapsed,
+        totalMs: elapsed,
+      });
     }));
   }
 }

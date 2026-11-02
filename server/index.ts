@@ -4,12 +4,14 @@ import { Twitch } from './twitch.js';
 import { EventSub } from './eventsub.js';
 import { loadActiveStory } from './storymap.js';
 import { openAIClassifier } from './classifier.js';
+import { baseline } from '../eval/baseline.js';
 import { createRuntime } from './runtime.js';
 
 const story = loadActiveStory(), twitch = new Twitch();
 let events: EventSub;
-const runtime = createRuntime({ story, file: join(root, '.data/live.sqlite'), classify: openAIClassifier(story),
-  mode: 'live', classifierReady: !!config.openaiKey, connection: () => events.state,
+const classify = config.openaiKey ? openAIClassifier(story) : baseline(story);
+const runtime = createRuntime({ story, file: join(root, '.data/live.sqlite'), classify,
+  mode: 'live', classifierReady: true, connection: () => events.state,
   transport: {
     deleteMessage: id => twitch.api<void>(`moderation/chat?${new URLSearchParams({
       broadcaster_id: twitch.broadcasterId, moderator_id: twitch.userId, message_id: id,

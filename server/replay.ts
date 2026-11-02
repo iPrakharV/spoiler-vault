@@ -7,6 +7,7 @@ import { loadStory, findBeat } from './story.js';
 import { openAIClassifier } from './classifier.js';
 import { createRuntime } from './runtime.js';
 import { labels, type Classification, type Classifier } from './types.js';
+import { baseline } from '../eval/baseline.js';
 
 type Entry =
   | { progress: string; delayMs?: number }
@@ -40,27 +41,33 @@ for (const entry of entries) {
   )
     throw new Error('Invalid replay message');
 }
-let expected: Classification;
+const heuristic = baseline(story);
+let replayExpected: Classification | undefined;
 let fault: string | undefined;
 const classify: Classifier = offline
-  ? async (_text, currentBeat) => {
+  ? async (text, currentBeat) => {
       if (fault === 'timeout') throw new Error('Classifier timed out');
-      if (
-        expected.label === 'future_spoiler' &&
-        expected.beatId &&
-        findBeat(story, expected.beatId).order <= findBeat(story, currentBeat).order
-      ) {
-        return { ...expected, label: 'past_talk' };
+      if (replayExpected) {
+        const exp = replayExpected;
+        replayExpected = undefined;
+        if (
+          exp.label === 'future_spoiler' &&
+          exp.beatId &&
+          findBeat(story, exp.beatId).order <= findBeat(story, currentBeat).order
+        ) {
+          return { ...exp, label: 'past_talk' };
+        }
+        if (
+          exp.label === 'past_talk' &&
+          exp.beatId &&
+          findBeat(story, exp.beatId).order > findBeat(story, currentBeat).order
+        )
+          return { ...exp, label: 'future_spoiler' };
+        return exp;
       }
-      if (
-        expected.label === 'past_talk' &&
-        expected.beatId &&
-        findBeat(story, expected.beatId).order > findBeat(story, currentBeat).order
-      )
-        return { ...expected, label: 'future_spoiler' };
-      return expected;
+      return heuristic(text, currentBeat);
     }
-  : openAIClassifier(story);
+  : (config.openaiKey ? openAIClassifier(story) : heuristic);
 const runtime = createRuntime({
   story,
   file: ':memory:',
@@ -103,7 +110,7 @@ try {
         runtime.controls.progress(entry.progress);
     } else {
       fault = entry.fault;
-      expected = { label: entry.label, beatId: entry.beatId, hintLevel: entry.hintLevel, confidence: 1 };
+      replayExpected = { label: entry.label, beatId: entry.beatId, hintLevel: entry.hintLevel, confidence: 1 };
       await runtime.pipeline.process({
         id: randomUUID(),
         user: entry.user,
