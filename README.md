@@ -13,7 +13,7 @@
 
 Story-game chat spoils plot twists and drops unsolicited advice before streamers ask for it. Twitch has never shipped native spoiler tags. Spoiler Vault showcase tracks story progress, holds future spoilers and backseat advice inside Twitch's 6-second non-mod delay, and turns accurate predictions into on-stream reveals and community Prophet points when the broadcaster reaches that story beat.
 
-[TODO: add the full YouTube demo link](https://www.youtube.com/watch?v=TODO_VIDEO_ID).
+[Watch the demo on YouTube](https://youtu.be/S2pbeVYrZVY).
 
 ## What it does
 
@@ -169,7 +169,7 @@ Both write `eval/results.md` and `eval/results.json`. Pending predictions count 
 - We set the contract, failure policy, design tokens, screen layouts and motion timings. We reviewed the output against that spec.
 - Codex drafted the original game from our lighthouse premise. We added checks for redaction, points, hint order and automatic reveals.
 - Review caught replay defaults, hint state and reveal timing bugs. We fixed them and checked fresh Playwright captures.
-- Session ID: **TODO: add the Codex session ID**.
+- Session ID: `01a198a6-d22a-7443-a6fb-3c9e559acc84`.
 
 ## Project layout
 
