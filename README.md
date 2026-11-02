@@ -5,7 +5,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Node-20-1E2126?style=flat&amp;labelColor=16181C" alt="Node 20">
   <img src="https://img.shields.io/badge/TypeScript-16181C?style=flat" alt="TypeScript">
-  <img src="https://img.shields.io/badge/tests-35%20passing-1E2126?style=flat&amp;labelColor=16181C" alt="35 tests passing">
+  <img src="https://img.shields.io/badge/tests-37%20passing-1E2126?style=flat&amp;labelColor=16181C" alt="37 tests passing">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-1E2126?style=flat&amp;labelColor=16181C" alt="License MIT"></a>
   <img src="https://img.shields.io/badge/built%20with-Codex-1E2126?style=flat&amp;labelColor=16181C" alt="Built with Codex">
   <img src="https://img.shields.io/badge/Codex%20x%20TwitchCon-2026-1E2126?style=flat&amp;labelColor=16181C" alt="Codex x TwitchCon 2026">

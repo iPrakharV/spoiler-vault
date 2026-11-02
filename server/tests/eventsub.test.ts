@@ -43,3 +43,86 @@ test('EventSub subscribes on welcome, deduplicates chat, carries reconnect subsc
   packet(sockets[2], 'revocation', { subscription: { status: 'authorization_revoked' } });
   await waitFor(() => client.state === 'revoked:authorization_revoked');
 });
+
+test('failed reconnect handoff triggers recovery when replacement closes before welcome', async t => {
+  const server = new WebSocketServer({ port: 0, host: '127.0.0.1' });
+  await once(server, 'listening');
+  const port = (server.address() as { port: number }).port;
+  const sockets: WebSocket[] = [], states: string[] = [];
+  const mock = { broadcasterId: '123', identify: async () => {}, api: async () => {} } as unknown as Twitch;
+  const packet = (socket: WebSocket, type: string, payload: unknown, id: string = randomUUID()) =>
+    socket.send(JSON.stringify({ metadata: { message_id: id, message_type: type, message_timestamp: new Date().toISOString() }, payload }));
+
+  server.on('connection', socket => {
+    sockets.push(socket);
+    if (sockets.length !== 2) {
+      packet(socket, 'session_welcome', { session: { id: `session-${sockets.length}`, keepalive_timeout_seconds: 10 } });
+    }
+  });
+
+  const client = new EventSub(mock, async () => {}, state => states.push(state), () => new WebSocket(`ws://127.0.0.1:${port}`));
+  t.after(async () => {
+    client.stop();
+    for (const socket of server.clients) socket.terminate();
+    await new Promise<void>(resolve => server.close(() => resolve()));
+  });
+
+  await client.start();
+  await waitFor(() => states.includes('connected'));
+
+  packet(sockets[0], 'session_reconnect', { session: { reconnect_url: 'wss://eventsub.wss.twitch.tv/ws?reconnect=1' } });
+  await waitFor(() => sockets.length === 2);
+
+  sockets[1].terminate();
+
+  await waitFor(() => states.includes('reconnecting_gap'));
+  await waitFor(() => sockets.length === 3);
+});
+
+test('pending startup is cancelled by stop() and concurrent starts do not create duplicate sessions', async t => {
+  const server = new WebSocketServer({ port: 0, host: '127.0.0.1' });
+  await once(server, 'listening');
+  const port = (server.address() as { port: number }).port;
+  const sockets: WebSocket[] = [], states: string[] = [];
+
+  let resolveIdentify: () => void = () => {};
+  const mock = {
+    broadcasterId: '123',
+    identify: () => new Promise<void>(resolve => { resolveIdentify = resolve; }),
+    api: async () => {},
+  } as unknown as Twitch;
+
+  server.on('connection', socket => {
+    sockets.push(socket);
+  });
+
+  const client = new EventSub(mock, async () => {}, state => states.push(state), () => new WebSocket(`ws://127.0.0.1:${port}`));
+  t.after(async () => {
+    client.stop();
+    for (const socket of server.clients) socket.terminate();
+    await new Promise<void>(resolve => server.close(() => resolve()));
+  });
+
+  const startPromise = client.start();
+  client.stop();
+  resolveIdentify();
+  await startPromise;
+
+  await new Promise(resolve => setTimeout(resolve, 50));
+  assert.equal(sockets.length, 0);
+  assert.equal(client.state, 'disconnected');
+
+  const quickMock = {
+    broadcasterId: '123',
+    identify: async () => { await new Promise(r => setTimeout(r, 20)); },
+    api: async () => {},
+  } as unknown as Twitch;
+
+  const client2 = new EventSub(quickMock, async () => {}, state => states.push(state), () => new WebSocket(`ws://127.0.0.1:${port}`));
+  t.after(() => client2.stop());
+
+  await Promise.all([client2.start(), client2.start()]);
+  await waitFor(() => sockets.length === 1);
+  await new Promise(resolve => setTimeout(resolve, 50));
+  assert.equal(sockets.length, 1);
+});

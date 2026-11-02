@@ -14,6 +14,8 @@ export class EventSub {
   private stopped = true;
   private attempts = 0;
   private seen = new Set<string>();
+  private startupId = 0;
+  private starting?: Promise<void>;
   state = 'disconnected';
   constructor(private twitch: Twitch,
     private onChat: (event: ChatEvent, at: string) => Promise<void>,
@@ -21,19 +23,39 @@ export class EventSub {
     private openSocket: (url: string) => WebSocket = url => new WebSocket(url, { handshakeTimeout: 10_000 })) {}
   private report(state: string) { this.state = state; this.onState(state); }
   async start() {
+    if (this.starting) return this.starting;
     this.stop();
-    await this.twitch.identify();
-    const id = this.twitch.broadcasterId;
-    await this.twitch.api(`chat/settings?broadcaster_id=${id}&moderator_id=${id}`, 'PATCH', {
-      non_moderator_chat_delay: true, non_moderator_chat_delay_duration: 6,
-    });
+    const currentId = ++this.startupId;
     this.stopped = false;
-    this.report('connecting');
-    this.connect(endpoint);
+    const task = (async () => {
+      try {
+        await this.twitch.identify();
+        if (this.stopped || this.startupId !== currentId) return;
+        const id = this.twitch.broadcasterId;
+        await this.twitch.api(`chat/settings?broadcaster_id=${id}&moderator_id=${id}`, 'PATCH', {
+          non_moderator_chat_delay: true, non_moderator_chat_delay_duration: 6,
+        });
+        if (this.stopped || this.startupId !== currentId) return;
+        this.report('connecting');
+        this.connect(endpoint);
+      } catch (error) {
+        if (!this.stopped && this.startupId === currentId) {
+          this.stop();
+          throw error;
+        }
+      } finally {
+        if (this.startupId === currentId) this.starting = undefined;
+      }
+    })();
+    this.starting = task;
+    return task;
   }
   stop() {
     this.stopped = true;
+    this.startupId++;
+    this.starting = undefined;
     clearTimeout(this.timer);
+    this.timer = undefined;
     for (const socket of this.sockets) socket.terminate();
     this.sockets.clear();
     this.report('disconnected');
@@ -47,6 +69,7 @@ export class EventSub {
     }
     const socket = this.openSocket(url);
     this.sockets.add(socket);
+    let welcomed = false;
     let timeoutMs = 12_000;
     let watchdog: NodeJS.Timeout;
     const arm = () => {
@@ -64,6 +87,7 @@ export class EventSub {
         if (this.seen.size > 5000) this.seen.delete(this.seen.values().next().value!);
         switch (metadata.message_type) {
           case 'session_welcome': {
+            welcomed = true;
             timeoutMs = (payload.session.keepalive_timeout_seconds || 10) * 1000 + 2000;
             arm();
             if (!previous) {
@@ -100,10 +124,20 @@ export class EventSub {
     socket.on('close', () => {
       clearTimeout(watchdog);
       this.sockets.delete(socket);
-      if (this.stopped || this.sockets.size) return;
-      this.report('reconnecting_gap');
-      const waitMs = Math.min(30_000, 1000 * 2 ** Math.min(this.attempts++, 5));
-      this.timer = setTimeout(() => this.connect(endpoint), waitMs);
+      if (this.stopped) return;
+      if (previous && !welcomed && this.sockets.has(previous)) {
+        previous.terminate();
+        this.sockets.delete(previous);
+      }
+      if (this.sockets.size) return;
+      if (!this.timer) {
+        this.report('reconnecting_gap');
+        const waitMs = Math.min(30_000, 1000 * 2 ** Math.min(this.attempts++, 5));
+        this.timer = setTimeout(() => {
+          this.timer = undefined;
+          this.connect(endpoint);
+        }, waitMs);
+      }
     });
   }
 }
