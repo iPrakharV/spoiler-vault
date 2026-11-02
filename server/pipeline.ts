@@ -12,6 +12,14 @@ async function deadline<T>(work: Promise<T>, ms: number): Promise<T> {
   } finally { clearTimeout(timer); }
 }
 export class Pipeline {
+  storyVersion = 0;
+  activateStory(story: Story, currentBeat: string) {
+    this.store.resetStory(story, currentBeat);
+    Object.assign(this.story, story);
+    this.storyVersion++;
+    this.broadcast({ type: 'leaderboard', entries: [] });
+    this.broadcast(this.status());
+  }
   releaseHint: () => Promise<unknown> = async () => undefined;
   releaseReached: () => void = () => {};
   constructor(readonly story: Story, readonly store: Store, private classify: Classifier,
@@ -24,13 +32,14 @@ export class Pipeline {
   async reply(text: string) {
     try { await this.transport.reply(text); } catch (error) { this.warn('chat_reply', error); }
   }
-  private async hold(message: Message, kind: Held['kind'], result?: Classification, reason: string | null = null) {
+  private async hold(message: Message, kind: Held['kind'], result?: Classification, reason: string | null = null, version = this.storyVersion) {
     this.store.hold(message, kind, result, reason);
     this.store.addFeed(message, kind, result);
     try {
       await this.transport.deleteMessage(message.id);
-      this.store.markDeleted(message.id);
+      if (version === this.storyVersion) this.store.markDeleted(message.id);
     } catch (error) { this.warn('delete_failed_possible_leak', error); }
+    if (version !== this.storyVersion) return;
     if (kind === 'vault') {
       this.broadcast({ type: 'sealed', user: message.user, beatId: result!.beatId, at: message.at });
       await this.reply(`@${message.user} sealed until the reveal`);
@@ -46,6 +55,7 @@ export class Pipeline {
     }
     if (!this.store.claim(message.id)) return;
     message = { ...message, at: message.at || new Date().toISOString() };
+    const version = this.storyVersion;
     const start = performance.now();
     const beatAtArrival = this.store.currentBeat;
     let result: Classification | undefined;
@@ -58,12 +68,14 @@ export class Pipeline {
       try {
         if (!Number.isFinite(budget) || budget < 100) throw new Error('Message arrived too late to classify');
         result = validateClassification(await deadline(this.classify(message.text, beatAtArrival, budget), budget), this.story, beatAtArrival);
+        if (version !== this.storyVersion) return;
         classifyMs = performance.now() - start;
         if (result.confidence < 0.65) throw new Error('Low classification confidence');
       } catch (error) {
+        if (version !== this.storyVersion) return;
         classifyMs = performance.now() - start;
         outcome = 'pending';
-        await this.hold(message, 'pending', undefined, error instanceof Error ? error.message : 'Classifier failed');
+        await this.hold(message, 'pending', undefined, error instanceof Error ? error.message : 'Classifier failed', version);
         return;
       }
       if (result.label === 'future_spoiler') {
@@ -76,7 +88,7 @@ export class Pipeline {
       }
     } finally {
       const ms = performance.now() - start;
-      this.store.logLatency(message.id, result?.label || 'pending', classifyMs, outcome);
+      if (version === this.storyVersion) this.store.logLatency(message.id, result?.label || 'pending', classifyMs, outcome);
       console.log(JSON.stringify({ type: 'latency', id: message.id, label: result?.label || 'pending', outcome, ms: Math.round(ms) }));
     }
   }

@@ -34,6 +34,14 @@ export class Store {
     const saved = this.db.prepare('SELECT value FROM state WHERE key = ?').get('storyMap') as { value: string };
     if (saved.value !== fingerprint) throw new Error('Story map changed. Use a fresh .data database for the new story.');
   }
+  resetStory(story: Story, currentBeat: string) {
+    this.db.transaction(() => {
+      for (const table of ['feed', 'state', 'seen', 'holds', 'latency', 'points', 'first_seal']) this.db.exec(`DELETE FROM ${table}`);
+      this.db.prepare('INSERT INTO state VALUES (?,?)').run('storyMap', JSON.stringify(story));
+      this.db.prepare('INSERT INTO state VALUES (?,?)').run('currentBeat', currentBeat);
+    })();
+    this.warning = '';
+  }
   get currentBeat() {
     return (this.db.prepare('SELECT value FROM state WHERE key = ?').get('currentBeat') as { value: string }).value;
   }

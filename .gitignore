@@ -26,3 +26,6 @@ playwright/.cache/
 test-results/
 blob-report/
 docs/screenshots/
+
+# Generated maps contain future story details.
+story/generated/

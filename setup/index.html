@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Spoiler Vault | Setup</title>
+  <link rel="stylesheet" href="/shared/tokens.css"><link rel="stylesheet" href="/setup/style.css">
+  <script type="module" src="/setup/app.js"></script>
+</head>
+<body>
+  <header><a class="brand" href="/dashboard/"><span data-icon="lock"></span>Spoiler Vault</a><a href="/dashboard/">Dashboard</a></header>
+  <main>
+    <h1>Setup</h1>
+    <form id="form" class="panel">
+      <label for="game">Game you're streaming</label>
+      <input id="game" name="game" maxlength="120" required autocomplete="off">
+      <label for="progress">How far you are <span class="muted">(optional)</span></label>
+      <input id="progress" name="howFar" maxlength="400" placeholder="just started, or chapter 4" autocomplete="off">
+      <button id="build" class="primary" type="submit" disabled>Build story map</button>
+      <p id="key-note" class="muted" hidden>Add OPENAI_API_KEY to .env to build maps for other games.</p>
+      <p id="message" class="muted" role="status" aria-live="polite"></p>
+    </form>
+    <section class="panel" aria-label="Active story map">
+      <label for="map">Active map</label>
+      <select id="map"><option value="demo">Demo game: The Orison file</option><option value="generated" hidden>Generated game map</option></select>
+      <p id="ready" role="status"></p>
+      <ol id="beats" class="mono" aria-label="Story beats"></ol>
+    </section>
+  </main>
+</body>
+</html>

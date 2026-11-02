@@ -90,6 +90,10 @@ function renderFeed(items) {
   if (items.length === feedCount && items.at(-1)?.id === lastId) return;
   const chat = $('chat');
   const existing = new Set([...chat.querySelectorAll('[data-id]')].map((el) => el.dataset.id));
+  if (!items.length || (lastId && !items.some(item => item.id === lastId))) {
+    chat.replaceChildren();
+    existing.clear();
+  }
   if (items.length) chat.querySelector('.empty')?.remove();
   for (const item of items) if (!existing.has(item.id)) chat.append(row(item));
   while (chat.children.length > 300) chat.firstElementChild.remove();

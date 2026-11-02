@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import type { Express } from 'express';
 import type { Controls } from './controls.js';
 import { root } from './config.js';
+import { isDemoStory } from './storymap.js';
 import { route } from './twitch.js';
 interface Scene {
   title: string;
@@ -16,6 +17,12 @@ export function mountGame(app: Express, controls: Controls) {
   const current = () =>
     controls.pipeline.story.beats.findIndex((b) => b.id === controls.pipeline.store.currentBeat);
   app.get('/api/game', (_req, res) => {
+    if (!isDemoStory(controls.pipeline.story)) {
+      const index = current();
+      res.json({ beatId: controls.pipeline.store.currentBeat, index: index + 1, total: controls.pipeline.story.beats.length,
+        title: `Beat ${index + 1}`, body: ['Use the dashboard to track the game you are streaming.'], choices: [] });
+      return;
+    }
     const index = current(),
       scene = scenes[index];
     res.json({
@@ -30,6 +37,7 @@ export function mountGame(app: Express, controls: Controls) {
   app.post(
     '/api/game/answer',
     route((req, res) => {
+      if (!isDemoStory(controls.pipeline.story)) { res.status(409).json({ error: 'Use Next beat on the dashboard.' }); return; }
       const index = current(),
         scene = scenes[index];
       if (req.body?.beatId !== controls.pipeline.store.currentBeat) {

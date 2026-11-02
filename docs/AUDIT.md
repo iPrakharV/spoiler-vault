@@ -256,3 +256,19 @@ seal, typed reveal and leaderboard.
 
 Intentional TODOs remain for the YouTube URL, Codex session ID and team names.
 They were requested as placeholders and are not broken project asset paths.
+
+
+## Story map setup, Nov 2
+
+| Requirement | Status | Evidence |
+| --- | --- | --- |
+| Setup page and dashboard link | done | setup/ and dashboard top bar. Uses shared tokens. |
+| Structured 8 to 12 beat generation and progress selection | done | server/storymap.ts. Strict response schema and server validation. |
+| Save exact map and activate it | done | Private ignored story/generated files; live selection persists in .data. |
+| No summaries or secrets in browser APIs | done | Generation, session and game responses use beat numbers for generated maps. Route test checks all four browser data endpoints. |
+| Reset vault, jar, points and stale work on map change | done | Store transaction and pipeline version guard. |
+| Demo switch, missing-key state and Next beat | done | Setup dropdown; server rejects missing keys; generated-map progress test. |
+
+Generation is verified with mocked OpenAI output. Real game facts and free-text
+progress matching still need a live model check. Default replay always starts
+with the demo map. Changing maps stops the remaining demo fixture messages.

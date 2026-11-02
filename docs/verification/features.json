@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "setupMock": "Server fetch mock of OpenAI Responses API",
+  "generatedBeatCount": 10,
+  "currentBeat": "b4",
+  "noBrowserStoryContent": true,
+  "clips": false,
+  "browser": "156.0.8078.4"
+}

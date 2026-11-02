@@ -94,6 +94,7 @@ for (const signal of ['SIGINT', 'SIGTERM'])
 try {
   await pause(2000 / speed, undefined, { signal: abort.signal });
   for (const entry of entries) {
+    if (runtime.pipeline.storyVersion) { console.log('Replay stopped: story map changed.'); break; }
     if ('progress' in entry && !auto) continue;
     await pause((entry.delayMs ?? 1500) / speed, undefined, { signal: abort.signal });
     if ('progress' in entry) {

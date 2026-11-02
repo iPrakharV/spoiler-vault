@@ -2,11 +2,11 @@ import { join } from 'node:path';
 import { config, root } from './config.js';
 import { Twitch } from './twitch.js';
 import { EventSub } from './eventsub.js';
-import { loadStory } from './story.js';
+import { loadActiveStory } from './storymap.js';
 import { openAIClassifier } from './classifier.js';
 import { createRuntime } from './runtime.js';
 
-const story = loadStory(), twitch = new Twitch();
+const story = loadActiveStory(), twitch = new Twitch();
 let events: EventSub;
 const runtime = createRuntime({ story, file: join(root, '.data/live.sqlite'), classify: openAIClassifier(story),
   mode: 'live', classifierReady: !!config.openaiKey, connection: () => events.state,

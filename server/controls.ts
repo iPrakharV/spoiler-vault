@@ -1,6 +1,7 @@
 import type { Express } from 'express';
 import type { Pipeline } from './pipeline.js';
 import { findBeat } from './story.js';
+import { isDemoStory } from './storymap.js';
 import { mountGame } from './game.js';
 import { route } from './twitch.js';
 
@@ -51,9 +52,10 @@ export class Controls {
     app.get('/api/session', (_req, res) => {
       const { story, store } = this.pipeline;
       const current = findBeat(story, store.currentBeat);
+      const demo = isDemoStory(story);
       res.json({ game: story.game,
-        beats: story.beats.map(({ id, order, chapter }) => ({ id, order, chapter: order <= current.order ? chapter : `Beat ${order}` })),
-        current: { id: current.id, chapter: current.chapter, summary: current.summary },
+        beats: story.beats.map(({ id, order, chapter }) => ({ id, order, chapter: demo && order <= current.order ? chapter : `Beat ${order}` })),
+        current: { id: current.id, chapter: demo ? current.chapter : `Beat ${current.order}` },
       });
     });
     app.post('/api/hint', route(async (_req, res) => { res.json(await this.hint()); }));

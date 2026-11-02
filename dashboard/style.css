@@ -451,3 +451,7 @@ h2 [data-icon] {
   content: ' · ';
   margin: 0 8px;
 }
+
+.setup-link { font-size: 13px; font-weight: 400; color: var(--muted); margin-left: 8px; text-decoration: none; }
+.setup-link:hover { color: var(--text); }
+.stepper { min-height: 0; overflow-y: auto; }

@@ -5,12 +5,14 @@ import { createApp, errorHandler } from './app.js';
 import { createHub } from './broadcast.js';
 import { Controls } from './controls.js';
 import { Pipeline } from './pipeline.js';
+import { mountStoryMaps, type StoryMapOptions } from './storymap.js';
 import { Store } from './store.js';
 import type { Classifier, Story, Transport } from './types.js';
 
 interface Options {
   story: Story; file: string; classify: Classifier; transport: Transport;
   mode: 'live' | 'replay'; classifierReady: boolean; connection?: () => string;
+  storyMaps?: StoryMapOptions;
   configure?: (app: Express, pipeline: Pipeline) => void;
 }
 export function createRuntime(options: Options) {
@@ -19,6 +21,7 @@ export function createRuntime(options: Options) {
   const pipeline = new Pipeline(options.story, store, options.classify, options.transport, broadcast);
   const controls = new Controls(pipeline);
   controls.mount(app);
+  mountStoryMaps(app, pipeline, { persist: options.mode === 'live', ...options.storyMaps });
   app.get('/api/status', (_req, res) => res.json({ ...pipeline.status(), mode: options.mode,
     channel: options.mode === 'replay' ? 'harbor_watch' : config.channel, pendingCount: store.counts().pendingCount,
     classifierReady: options.classifierReady, twitch: options.connection?.() || 'disconnected' }));

@@ -51,6 +51,17 @@ Open [the dashboard](http://localhost:3000/dashboard/) and [the overlay](http://
 
 [The game](http://localhost:3000/game/) is our original mystery, The Orison file. To play it at your own pace, leave out `--auto`. **N** advances a beat. **H** releases a hint. Each replay starts fresh.
 
+## Use it with any game
+
+Open **Setup** in the dashboard. Enter the game and, optionally, how far you are.
+The server builds 8 to 12 beats with OpenAI and picks a starting beat from that note.
+You only see beat numbers. Summaries and secrets stay on the server in ignored
+`story/generated/`. A map change clears the vault, hint jar and points.
+Use **Next beat** as you play. The dropdown restores the demo map.
+
+Set `OPENAI_API_KEY` in `.env` to enable generation. Generated maps can miss or
+misplace plot details. Real game coverage has not been checked yet.
+
 ## Run it live on Twitch
 
 1. Enable **2FA** on the broadcaster's Twitch account. Twitch requires it to [register an app](https://dev.twitch.tv/docs/authentication/register-app/).
