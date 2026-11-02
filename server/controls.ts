@@ -1,6 +1,7 @@
 import type { Express } from 'express';
 import type { Pipeline } from './pipeline.js';
 import { findBeat } from './story.js';
+import { mountGame } from './game.js';
 import { route } from './twitch.js';
 
 export class HttpError extends Error {
@@ -37,11 +38,19 @@ export class Controls {
     return { released: true };
   }
   mount(app: Express) {
+    mountGame(app, this);
+    app.get('/api/desk', (_req, res) => res.json(this.pipeline.store.desk()));
+    app.get('/api/awards', (_req, res) => {
+      const { store, story } = this.pipeline;
+      const reached = story.beats.filter(b => b.order <= findBeat(story, store.currentBeat).order).map(b => b.id);
+      const entries = store.db.prepare('SELECT beatId, user FROM first_seal').all() as { beatId: string; user: string }[];
+      res.json(entries.filter(e => reached.includes(e.beatId)));
+    });
     app.get('/api/session', (_req, res) => {
       const { story, store } = this.pipeline;
       const current = findBeat(story, store.currentBeat);
       res.json({ game: story.game,
-        beats: story.beats.map(({ id, order, chapter }) => ({ id, order, chapter })),
+        beats: story.beats.map(({ id, order, chapter }) => ({ id, order, chapter: order <= current.order ? chapter : `Beat ${order}` })),
         current: { id: current.id, chapter: current.chapter, summary: current.summary },
       });
     });

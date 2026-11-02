@@ -1,6 +1,33 @@
-- Problem: streamers playing story games constantly fight spoilers and backseating in chat. Twitch never shipped a spoiler feature. Existing AI filters only know the game title, not where the streamer actually is.
-- Product: a progress-aware chat guard. (1) The app knows which story beat the streamer is on. Talk about past beats passes, talk about future beats gets caught. (2) Sealing: channel runs a 6 second non-mod chat delay, our bot sees messages instantly, classifies them, deletes spoilers before chat sees them, stores them in a vault with username, text, target beat, timestamp, and replies "@user sealed until the reveal". (3) Reveal: when the streamer reaches that beat, the overlay plays sealed messages back ("Sealed 47 min ago by @user: ..."), authors earn Prophet points, leaderboard on overlay. (4) Hint Jar: unrequested gameplay advice is held; broadcaster types !hint to release the next one, vaguest first. (5) Streamer dashboard shows filtered safe chat, vault count, jar count, current beat.
-- Demo runs on our own original short story game in /game so the video has no third-party copyrighted footage. System is game-agnostic via a story map JSON.
-- Must-haves: works live on a regular non-Affiliate Twitch account; replay mode with no Twitch account plus an --offline flag needing no API key; eval harness of ~150 labeled messages with per-class precision/recall and latency p50/p95; README a judge can follow in 10 minutes.
-- Stack: Node 20, TypeScript, Express, ws, better-sqlite3, OpenAI API with structured outputs. Overlay and dashboard are plain HTML/CSS/JS served by the server. No external art or audio.
-- Style: no em dashes anywhere, plain direct student wording, never commit secrets (.env + .env.example).
+# Project brief
+
+Streamers playing story games spend too much time dodging spoilers and advice.
+A game title alone is not enough context. The guard needs to know what the
+streamer has already seen.
+
+Spoiler Vault tracks the current beat. Past talk passes. Future spoilers are
+deleted during Twitch's six second non-mod chat delay and stored with author,
+text, target beat and timestamp. The reply is `@user sealed until the reveal`.
+When the streamer reaches that beat, the overlay reads those messages back with
+their age and author. Revealed messages earn Prophet points.
+
+Unrequested advice goes into a hint jar. The broadcaster types `!hint` to release
+one hint, vaguest first. The dashboard shows safe chat, counts and story progress.
+It never renders held spoiler text.
+
+The demo uses our original six-beat lighthouse mystery, The Orison file. It has
+two puzzles and a late reveal. No third-party game footage, art or audio is used.
+Other games use their own story map JSON.
+
+Requirements:
+
+- Work on a regular non-Affiliate Twitch account. Confirm with a real login.
+- Replay without Twitch. `--offline` uses no API key.
+- Evaluate about 150 labeled messages. Report per-class precision, recall, F1,
+  a confusion matrix, and latency p50 and p95.
+- Give judges a setup they can follow in ten minutes.
+- Use Node 20, TypeScript, Express, ws, better-sqlite3 and OpenAI structured outputs.
+- Serve plain HTML, CSS and JavaScript for dashboard, overlay and game.
+- Use direct copy. No long dash characters. Do not commit secrets.
+
+Deadline: Nov 2, 2026, 2:00pm PT. Environment values stay in ignored `.env`.
+`.env.example` lists the required names and public defaults.

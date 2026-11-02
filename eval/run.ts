@@ -47,7 +47,7 @@ for (const [index, example] of examples.entries()) {
 const result = metrics(observations), fmt = (n: number) => n.toFixed(3);
 const futureCount = examples.filter(row => row.label === 'future_spoiler').length;
 const report = [
-  '# Spoiler Vault evaluation', '',
+  '# Spoiler vault evaluation', '',
   `Run: ${new Date().toISOString()}`, '',
   offline ? 'Mode: OFFLINE HEURISTIC BASELINE. These are not OpenAI model results.' : `Mode: OpenAI structured outputs. Model: ${config.model}.`, '',
   `Story: ${story.game}. Messages: ${examples.length}. Errors or low-confidence holds: ${errors}.`, '',
@@ -59,7 +59,7 @@ const report = [
   '## Latency', '', `Classifier latency p50: ${result.p50.toFixed(2)} ms. p95: ${result.p95.toFixed(2)} ms.`, '',
   'Nearest-rank percentiles include errors and timeouts. This measures classification only, not Twitch deletion or reply latency.', '',
   `Correct future-spoiler label AND release target: ${correctTarget}/${futureCount}.`, '',
-  'These are hand-labeled synthetic examples for the placeholder story, not Twitch production traffic.',
+  'These are labeled synthetic examples for The Orison file, not Twitch production traffic.',
   'No training split or model tuning was done. Replace and review fixtures when the story changes.', '',
 ].join('\n');
 writeFileSync(join(root, 'eval/results.md'), report);

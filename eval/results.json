@@ -10,66 +10,66 @@
   ],
   "confusion": {
     "normal": {
-      "normal": 37,
+      "normal": 39,
       "past_talk": 0,
       "future_spoiler": 0,
       "backseat": 1,
       "pending": 0
     },
     "past_talk": {
-      "normal": 29,
-      "past_talk": 7,
+      "normal": 6,
+      "past_talk": 29,
       "future_spoiler": 0,
-      "backseat": 2,
+      "backseat": 0,
       "pending": 0
     },
     "future_spoiler": {
-      "normal": 15,
+      "normal": 0,
       "past_talk": 0,
-      "future_spoiler": 23,
+      "future_spoiler": 40,
       "backseat": 0,
       "pending": 0
     },
     "backseat": {
-      "normal": 5,
+      "normal": 9,
       "past_talk": 0,
       "future_spoiler": 0,
-      "backseat": 31,
+      "backseat": 26,
       "pending": 0
     }
   },
   "scores": [
     {
       "label": "normal",
-      "support": 38,
-      "precision": 0.43023255813953487,
-      "recall": 0.9736842105263158,
-      "f1": 0.596774193548387
+      "support": 40,
+      "precision": 0.7222222222222222,
+      "recall": 0.975,
+      "f1": 0.8297872340425532
     },
     {
       "label": "past_talk",
-      "support": 38,
+      "support": 35,
       "precision": 1,
-      "recall": 0.18421052631578946,
-      "f1": 0.3111111111111111
+      "recall": 0.8285714285714286,
+      "f1": 0.90625
     },
     {
       "label": "future_spoiler",
-      "support": 38,
+      "support": 40,
       "precision": 1,
-      "recall": 0.6052631578947368,
-      "f1": 0.7540983606557378
+      "recall": 1,
+      "f1": 1
     },
     {
       "label": "backseat",
-      "support": 36,
-      "precision": 0.9117647058823529,
-      "recall": 0.8611111111111112,
-      "f1": 0.8857142857142858
+      "support": 35,
+      "precision": 0.9629629629629629,
+      "recall": 0.7428571428571429,
+      "f1": 0.8387096774193549
     }
   ],
-  "p50": 0.005666000000005056,
-  "p95": 0.013833999999988578,
+  "p50": 0.010916999999992072,
+  "p95": 0.022625000000005002,
   "errors": 0,
   "details": [
     {
@@ -78,7 +78,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.13758299999999224
+      "ms": 0.1721249999999941
     },
     {
       "index": 2,
@@ -86,7 +86,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.09016599999999642
+      "ms": 0.06750000000000966
     },
     {
       "index": 3,
@@ -94,7 +94,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.011250000000003979
+      "ms": 0.020792000000000144
     },
     {
       "index": 4,
@@ -102,7 +102,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.007457999999999743
+      "ms": 0.01720799999999656
     },
     {
       "index": 5,
@@ -110,7 +110,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.008290999999999826
+      "ms": 0.017499999999998295
     },
     {
       "index": 6,
@@ -118,7 +118,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.006791999999990139
+      "ms": 0.014415999999997098
     },
     {
       "index": 7,
@@ -126,7 +126,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.006957999999997355
+      "ms": 0.016166999999995824
     },
     {
       "index": 8,
@@ -134,7 +134,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.005750000000006139
+      "ms": 0.015917000000001735
     },
     {
       "index": 9,
@@ -142,7 +142,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.006916999999987183
+      "ms": 0.016291999999992868
     },
     {
       "index": 10,
@@ -150,7 +150,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.006666999999993095
+      "ms": 0.016833000000005427
     },
     {
       "index": 11,
@@ -158,7 +158,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.007750000000001478
+      "ms": 0.015667000000007647
     },
     {
       "index": 12,
@@ -166,7 +166,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.007542000000000826
+      "ms": 0.016792000000009466
     },
     {
       "index": 13,
@@ -174,7 +174,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.009041999999993777
+      "ms": 0.04549999999998988
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.008290999999999826
+      "ms": 0.022416000000006875
     },
     {
       "index": 15,
@@ -190,7 +190,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.0062910000000044874
+      "ms": 0.015791000000007216
     },
     {
       "index": 16,
@@ -198,7 +198,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.006000000000000227
+      "ms": 0.014458000000004745
     },
     {
       "index": 17,
@@ -206,7 +206,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.004875000000012619
+      "ms": 0.013666000000000622
     },
     {
       "index": 18,
@@ -214,7 +214,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.005875000000003183
+      "ms": 0.01516700000000526
     },
     {
       "index": 19,
@@ -222,7 +222,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.005583999999998923
+      "ms": 0.013666000000000622
     },
     {
       "index": 20,
@@ -230,7 +230,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.005832999999995536
+      "ms": 0.012667000000007533
     },
     {
       "index": 21,
@@ -238,15 +238,15 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.005000000000009663
+      "ms": 0.013165999999998235
     },
     {
       "index": 22,
       "actual": "normal",
-      "predicted": "normal",
+      "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.005832999999995536
+      "ms": 0.016625000000004775
     },
     {
       "index": 23,
@@ -254,7 +254,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.006000000000000227
+      "ms": 0.013083999999992102
     },
     {
       "index": 24,
@@ -262,7 +262,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.004874999999998408
+      "ms": 0.018124999999997726
     },
     {
       "index": 25,
@@ -270,7 +270,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.005000000000009663
+      "ms": 0.015958000000011907
     },
     {
       "index": 26,
@@ -278,7 +278,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.006083000000003835
+      "ms": 0.014082999999999402
     },
     {
       "index": 27,
@@ -286,7 +286,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.005875000000003183
+      "ms": 0.035750000000007276
     },
     {
       "index": 28,
@@ -294,7 +294,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.0049169999999918446
+      "ms": 0.015833000000000652
     },
     {
       "index": 29,
@@ -302,15 +302,15 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.006292000000001963
+      "ms": 0.017332999999993604
     },
     {
       "index": 30,
       "actual": "normal",
-      "predicted": "backseat",
+      "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.00695899999999483
+      "ms": 0.014250000000004093
     },
     {
       "index": 31,
@@ -318,7 +318,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.006624999999999659
+      "ms": 0.015000000000000568
     },
     {
       "index": 32,
@@ -326,7 +326,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.0049999999999954525
+      "ms": 0.01387499999999875
     },
     {
       "index": 33,
@@ -334,7 +334,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.27420899999999904
+      "ms": 0.018167000000005373
     },
     {
       "index": 34,
@@ -342,7 +342,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.008458000000004517
+      "ms": 0.014832999999995877
     },
     {
       "index": 35,
@@ -350,7 +350,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.006500000000002615
+      "ms": 0.014499999999998181
     },
     {
       "index": 36,
@@ -358,7 +358,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.0062080000000008795
+      "ms": 0.013666000000000622
     },
     {
       "index": 37,
@@ -366,7 +366,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.005749999999991928
+      "ms": 0.015000000000000568
     },
     {
       "index": 38,
@@ -374,623 +374,623 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.08275000000000432
+      "ms": 0.013916999999992186
     },
     {
       "index": 39,
-      "actual": "past_talk",
+      "actual": "normal",
       "predicted": "normal",
-      "expectedBeatId": "b1",
+      "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.009457999999995081
+      "ms": 0.014917000000011171
     },
     {
       "index": 40,
-      "actual": "past_talk",
+      "actual": "normal",
       "predicted": "normal",
-      "expectedBeatId": "b1",
+      "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.007208000000005654
+      "ms": 0.323875000000001
     },
     {
       "index": 41,
-      "actual": "past_talk",
-      "predicted": "normal",
-      "expectedBeatId": "b1",
-      "beatId": null,
-      "ms": 0.13279199999999491
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b2",
+      "beatId": "b2",
+      "ms": 0.19437499999999375
     },
     {
       "index": 42,
-      "actual": "past_talk",
-      "predicted": "normal",
-      "expectedBeatId": "b1",
-      "beatId": null,
-      "ms": 0.008499999999997954
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b3",
+      "beatId": "b3",
+      "ms": 0.02154199999999662
     },
     {
       "index": 43,
-      "actual": "past_talk",
-      "predicted": "normal",
-      "expectedBeatId": "b1",
-      "beatId": null,
-      "ms": 0.006042000000007874
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b4",
+      "beatId": "b4",
+      "ms": 0.012667000000007533
     },
     {
       "index": 44,
-      "actual": "past_talk",
-      "predicted": "backseat",
-      "expectedBeatId": "b1",
-      "beatId": null,
-      "ms": 0.006000000000000227
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b5",
+      "beatId": "b5",
+      "ms": 0.012500000000002842
     },
     {
       "index": 45,
-      "actual": "past_talk",
-      "predicted": "past_talk",
-      "expectedBeatId": "b2",
-      "beatId": "b2",
-      "ms": 0.006000000000000227
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b6",
+      "beatId": "b6",
+      "ms": 0.01145799999999042
     },
     {
       "index": 46,
-      "actual": "past_talk",
-      "predicted": "past_talk",
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
       "expectedBeatId": "b2",
       "beatId": "b2",
-      "ms": 0.005500000000012051
+      "ms": 0.022625000000005002
     },
     {
       "index": 47,
-      "actual": "past_talk",
-      "predicted": "normal",
-      "expectedBeatId": "b2",
-      "beatId": null,
-      "ms": 0.0049579999999878055
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b3",
+      "beatId": "b3",
+      "ms": 0.010917000000006283
     },
     {
       "index": 48,
-      "actual": "past_talk",
-      "predicted": "past_talk",
-      "expectedBeatId": "b2",
-      "beatId": "b2",
-      "ms": 0.004541000000003237
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b4",
+      "beatId": "b4",
+      "ms": 0.011833000000009974
     },
     {
       "index": 49,
-      "actual": "past_talk",
-      "predicted": "normal",
-      "expectedBeatId": "b2",
-      "beatId": null,
-      "ms": 0.00491600000000858
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b5",
+      "beatId": "b5",
+      "ms": 0.010916999999992072
     },
     {
       "index": 50,
-      "actual": "past_talk",
-      "predicted": "normal",
-      "expectedBeatId": "b2",
-      "beatId": null,
-      "ms": 0.004917000000006055
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b6",
+      "beatId": "b6",
+      "ms": 0.010916999999992072
     },
     {
       "index": 51,
-      "actual": "past_talk",
-      "predicted": "normal",
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
       "expectedBeatId": "b2",
-      "beatId": null,
-      "ms": 0.005041999999988889
+      "beatId": "b2",
+      "ms": 0.010041999999998552
     },
     {
       "index": 52,
-      "actual": "past_talk",
-      "predicted": "normal",
-      "expectedBeatId": "b2",
-      "beatId": null,
-      "ms": 0.0050420000000030996
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b3",
+      "beatId": "b3",
+      "ms": 0.010666999999997984
     },
     {
       "index": 53,
-      "actual": "past_talk",
-      "predicted": "backseat",
-      "expectedBeatId": "b2",
-      "beatId": null,
-      "ms": 0.004792000000009011
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b4",
+      "beatId": "b4",
+      "ms": 0.009375000000005684
     },
     {
       "index": 54,
-      "actual": "past_talk",
-      "predicted": "normal",
-      "expectedBeatId": "b2",
-      "beatId": null,
-      "ms": 0.004792000000009011
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b5",
+      "beatId": "b5",
+      "ms": 0.01029199999999264
     },
     {
       "index": 55,
-      "actual": "past_talk",
-      "predicted": "normal",
-      "expectedBeatId": "b2",
-      "beatId": null,
-      "ms": 0.0049169999999918446
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b6",
+      "beatId": "b6",
+      "ms": 0.009875000000008072
     },
     {
       "index": 56,
-      "actual": "past_talk",
-      "predicted": "normal",
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
       "expectedBeatId": "b2",
-      "beatId": null,
-      "ms": 0.004917000000006055
+      "beatId": "b2",
+      "ms": 0.01258299999999224
     },
     {
       "index": 57,
-      "actual": "past_talk",
-      "predicted": "past_talk",
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
       "expectedBeatId": "b3",
       "beatId": "b3",
-      "ms": 0.004416000000006193
+      "ms": 0.009957999999997469
     },
     {
       "index": 58,
-      "actual": "past_talk",
-      "predicted": "normal",
-      "expectedBeatId": "b3",
-      "beatId": null,
-      "ms": 0.0049999999999954525
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b4",
+      "beatId": "b4",
+      "ms": 0.011209000000008018
     },
     {
       "index": 59,
-      "actual": "past_talk",
-      "predicted": "normal",
-      "expectedBeatId": "b3",
-      "beatId": null,
-      "ms": 0.004792000000009011
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b5",
+      "beatId": "b5",
+      "ms": 0.00924999999999443
     },
     {
       "index": 60,
-      "actual": "past_talk",
-      "predicted": "past_talk",
-      "expectedBeatId": "b3",
-      "beatId": "b3",
-      "ms": 0.0050829999999990605
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b6",
+      "beatId": "b6",
+      "ms": 0.020541999999991845
     },
     {
       "index": 61,
-      "actual": "past_talk",
-      "predicted": "normal",
-      "expectedBeatId": "b3",
-      "beatId": null,
-      "ms": 0.005624999999994884
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b2",
+      "beatId": "b2",
+      "ms": 0.011749999999992156
     },
     {
       "index": 62,
-      "actual": "past_talk",
-      "predicted": "normal",
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
       "expectedBeatId": "b3",
-      "beatId": null,
-      "ms": 0.0049169999999918446
+      "beatId": "b3",
+      "ms": 0.011750000000006366
     },
     {
       "index": 63,
-      "actual": "past_talk",
-      "predicted": "normal",
-      "expectedBeatId": "b3",
-      "beatId": null,
-      "ms": 0.005000000000009663
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b4",
+      "beatId": "b4",
+      "ms": 0.010457999999999856
     },
     {
       "index": 64,
-      "actual": "past_talk",
-      "predicted": "normal",
-      "expectedBeatId": "b3",
-      "beatId": null,
-      "ms": 0.004833000000004972
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b5",
+      "beatId": "b5",
+      "ms": 0.01229200000000219
     },
     {
       "index": 65,
-      "actual": "past_talk",
-      "predicted": "normal",
-      "expectedBeatId": "b3",
-      "beatId": null,
-      "ms": 0.004666999999997756
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b6",
+      "beatId": "b6",
+      "ms": 0.010209000000003243
     },
     {
       "index": 66,
-      "actual": "past_talk",
-      "predicted": "normal",
-      "expectedBeatId": "b3",
-      "beatId": null,
-      "ms": 0.004958000000002016
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b2",
+      "beatId": "b2",
+      "ms": 0.012083000000004063
     },
     {
       "index": 67,
-      "actual": "past_talk",
-      "predicted": "past_talk",
-      "expectedBeatId": "b4",
-      "beatId": "b4",
-      "ms": 0.00416700000000958
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b3",
+      "beatId": "b3",
+      "ms": 0.012291000000004715
     },
     {
       "index": 68,
-      "actual": "past_talk",
-      "predicted": "normal",
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
       "expectedBeatId": "b4",
-      "beatId": null,
-      "ms": 0.004874999999998408
+      "beatId": "b4",
+      "ms": 0.012833000000000538
     },
     {
       "index": 69,
-      "actual": "past_talk",
-      "predicted": "normal",
-      "expectedBeatId": "b4",
-      "beatId": null,
-      "ms": 0.0051250000000067075
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b5",
+      "beatId": "b5",
+      "ms": 0.010792000000009239
     },
     {
       "index": 70,
-      "actual": "past_talk",
-      "predicted": "past_talk",
-      "expectedBeatId": "b4",
-      "beatId": "b4",
-      "ms": 0.004291999999992413
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b6",
+      "beatId": "b6",
+      "ms": 0.013290999999995279
     },
     {
       "index": 71,
-      "actual": "past_talk",
-      "predicted": "normal",
-      "expectedBeatId": "b4",
-      "beatId": null,
-      "ms": 0.004833000000004972
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b2",
+      "beatId": "b2",
+      "ms": 0.017583000000001903
     },
     {
       "index": 72,
-      "actual": "past_talk",
-      "predicted": "normal",
-      "expectedBeatId": "b4",
-      "beatId": null,
-      "ms": 0.005250000000003752
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b3",
+      "beatId": "b3",
+      "ms": 0.011791999999999803
     },
     {
       "index": 73,
-      "actual": "past_talk",
-      "predicted": "normal",
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
       "expectedBeatId": "b4",
-      "beatId": null,
-      "ms": 0.004874999999998408
+      "beatId": "b4",
+      "ms": 0.01054200000000094
     },
     {
       "index": 74,
-      "actual": "past_talk",
-      "predicted": "normal",
-      "expectedBeatId": "b4",
-      "beatId": null,
-      "ms": 0.004750000000001364
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b5",
+      "beatId": "b5",
+      "ms": 0.009957999999997469
     },
     {
       "index": 75,
-      "actual": "past_talk",
-      "predicted": "normal",
-      "expectedBeatId": "b4",
-      "beatId": null,
-      "ms": 0.004832999999990761
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b6",
+      "beatId": "b6",
+      "ms": 0.011541000000008239
     },
     {
       "index": 76,
-      "actual": "past_talk",
-      "predicted": "normal",
-      "expectedBeatId": "b4",
-      "beatId": null,
-      "ms": 0.006541999999996051
+      "actual": "future_spoiler",
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b2",
+      "beatId": "b2",
+      "ms": 0.01012500000000216
     },
     {
       "index": 77,
       "actual": "future_spoiler",
       "predicted": "future_spoiler",
-      "expectedBeatId": "b2",
-      "beatId": "b2",
-      "ms": 0.0049999999999954525
+      "expectedBeatId": "b3",
+      "beatId": "b3",
+      "ms": 0.009500000000002728
     },
     {
       "index": 78,
       "actual": "future_spoiler",
       "predicted": "future_spoiler",
-      "expectedBeatId": "b2",
-      "beatId": "b2",
-      "ms": 0.004416999999989457
+      "expectedBeatId": "b4",
+      "beatId": "b4",
+      "ms": 0.011332999999993376
     },
     {
       "index": 79,
       "actual": "future_spoiler",
       "predicted": "future_spoiler",
-      "expectedBeatId": "b2",
-      "beatId": "b2",
-      "ms": 0.005832999999995536
+      "expectedBeatId": "b5",
+      "beatId": "b5",
+      "ms": 0.009916000000004033
     },
     {
       "index": 80,
       "actual": "future_spoiler",
-      "predicted": "normal",
-      "expectedBeatId": "b2",
-      "beatId": null,
-      "ms": 0.00637499999999136
+      "predicted": "future_spoiler",
+      "expectedBeatId": "b6",
+      "beatId": "b6",
+      "ms": 0.010249999999999204
     },
     {
       "index": 81,
-      "actual": "future_spoiler",
+      "actual": "past_talk",
       "predicted": "normal",
-      "expectedBeatId": "b2",
+      "expectedBeatId": "b1",
       "beatId": null,
-      "ms": 0.00549999999999784
+      "ms": 0.01274999999999693
     },
     {
       "index": 82,
-      "actual": "future_spoiler",
-      "predicted": "future_spoiler",
+      "actual": "past_talk",
+      "predicted": "past_talk",
       "expectedBeatId": "b2",
       "beatId": "b2",
-      "ms": 0.009208000000000993
+      "ms": 0.011916999999996847
     },
     {
       "index": 83,
-      "actual": "future_spoiler",
-      "predicted": "future_spoiler",
-      "expectedBeatId": "b2",
-      "beatId": "b2",
-      "ms": 0.00520899999999358
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b3",
+      "beatId": "b3",
+      "ms": 0.010708000000008155
     },
     {
       "index": 84,
-      "actual": "future_spoiler",
-      "predicted": "normal",
-      "expectedBeatId": "b2",
-      "beatId": null,
-      "ms": 0.004874999999998408
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b4",
+      "beatId": "b4",
+      "ms": 0.010083000000008724
     },
     {
       "index": 85,
-      "actual": "future_spoiler",
-      "predicted": "normal",
-      "expectedBeatId": "b2",
-      "beatId": null,
-      "ms": 0.0061659999999932324
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b5",
+      "beatId": "b5",
+      "ms": 0.010750000000001592
     },
     {
       "index": 86,
-      "actual": "future_spoiler",
-      "predicted": "future_spoiler",
-      "expectedBeatId": "b2",
-      "beatId": "b2",
-      "ms": 0.0051250000000067075
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b6",
+      "beatId": "b6",
+      "ms": 0.010625000000004547
     },
     {
       "index": 87,
-      "actual": "future_spoiler",
-      "predicted": "future_spoiler",
-      "expectedBeatId": "b2",
-      "beatId": "b2",
-      "ms": 0.005250000000003752
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b1",
+      "beatId": null,
+      "ms": 0.01170799999999872
     },
     {
       "index": 88,
-      "actual": "future_spoiler",
-      "predicted": "future_spoiler",
+      "actual": "past_talk",
+      "predicted": "past_talk",
       "expectedBeatId": "b2",
       "beatId": "b2",
-      "ms": 0.004457999999999629
+      "ms": 0.011333000000007587
     },
     {
       "index": 89,
-      "actual": "future_spoiler",
-      "predicted": "future_spoiler",
+      "actual": "past_talk",
+      "predicted": "past_talk",
       "expectedBeatId": "b3",
       "beatId": "b3",
-      "ms": 0.005041000000005624
+      "ms": 0.010334000000000287
     },
     {
       "index": 90,
-      "actual": "future_spoiler",
-      "predicted": "normal",
-      "expectedBeatId": "b3",
-      "beatId": null,
-      "ms": 0.016832999999991216
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b4",
+      "beatId": "b4",
+      "ms": 0.009875000000008072
     },
     {
       "index": 91,
-      "actual": "future_spoiler",
-      "predicted": "normal",
-      "expectedBeatId": "b3",
-      "beatId": null,
-      "ms": 0.005916999999996619
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b5",
+      "beatId": "b5",
+      "ms": 0.010083999999991988
     },
     {
       "index": 92,
-      "actual": "future_spoiler",
-      "predicted": "normal",
-      "expectedBeatId": "b3",
-      "beatId": null,
-      "ms": 0.0049999999999954525
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b6",
+      "beatId": "b6",
+      "ms": 0.010457999999999856
     },
     {
       "index": 93,
-      "actual": "future_spoiler",
+      "actual": "past_talk",
       "predicted": "normal",
-      "expectedBeatId": "b3",
+      "expectedBeatId": "b1",
       "beatId": null,
-      "ms": 0.005750000000006139
+      "ms": 0.01145799999999042
     },
     {
       "index": 94,
-      "actual": "future_spoiler",
-      "predicted": "normal",
-      "expectedBeatId": "b3",
-      "beatId": null,
-      "ms": 0.006083000000003835
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b2",
+      "beatId": "b2",
+      "ms": 0.01054200000000094
     },
     {
       "index": 95,
-      "actual": "future_spoiler",
-      "predicted": "future_spoiler",
+      "actual": "past_talk",
+      "predicted": "past_talk",
       "expectedBeatId": "b3",
       "beatId": "b3",
-      "ms": 0.0050829999999990605
+      "ms": 0.009999999999990905
     },
     {
       "index": 96,
-      "actual": "future_spoiler",
-      "predicted": "future_spoiler",
-      "expectedBeatId": "b3",
-      "beatId": "b3",
-      "ms": 0.00591700000001083
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b4",
+      "beatId": "b4",
+      "ms": 0.009750000000011028
     },
     {
       "index": 97,
-      "actual": "future_spoiler",
-      "predicted": "future_spoiler",
-      "expectedBeatId": "b3",
-      "beatId": "b3",
-      "ms": 0.004375000000010232
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b5",
+      "beatId": "b5",
+      "ms": 0.010000000000005116
     },
     {
       "index": 98,
-      "actual": "future_spoiler",
-      "predicted": "normal",
-      "expectedBeatId": "b3",
-      "beatId": null,
-      "ms": 0.013958000000002357
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b6",
+      "beatId": "b6",
+      "ms": 0.0105829999999969
     },
     {
       "index": 99,
-      "actual": "future_spoiler",
-      "predicted": "future_spoiler",
-      "expectedBeatId": "b3",
-      "beatId": "b3",
-      "ms": 0.007832999999990875
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b1",
+      "beatId": null,
+      "ms": 0.011625000000009322
     },
     {
       "index": 100,
-      "actual": "future_spoiler",
-      "predicted": "future_spoiler",
-      "expectedBeatId": "b3",
-      "beatId": "b3",
-      "ms": 0.005374999999986585
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b2",
+      "beatId": "b2",
+      "ms": 0.0105829999999969
     },
     {
       "index": 101,
-      "actual": "future_spoiler",
-      "predicted": "future_spoiler",
+      "actual": "past_talk",
+      "predicted": "past_talk",
       "expectedBeatId": "b3",
       "beatId": "b3",
-      "ms": 0.004417000000003668
+      "ms": 0.010041000000001077
     },
     {
       "index": 102,
-      "actual": "future_spoiler",
-      "predicted": "normal",
-      "expectedBeatId": "b3",
-      "beatId": null,
-      "ms": 0.005667000000002531
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b4",
+      "beatId": "b4",
+      "ms": 0.009833000000000425
     },
     {
       "index": 103,
-      "actual": "future_spoiler",
-      "predicted": "normal",
-      "expectedBeatId": "b3",
-      "beatId": null,
-      "ms": 0.008957999999992694
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b5",
+      "beatId": "b5",
+      "ms": 0.009875000000008072
     },
     {
       "index": 104,
-      "actual": "future_spoiler",
-      "predicted": "future_spoiler",
-      "expectedBeatId": "b3",
-      "beatId": "b3",
-      "ms": 0.005207999999996105
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b6",
+      "beatId": "b6",
+      "ms": 0.010000000000005116
     },
     {
       "index": 105,
-      "actual": "future_spoiler",
-      "predicted": "future_spoiler",
-      "expectedBeatId": "b4",
-      "beatId": "b4",
-      "ms": 0.004499999999993065
+      "actual": "past_talk",
+      "predicted": "normal",
+      "expectedBeatId": "b1",
+      "beatId": null,
+      "ms": 0.010915999999994597
     },
     {
       "index": 106,
-      "actual": "future_spoiler",
-      "predicted": "future_spoiler",
-      "expectedBeatId": "b4",
-      "beatId": "b4",
-      "ms": 0.004750000000001364
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b2",
+      "beatId": "b2",
+      "ms": 0.010499999999993292
     },
     {
       "index": 107,
-      "actual": "future_spoiler",
-      "predicted": "normal",
-      "expectedBeatId": "b4",
-      "beatId": null,
-      "ms": 0.0061249999999972715
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b3",
+      "beatId": "b3",
+      "ms": 0.00995800000001168
     },
     {
       "index": 108,
-      "actual": "future_spoiler",
-      "predicted": "future_spoiler",
+      "actual": "past_talk",
+      "predicted": "past_talk",
       "expectedBeatId": "b4",
       "beatId": "b4",
-      "ms": 0.004915999999994369
+      "ms": 0.009666999999993209
     },
     {
       "index": 109,
-      "actual": "future_spoiler",
-      "predicted": "future_spoiler",
-      "expectedBeatId": "b4",
-      "beatId": "b4",
-      "ms": 0.005832999999995536
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b5",
+      "beatId": "b5",
+      "ms": 0.011291999999997415
     },
     {
       "index": 110,
-      "actual": "future_spoiler",
-      "predicted": "future_spoiler",
-      "expectedBeatId": "b4",
-      "beatId": "b4",
-      "ms": 0.004166999999995369
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b6",
+      "beatId": "b6",
+      "ms": 0.009792000000004464
     },
     {
       "index": 111,
-      "actual": "future_spoiler",
+      "actual": "past_talk",
       "predicted": "normal",
-      "expectedBeatId": "b4",
+      "expectedBeatId": "b1",
       "beatId": null,
-      "ms": 0.0060419999999936636
+      "ms": 0.011208999999993807
     },
     {
       "index": 112,
-      "actual": "future_spoiler",
-      "predicted": "normal",
-      "expectedBeatId": "b4",
-      "beatId": null,
-      "ms": 0.0061670000000049185
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b2",
+      "beatId": "b2",
+      "ms": 0.01054200000000094
     },
     {
       "index": 113,
-      "actual": "future_spoiler",
-      "predicted": "future_spoiler",
-      "expectedBeatId": "b4",
-      "beatId": "b4",
-      "ms": 0.00549999999999784
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b3",
+      "beatId": "b3",
+      "ms": 0.009999999999990905
     },
     {
       "index": 114,
-      "actual": "future_spoiler",
-      "predicted": "future_spoiler",
+      "actual": "past_talk",
+      "predicted": "past_talk",
       "expectedBeatId": "b4",
       "beatId": "b4",
-      "ms": 0.005291999999997188
+      "ms": 0.009791000000006989
     },
     {
       "index": 115,
-      "actual": "backseat",
-      "predicted": "backseat",
-      "expectedBeatId": null,
-      "beatId": null,
-      "ms": 0.005791999999999575
+      "actual": "past_talk",
+      "predicted": "past_talk",
+      "expectedBeatId": "b5",
+      "beatId": "b5",
+      "ms": 0.009665999999995734
     },
     {
       "index": 116,
@@ -998,7 +998,7 @@
       "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.005583000000001448
+      "ms": 0.010916000000008808
     },
     {
       "index": 117,
@@ -1006,7 +1006,7 @@
       "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.005458000000004404
+      "ms": 0.009875000000008072
     },
     {
       "index": 118,
@@ -1014,7 +1014,7 @@
       "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.004417000000003668
+      "ms": 0.009500000000002728
     },
     {
       "index": 119,
@@ -1022,23 +1022,23 @@
       "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.005375000000000796
+      "ms": 0.009624999999999773
     },
     {
       "index": 120,
       "actual": "backseat",
-      "predicted": "backseat",
+      "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.005457999999990193
+      "ms": 0.1613749999999925
     },
     {
       "index": 121,
       "actual": "backseat",
-      "predicted": "backseat",
+      "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.013750000000001705
+      "ms": 0.014250000000004093
     },
     {
       "index": 122,
@@ -1046,7 +1046,7 @@
       "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.007041999999998438
+      "ms": 0.011625000000009322
     },
     {
       "index": 123,
@@ -1054,7 +1054,7 @@
       "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.006583000000006223
+      "ms": 0.011957999999992808
     },
     {
       "index": 124,
@@ -1062,7 +1062,7 @@
       "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.010874999999998636
+      "ms": 0.009624999999999773
     },
     {
       "index": 125,
@@ -1070,15 +1070,15 @@
       "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.006249999999994316
+      "ms": 0.009624999999999773
     },
     {
       "index": 126,
       "actual": "backseat",
-      "predicted": "backseat",
+      "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.0061659999999932324
+      "ms": 0.009624999999999773
     },
     {
       "index": 127,
@@ -1086,7 +1086,7 @@
       "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.0050829999999990605
+      "ms": 0.010167000000009807
     },
     {
       "index": 128,
@@ -1094,7 +1094,7 @@
       "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.00549999999999784
+      "ms": 0.009750000000011028
     },
     {
       "index": 129,
@@ -1102,15 +1102,15 @@
       "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.0057910000000021
+      "ms": 0.009790999999992778
     },
     {
       "index": 130,
       "actual": "backseat",
-      "predicted": "backseat",
+      "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.005750000000006139
+      "ms": 0.01012500000000216
     },
     {
       "index": 131,
@@ -1118,7 +1118,7 @@
       "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.004917000000006055
+      "ms": 0.009874999999993861
     },
     {
       "index": 132,
@@ -1126,7 +1126,7 @@
       "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.0061249999999972715
+      "ms": 0.00970800000000338
     },
     {
       "index": 133,
@@ -1134,15 +1134,15 @@
       "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.005458000000004404
+      "ms": 0.009917000000001508
     },
     {
       "index": 134,
       "actual": "backseat",
-      "predicted": "backseat",
+      "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.004958999999999492
+      "ms": 0.009917000000001508
     },
     {
       "index": 135,
@@ -1150,7 +1150,7 @@
       "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.0049169999999918446
+      "ms": 0.009584000000003812
     },
     {
       "index": 136,
@@ -1158,7 +1158,7 @@
       "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.0061670000000049185
+      "ms": 0.009500000000002728
     },
     {
       "index": 137,
@@ -1166,15 +1166,15 @@
       "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.005916999999996619
+      "ms": 0.009709000000000856
     },
     {
       "index": 138,
       "actual": "backseat",
-      "predicted": "normal",
+      "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.004874999999998408
+      "ms": 0.009624999999999773
     },
     {
       "index": 139,
@@ -1182,15 +1182,15 @@
       "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.005958000000006791
+      "ms": 0.010417000000003895
     },
     {
       "index": 140,
       "actual": "backseat",
-      "predicted": "normal",
+      "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.006000000000000227
+      "ms": 0.00941699999999912
     },
     {
       "index": 141,
@@ -1198,31 +1198,31 @@
       "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.005666000000005056
+      "ms": 0.009584000000003812
     },
     {
       "index": 142,
       "actual": "backseat",
-      "predicted": "backseat",
+      "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.005541999999991276
+      "ms": 0.009374999999991473
     },
     {
       "index": 143,
       "actual": "backseat",
-      "predicted": "backseat",
+      "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.004792000000009011
+      "ms": 0.009624999999999773
     },
     {
       "index": 144,
       "actual": "backseat",
-      "predicted": "backseat",
+      "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.0071249999999878355
+      "ms": 0.009375000000005684
     },
     {
       "index": 145,
@@ -1230,7 +1230,7 @@
       "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.0059590000000042664
+      "ms": 0.009457999999995081
     },
     {
       "index": 146,
@@ -1238,15 +1238,15 @@
       "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.005707999999998492
+      "ms": 0.00970800000000338
     },
     {
       "index": 147,
       "actual": "backseat",
-      "predicted": "normal",
+      "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.005708999999995967
+      "ms": 0.009458999999992557
     },
     {
       "index": 148,
@@ -1254,7 +1254,7 @@
       "predicted": "normal",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.005000000000009663
+      "ms": 0.009833000000000425
     },
     {
       "index": 149,
@@ -1262,15 +1262,15 @@
       "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.005542000000005487
+      "ms": 0.00970800000000338
     },
     {
       "index": 150,
       "actual": "backseat",
-      "predicted": "normal",
+      "predicted": "backseat",
       "expectedBeatId": null,
       "beatId": null,
-      "ms": 0.013833999999988578
+      "ms": 0.009999999999990905
     }
   ]
 }

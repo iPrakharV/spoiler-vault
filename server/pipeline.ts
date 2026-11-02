@@ -16,16 +16,17 @@ export class Pipeline {
   releaseReached: () => void = () => {};
   constructor(readonly story: Story, readonly store: Store, private classify: Classifier,
     private transport: Transport, readonly broadcast: Broadcast) {}
-  status() { return { type: 'status', currentBeat: this.store.currentBeat, ...this.store.counts() }; }
+  status() { const { vaultCount, jarCount } = this.store.counts(); return { type: 'status', currentBeat: this.store.currentBeat, vaultCount, jarCount }; }
   private warn(operation: string, error: unknown) {
     console.error(`${operation}: ${error instanceof Error ? error.message : 'failed'}`);
-    this.broadcast({ type: 'warning', operation, message: 'Action failed. Check the server terminal.' }, true);
+    this.store.warning = operation;
   }
   async reply(text: string) {
     try { await this.transport.reply(text); } catch (error) { this.warn('chat_reply', error); }
   }
   private async hold(message: Message, kind: Held['kind'], result?: Classification, reason: string | null = null) {
     this.store.hold(message, kind, result, reason);
+    this.store.addFeed(message, kind, result);
     try {
       await this.transport.deleteMessage(message.id);
       this.store.markDeleted(message.id);
@@ -49,6 +50,7 @@ export class Pipeline {
     const beatAtArrival = this.store.currentBeat;
     let result: Classification | undefined;
     let outcome = 'passed';
+    let classifyMs = 0;
     try {
       // Leave time for Helix deletion before the six second visibility delay expires.
       const ageMs = Math.max(0, Date.now() - Date.parse(message.at!));
@@ -56,8 +58,10 @@ export class Pipeline {
       try {
         if (!Number.isFinite(budget) || budget < 100) throw new Error('Message arrived too late to classify');
         result = validateClassification(await deadline(this.classify(message.text, beatAtArrival, budget), budget), this.story, beatAtArrival);
+        classifyMs = performance.now() - start;
         if (result.confidence < 0.65) throw new Error('Low classification confidence');
       } catch (error) {
+        classifyMs = performance.now() - start;
         outcome = 'pending';
         await this.hold(message, 'pending', undefined, error instanceof Error ? error.message : 'Classifier failed');
         return;
@@ -66,10 +70,13 @@ export class Pipeline {
         outcome = 'sealed'; await this.hold(message, 'vault', result);
       } else if (result.label === 'backseat') {
         outcome = 'jar'; await this.hold(message, 'hint', result);
-      } else this.broadcast({ type: 'chat', user: message.user, text: message.text, label: result.label }, true);
+      } else {
+        this.store.addFeed(message, 'chat', result);
+        this.broadcast({ type: 'chat', user: message.user, text: message.text, label: result.label }, true);
+      }
     } finally {
       const ms = performance.now() - start;
-      this.store.logLatency(message.id, result?.label || 'pending', ms, outcome);
+      this.store.logLatency(message.id, result?.label || 'pending', classifyMs, outcome);
       console.log(JSON.stringify({ type: 'latency', id: message.id, label: result?.label || 'pending', outcome, ms: Math.round(ms) }));
     }
   }

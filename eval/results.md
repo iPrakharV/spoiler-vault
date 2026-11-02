@@ -1,17 +1,17 @@
-# Spoiler Vault evaluation
+# Spoiler vault evaluation
 
-Run: 2026-11-01T19:58:16.685Z
+Run: 2026-11-02T03:48:45.199Z
 
 Mode: OFFLINE HEURISTIC BASELINE. These are not OpenAI model results.
 
-Story: The Last Lantern (placeholder). Messages: 150. Errors or low-confidence holds: 0.
+Story: The Orison file. Messages: 150. Errors or low-confidence holds: 0.
 
 | Label | Support | Precision | Recall | F1 |
 | --- | ---: | ---: | ---: | ---: |
-| normal | 38 | 0.430 | 0.974 | 0.597 |
-| past_talk | 38 | 1.000 | 0.184 | 0.311 |
-| future_spoiler | 38 | 1.000 | 0.605 | 0.754 |
-| backseat | 36 | 0.912 | 0.861 | 0.886 |
+| normal | 40 | 0.722 | 0.975 | 0.830 |
+| past_talk | 35 | 1.000 | 0.829 | 0.906 |
+| future_spoiler | 40 | 1.000 | 1.000 | 1.000 |
+| backseat | 35 | 0.963 | 0.743 | 0.839 |
 
 ## Confusion matrix
 
@@ -19,18 +19,18 @@ Rows are actual labels. Columns are predictions. Pending counts as a false negat
 
 | Actual / predicted | normal | past_talk | future_spoiler | backseat | pending |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| normal | 37 | 0 | 0 | 1 | 0 |
-| past_talk | 29 | 7 | 0 | 2 | 0 |
-| future_spoiler | 15 | 0 | 23 | 0 | 0 |
-| backseat | 5 | 0 | 0 | 31 | 0 |
+| normal | 39 | 0 | 0 | 1 | 0 |
+| past_talk | 6 | 29 | 0 | 0 | 0 |
+| future_spoiler | 0 | 0 | 40 | 0 | 0 |
+| backseat | 9 | 0 | 0 | 26 | 0 |
 
 ## Latency
 
-Classifier latency p50: 0.01 ms. p95: 0.01 ms.
+Classifier latency p50: 0.01 ms. p95: 0.02 ms.
 
 Nearest-rank percentiles include errors and timeouts. This measures classification only, not Twitch deletion or reply latency.
 
-Correct future-spoiler label AND release target: 23/38.
+Correct future-spoiler label AND release target: 40/40.
 
-These are hand-labeled synthetic examples for the placeholder story, not Twitch production traffic.
+These are labeled synthetic examples for The Orison file, not Twitch production traffic.
 No training split or model tuning was done. Replace and review fixtures when the story changes.

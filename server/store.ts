@@ -10,11 +10,13 @@ export interface Held {
 }
 export class Store {
   db: Database.Database;
+  warning = '';
   constructor(file: string, story: Story) {
     if (file !== ':memory:') mkdirSync(dirname(file), { recursive: true, mode: 0o700 });
     this.db = new Database(file);
     this.db.pragma('journal_mode = WAL');
     this.db.exec(`
+      CREATE TABLE IF NOT EXISTS feed (id TEXT PRIMARY KEY, user TEXT, at TEXT, kind TEXT, label TEXT, text TEXT, beatId TEXT, hintLevel INTEGER);
       CREATE TABLE IF NOT EXISTS state (key TEXT PRIMARY KEY, value TEXT NOT NULL);
       CREATE TABLE IF NOT EXISTS seen (id TEXT PRIMARY KEY);
       CREATE TABLE IF NOT EXISTS holds (
@@ -81,6 +83,27 @@ export class Store {
       }
       return items;
     })();
+  }
+  addFeed(message: Message, kind: string, result?: Classification) {
+    this.db.prepare('INSERT OR IGNORE INTO feed VALUES (?,?,?,?,?,?,?,?)').run(message.id, message.user,
+      message.at || new Date().toISOString(), kind, result?.label || 'pending', kind === 'chat' ? message.text : null,
+      result?.beatId || null, result?.hintLevel || null);
+  }
+  desk() {
+    const rows = this.db.prepare('SELECT * FROM feed ORDER BY rowid DESC LIMIT 300').all().reverse();
+    const vault = (this.db.prepare(`SELECT user, beatId, sealedAt, length(text) AS length FROM holds
+      WHERE kind = 'vault' AND released = 0 ORDER BY sealedAt`).all());
+    const levels = [1, 2, 3, 4, 5].map(level => (this.db.prepare(`SELECT count(*) AS n FROM holds
+      WHERE kind = 'hint' AND released = 0 AND hintLevel = ?`).get(level) as { n: number }).n);
+    const lastHint = this.db.prepare(`SELECT text, user, hintLevel AS level FROM holds WHERE kind = 'hint'
+      AND released = 1 ORDER BY rowid DESC LIMIT 1`).get() || null;
+    const latency = this.db.prepare('SELECT ms, outcome FROM latency ORDER BY id').all() as { ms: number; outcome: string }[];
+    const sorted = latency.map(r => r.ms).sort((a, b) => a - b);
+    const stats = { processed: latency.length, sealed: latency.filter(r => r.outcome === 'sealed').length,
+      hints: latency.filter(r => r.outcome === 'jar').length,
+      avg: sorted.length ? sorted.reduce((a, b) => a + b, 0) / sorted.length : 0,
+      p95: sorted[Math.max(0, Math.ceil(sorted.length * .95) - 1)] || 0 };
+    return { feed: rows, vault, levels, lastHint, stats, warning: this.warning, ...this.counts() };
   }
   close() { this.db.close(); }
 }

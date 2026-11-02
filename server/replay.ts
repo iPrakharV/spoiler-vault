@@ -10,7 +10,7 @@ import { labels, type Classification, type Classifier } from './types.js';
 
 type Entry = { progress: string; delayMs?: number } | {
   delayMs: number; user: string; text: string; label: Classification['label'];
-  beatId: string | null; hintLevel: number | null;
+  beatId: string | null; hintLevel: number | null; fault?: 'timeout';
 };
 const offline = process.argv.includes('--offline');
 const exit = process.argv.includes('--exit');
@@ -26,7 +26,9 @@ for (const entry of entries) {
     !Number.isFinite(entry.delayMs) || entry.delayMs < 0) throw new Error('Invalid replay message');
 }
 let expected: Classification;
+let fault: string | undefined;
 const classify: Classifier = offline ? async (_text, currentBeat) => {
+  if (fault === 'timeout') throw new Error('Classifier timed out');
   if (expected.label === 'future_spoiler' && expected.beatId &&
       findBeat(story, expected.beatId).order <= findBeat(story, currentBeat).order) {
     return { ...expected, label: 'past_talk' };
@@ -55,6 +57,7 @@ try {
     await pause((entry.delayMs ?? 1500) / speed, undefined, { signal: abort.signal });
     if ('progress' in entry) runtime.controls.progress(entry.progress);
     else {
+      fault = entry.fault;
       expected = { label: entry.label, beatId: entry.beatId, hintLevel: entry.hintLevel, confidence: 1 };
       await runtime.pipeline.process({ id: randomUUID(), user: entry.user, text: entry.text,
         broadcaster: entry.user.toLowerCase() === 'broadcaster' });

@@ -56,7 +56,7 @@ test('delete and reply failures keep holds and report warnings without safe-chat
   assert.equal(env.store.counts().vaultCount, 1);
   const row = env.store.db.prepare('SELECT deleted FROM holds').get() as { deleted: number };
   assert.equal(row.deleted, 0);
-  assert.equal(env.events.filter(item => item.event.type === 'warning').length, 2);
+  assert.equal(env.store.warning, 'chat_reply');
   assert(!env.events.some(item => item.event.type === 'chat'));
 });
 test('hint release uses level then age, releases one, and ignores a viewer command', async t => {

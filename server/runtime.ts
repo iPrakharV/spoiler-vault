@@ -1,5 +1,6 @@
 import { createServer } from 'node:http';
 import type { Express } from 'express';
+import { config } from './config.js';
 import { createApp, errorHandler } from './app.js';
 import { createHub } from './broadcast.js';
 import { Controls } from './controls.js';
@@ -19,6 +20,7 @@ export function createRuntime(options: Options) {
   const controls = new Controls(pipeline);
   controls.mount(app);
   app.get('/api/status', (_req, res) => res.json({ ...pipeline.status(), mode: options.mode,
+    channel: options.mode === 'replay' ? 'harbor_watch' : config.channel, pendingCount: store.counts().pendingCount,
     classifierReady: options.classifierReady, twitch: options.connection?.() || 'disconnected' }));
   options.configure?.(app, pipeline);
   app.use(errorHandler);

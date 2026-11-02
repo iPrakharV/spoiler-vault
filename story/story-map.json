@@ -1,9 +1,63 @@
 {
-  "game": "The Last Lantern (placeholder)",
+  "game": "The Orison file",
   "beats": [
-    { "id": "b1", "order": 1, "chapter": "The quiet station", "summary": "You arrive at a dark station carrying an unlit lantern.", "secrets": [] },
-    { "id": "b2", "order": 2, "chapter": "The ticket window", "summary": "You find a brass key under the ticket counter and open the lantern cabinet.", "secrets": ["The brass key is hidden under the ticket counter.", "The key opens the lantern cabinet."] },
-    { "id": "b3", "order": 3, "chapter": "A familiar voice", "summary": "The station keeper is your future self, waiting to return the lantern.", "secrets": ["The station keeper is your future self.", "The keeper has been waiting to return the lantern."] },
-    { "id": "b4", "order": 4, "chapter": "The morning train", "summary": "Lighting the lantern brings the morning train home and frees the keeper from the loop.", "secrets": ["Lighting the lantern summons the morning train.", "The lantern breaks the time loop and frees the keeper."] }
+    {
+      "id": "b1",
+      "order": 1,
+      "chapter": "The empty berth",
+      "summary": "The supply ship Orison has missed its evening arrival. You are the lighthouse keeper. A relief keeper named Mara has left a dry envelope at your door.",
+      "secrets": []
+    },
+    {
+      "id": "b2",
+      "order": 2,
+      "chapter": "The tide ledger",
+      "summary": "The ledger shows water depths of 1.8m at 17:40, 2.4m at 18:00 and 3.1m at 18:20. Orison draws 2.6m, so 18:20 is the first safe crossing.",
+      "secrets": [
+        "Orison can first cross the bar at 18:20.",
+        "The first safe depth for Orison is 3.1m at 18:20."
+      ]
+    },
+    {
+      "id": "b3",
+      "order": 3,
+      "chapter": "The disused quay",
+      "summary": "At the old quay you find Orison's bell wrapped in sailcloth. A torn manifest lists six passengers, not the lamp oil you expected.",
+      "secrets": [
+        "The missing ship carried six passengers, not lamp oil.",
+        "Orison's bell is hidden at the disused quay."
+      ]
+    },
+    {
+      "id": "b4",
+      "order": 4,
+      "chapter": "The signal room",
+      "summary": "The signal strip reads short, long, short: the code for inner cove. Someone logged it as return to harbor.",
+      "secrets": [
+        "Short, long, short means inner cove.",
+        "The signal log was changed from inner cove to return to harbor."
+      ]
+    },
+    {
+      "id": "b5",
+      "order": 5,
+      "chapter": "The second signature",
+      "summary": "Mara, the relief keeper, is Orison's captain. She hid the ship at the inner cove to protect six witnesses who can prove the harbor master sold false safety certificates.",
+      "secrets": [
+        "Mara is the captain of Orison as well as the relief keeper.",
+        "Mara hid Orison and six witnesses at the inner cove.",
+        "The harbor master sold false safety certificates."
+      ]
+    },
+    {
+      "id": "b6",
+      "order": 6,
+      "chapter": "The answering light",
+      "summary": "You send the clear channel signal. Orison answers from the cove and comes home with the witnesses. The original signal strip and manifest are delivered to the inquiry.",
+      "secrets": [
+        "The clear channel signal brings Orison and the witnesses safely home.",
+        "The original signal strip and manifest expose the harbor master at the inquiry."
+      ]
+    }
   ]
 }

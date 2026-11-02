@@ -56,3 +56,21 @@ test('websocket snapshots reconnect cleanly and safe chat reaches dashboard only
   assert.equal(JSON.parse(raw.toString()).currentBeat, 'b3');
   reconnect.close();
 });
+
+
+test('wire events keep exact contract keys and caught text stays out of desk data', async t => {
+  const { runtime, base, ws } = await boot(); t.after(() => runtime.close());
+  const keys: Record<string, string[]> = { status: ['type','currentBeat','vaultCount','jarCount'], sealed: ['type','user','beatId','at'],
+    reveal: ['type','beatId','items'], hint: ['type','text','user','level'], leaderboard: ['type','entries'], chat: ['type','user','text','label'] };
+  const socket = new WebSocket(`${ws}?role=dashboard`); const events: Record<string, unknown>[] = [];
+  socket.on('message', raw => events.push(JSON.parse(raw.toString()))); await once(socket, 'open');
+  runtime.store.hold(message('private text', 'alice'), 'vault', { label:'future_spoiler',beatId:'b3',confidence:1,hintLevel:null });
+  runtime.broadcast({ type:'sealed',user:'alice',beatId:'b3',at:new Date().toISOString() });
+  runtime.store.hold(message('look around', 'bob'), 'hint', { label:'backseat',beatId:null,confidence:1,hintLevel:2 });
+  await runtime.controls.hint(); await runtime.pipeline.process(message('hello')); runtime.controls.progress('b3');
+  await new Promise(resolve => setTimeout(resolve, 30));
+  for (const event of events) assert.deepEqual(Object.keys(event).sort(), keys[String(event.type)].sort());
+  assert.deepEqual([...new Set(events.map(e => e.type))].sort(), Object.keys(keys).sort());
+  const desk = JSON.stringify(await (await fetch(`${base}/api/desk`)).json()); assert(!desk.includes('private text'));
+  socket.close();
+});

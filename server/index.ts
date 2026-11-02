@@ -26,7 +26,7 @@ const runtime = createRuntime({ story, file: join(root, '.data/live.sqlite'), cl
 events = new EventSub(twitch, async (event, at) => {
   await runtime.pipeline.process({ id: event.message_id, user: event.chatter_user_login, text: event.message.text, at,
     broadcaster: event.chatter_user_id === twitch.broadcasterId });
-}, state => { console.log(`Twitch: ${state}`); runtime.broadcast({ type: 'connection', state }, true); });
+}, state => { console.log(`Twitch: ${state}`);  });
 if (twitch.hasTokens) events.start().catch(error => console.error(error.message));
 setInterval(() => {
   if (twitch.hasTokens) twitch.refresh().catch(error => console.error(error.message));

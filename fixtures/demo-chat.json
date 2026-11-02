@@ -1,17 +1,295 @@
 [
-  { "delayMs": 1800, "user": "river", "text": "This station is so quiet. Love the mood.", "label": "normal", "beatId": null, "hintLevel": null },
-  { "delayMs": 1500, "user": "maya", "text": "The brass key is under the ticket counter!", "label": "future_spoiler", "beatId": "b2", "hintLevel": null },
-  { "delayMs": 1600, "user": "niko", "text": "The keeper is literally your future self.", "label": "future_spoiler", "beatId": "b3", "hintLevel": null },
-  { "delayMs": 1500, "user": "ellie", "text": "Go left and inspect every drawer right now.", "label": "backseat", "beatId": null, "hintLevel": 5 },
-  { "delayMs": 1400, "user": "sage", "text": "Maybe take a moment to look around.", "label": "backseat", "beatId": null, "hintLevel": 1 },
-  { "delayMs": 1700, "user": "river", "text": "Let them cook chat", "label": "normal", "beatId": null, "hintLevel": null },
-  { "delayMs": 1600, "user": "broadcaster", "text": "!hint", "label": "normal", "beatId": null, "hintLevel": null },
-  { "delayMs": 2500, "progress": "b2" },
-  { "delayMs": 1600, "user": "maya", "text": "That brass key under the counter was a nice find.", "label": "past_talk", "beatId": "b2", "hintLevel": null },
-  { "delayMs": 1600, "user": "rowan", "text": "The keeper is you from the future. Calling it now.", "label": "future_spoiler", "beatId": "b3", "hintLevel": null },
-  { "delayMs": 1800, "user": "maya", "text": "The lantern breaks the time loop and frees the keeper.", "label": "future_spoiler", "beatId": "b4", "hintLevel": null },
-  { "delayMs": 2500, "progress": "b3" },
-  { "delayMs": 1600, "user": "river", "text": "YOU WERE THE KEEPER?? what a reveal", "label": "past_talk", "beatId": "b3", "hintLevel": null },
-  { "delayMs": 2000, "progress": "b4" },
-  { "delayMs": 1500, "user": "sage", "text": "What a way to end a shift.", "label": "normal", "beatId": null, "hintLevel": null }
+  {
+    "delayMs": 650,
+    "user": "fen",
+    "text": "hello chat",
+    "label": "normal",
+    "beatId": null,
+    "hintLevel": null
+  },
+  {
+    "delayMs": 650,
+    "user": "robyn",
+    "text": "The fog is doing a lot of work tonight.",
+    "label": "normal",
+    "beatId": null,
+    "hintLevel": null
+  },
+  {
+    "delayMs": 650,
+    "user": "kit",
+    "text": "That envelope looks dry.",
+    "label": "normal",
+    "beatId": null,
+    "hintLevel": null
+  },
+  {
+    "delayMs": 650,
+    "user": "sable",
+    "text": "I like the sound of a quiet harbor.",
+    "label": "normal",
+    "beatId": null,
+    "hintLevel": null
+  },
+  {
+    "delayMs": 650,
+    "user": "fen",
+    "text": "I brought tea.",
+    "label": "normal",
+    "beatId": null,
+    "hintLevel": null
+  },
+  {
+    "delayMs": 650,
+    "user": "robyn",
+    "text": "No spoilers please.",
+    "label": "normal",
+    "beatId": null,
+    "hintLevel": null
+  },
+  {
+    "delayMs": 650,
+    "user": "kit",
+    "text": "This lighthouse needs a cleaner.",
+    "label": "normal",
+    "beatId": null,
+    "hintLevel": null
+  },
+  {
+    "delayMs": 650,
+    "user": "sable",
+    "text": "Anyone else taking notes?",
+    "label": "normal",
+    "beatId": null,
+    "hintLevel": null
+  },
+  {
+    "delayMs": 650,
+    "user": "moss",
+    "text": "The first safe crossing is at 18:20.",
+    "label": "future_spoiler",
+    "beatId": "b2",
+    "hintLevel": null
+  },
+  {
+    "delayMs": 650,
+    "user": "mira",
+    "text": "The bell is at the disused quay.",
+    "label": "future_spoiler",
+    "beatId": "b3",
+    "hintLevel": null
+  },
+  {
+    "delayMs": 650,
+    "user": "tali",
+    "text": "Mara is the captain of Orison.",
+    "label": "future_spoiler",
+    "beatId": "b5",
+    "hintLevel": null
+  },
+  {
+    "delayMs": 650,
+    "user": "reed",
+    "text": "The six people on the manifest are witnesses. Mara hid them.",
+    "label": "future_spoiler",
+    "beatId": "b5",
+    "hintLevel": null
+  },
+  {
+    "delayMs": 650,
+    "user": "ellis",
+    "text": "The clear channel signal brings the ship home.",
+    "label": "future_spoiler",
+    "beatId": "b6",
+    "hintLevel": null
+  },
+  {
+    "delayMs": 650,
+    "user": "nell",
+    "text": "Maybe take a second look at the page.",
+    "label": "backseat",
+    "beatId": null,
+    "hintLevel": 1
+  },
+  {
+    "delayMs": 650,
+    "user": "owen",
+    "text": "Read the times on the ledger.",
+    "label": "backseat",
+    "beatId": null,
+    "hintLevel": 2
+  },
+  {
+    "delayMs": 650,
+    "user": "kit",
+    "text": "Compare the two columns.",
+    "label": "backseat",
+    "beatId": null,
+    "hintLevel": 2
+  },
+  {
+    "delayMs": 650,
+    "user": "fen",
+    "text": "Click the rightmost answer.",
+    "label": "backseat",
+    "beatId": null,
+    "hintLevel": 5
+  },
+  {
+    "delayMs": 650,
+    "user": "ash",
+    "text": "I think the torn note might matter.",
+    "label": "normal",
+    "beatId": null,
+    "hintLevel": null,
+    "fault": "timeout"
+  },
+  {
+    "delayMs": 650,
+    "user": "fen",
+    "text": "Good luck with the case.",
+    "label": "normal",
+    "beatId": null,
+    "hintLevel": null
+  },
+  {
+    "delayMs": 650,
+    "user": "robyn",
+    "text": "The tide is higher than I thought.",
+    "label": "normal",
+    "beatId": null,
+    "hintLevel": null
+  },
+  {
+    "delayMs": 650,
+    "user": "kit",
+    "text": "I have no idea where this ship went.",
+    "label": "normal",
+    "beatId": null,
+    "hintLevel": null
+  },
+  {
+    "delayMs": 650,
+    "user": "sable",
+    "text": "The keeper has a long night ahead.",
+    "label": "normal",
+    "beatId": null,
+    "hintLevel": null
+  },
+  {
+    "delayMs": 650,
+    "user": "fen",
+    "text": "The printed notes look nice.",
+    "label": "normal",
+    "beatId": null,
+    "hintLevel": null
+  },
+  {
+    "delayMs": 650,
+    "user": "robyn",
+    "text": "Who else is watching from home?",
+    "label": "normal",
+    "beatId": null,
+    "hintLevel": null
+  },
+  {
+    "delayMs": 650,
+    "user": "kit",
+    "text": "That bell looks heavy.",
+    "label": "normal",
+    "beatId": null,
+    "hintLevel": null
+  },
+  {
+    "delayMs": 2500,
+    "progress": "b2"
+  },
+  {
+    "delayMs": 650,
+    "user": "broadcaster",
+    "text": "!hint",
+    "label": "normal",
+    "beatId": null,
+    "hintLevel": null
+  },
+  {
+    "delayMs": 650,
+    "user": "robyn",
+    "text": "Those tide numbers explain the crossing.",
+    "label": "past_talk",
+    "beatId": "b2",
+    "hintLevel": null
+  },
+  {
+    "delayMs": 3500,
+    "progress": "b3"
+  },
+  {
+    "delayMs": 650,
+    "user": "sable",
+    "text": "Six passengers instead of oil. That changes things.",
+    "label": "past_talk",
+    "beatId": "b3",
+    "hintLevel": null
+  },
+  {
+    "delayMs": 650,
+    "user": "moss",
+    "text": "Short, long, short means inner cove.",
+    "label": "future_spoiler",
+    "beatId": "b4",
+    "hintLevel": null
+  },
+  {
+    "delayMs": 650,
+    "user": "ash",
+    "text": "Let them read the paper first.",
+    "label": "normal",
+    "beatId": null,
+    "hintLevel": null
+  },
+  {
+    "delayMs": 6500,
+    "progress": "b4"
+  },
+  {
+    "delayMs": 650,
+    "user": "nell",
+    "text": "Read the marks one at a time.",
+    "label": "backseat",
+    "beatId": null,
+    "hintLevel": 1
+  },
+  {
+    "delayMs": 650,
+    "user": "broadcaster",
+    "text": "!hint",
+    "label": "normal",
+    "beatId": null,
+    "hintLevel": null
+  },
+  {
+    "delayMs": 6500,
+    "progress": "b5"
+  },
+  {
+    "delayMs": 650,
+    "user": "robyn",
+    "text": "Mara was the captain all along.",
+    "label": "past_talk",
+    "beatId": "b5",
+    "hintLevel": null
+  },
+  {
+    "delayMs": 6500,
+    "progress": "b6"
+  },
+  {
+    "delayMs": 650,
+    "user": "fen",
+    "text": "Good work. The ship is home.",
+    "label": "normal",
+    "beatId": null,
+    "hintLevel": null
+  }
 ]

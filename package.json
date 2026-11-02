@@ -11,7 +11,8 @@
     "replay": "tsx server/replay.ts",
     "eval": "tsx eval/run.ts",
     "test": "tsx --test server/tests/*.test.ts",
-    "check": "tsc --noEmit"
+    "check": "tsc --noEmit",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": { "better-sqlite3": "^11.10.0", "dotenv": "^16.6.1", "express": "^4.21.2", "ws": "^8.18.3" },
   "devDependencies": { "@types/better-sqlite3": "^7.6.13", "@types/express": "^4.17.21", "@types/node": "^20.19.0", "@types/ws": "^8.18.1", "tsx": "^4.20.2", "typescript": "^5.8.3" }

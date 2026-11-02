@@ -1,0 +1,105 @@
+[
+  {
+    "title": "The empty berth",
+    "body": [
+      "Case 04. North breakwater. 18:30.",
+      "The supply ship Orison should have crossed the bar before dusk. Its berth is empty. Its radio is quiet. You keep the lighthouse above the harbor, so the last light the ship saw was yours.",
+      "Mara, the relief keeper, has left an envelope beside your cold tea. Inside is a page torn from the tide ledger. Someone has circled the ship's draft: 2.6 metres."
+    ],
+    "choices": [
+      {
+        "id": "ledger",
+        "text": "Read the tide ledger"
+      }
+    ],
+    "answer": "ledger"
+  },
+  {
+    "title": "The tide ledger",
+    "body": [
+      "The torn page is dry. The rest of the ledger is wet. Someone wanted this page kept.",
+      "Water over the bar: 17:40, 1.8 metres. 18:00, 2.4 metres. 18:20, 3.1 metres. Orison needs at least 2.6 metres.",
+      "What is the first listed time the ship could cross safely?"
+    ],
+    "choices": [
+      {
+        "id": "17:40",
+        "text": "17:40"
+      },
+      {
+        "id": "18:00",
+        "text": "18:00"
+      },
+      {
+        "id": "18:20",
+        "text": "18:20"
+      }
+    ],
+    "answer": "18:20",
+    "wrong": "At that time the water is shallower than the ship's draft. Compare the numbers again."
+  },
+  {
+    "title": "The disused quay",
+    "body": [
+      "At 18:20 the old quay would have been above water. You take the path down.",
+      "A brass bell sits under sailcloth. ORISON is stamped around its rim. The ship cannot have gone far without it. Beneath the bell is a torn manifest.",
+      "Cargo: six passengers. No lamp oil. A pencilled line says: Keep their names out of the log. The handwriting matches the notes Mara leaves at shift change."
+    ],
+    "choices": [
+      {
+        "id": "signal",
+        "text": "Compare the signal strip with the log"
+      }
+    ],
+    "answer": "signal"
+  },
+  {
+    "title": "The signal room",
+    "body": [
+      "Three codes are pinned beside the shutter lamp. Long, short, long: return to harbor. Short, short, long: hold position. Short, long, short: inner cove.",
+      "The paper strip from 18:20 has three marks: short, long, short. The written log says return to harbor.",
+      "Where did the light actually send Orison?"
+    ],
+    "choices": [
+      {
+        "id": "harbor",
+        "text": "Return to harbor"
+      },
+      {
+        "id": "hold",
+        "text": "Hold position"
+      },
+      {
+        "id": "cove",
+        "text": "Inner cove"
+      }
+    ],
+    "answer": "cove",
+    "wrong": "Read the three marks on the paper strip, then compare them with the code card."
+  },
+  {
+    "title": "The second signature",
+    "body": [
+      "Mara is waiting at the foot of the tower. You lay the manifest and signal strip on the table. She turns the manifest over. Her full signature is there: Mara Venn, master of Orison.",
+      "She was never just your relief keeper. She brought six shipwrights across the bar to testify about the harbor master's false safety certificates. When the harbor patrol arrived, she hid the ship at the inner cove and came ashore by skiff.",
+      "The changed log sent the patrol back to the harbor. The ship is safe. The witnesses need one clear channel signal to come home."
+    ],
+    "choices": [
+      {
+        "id": "light",
+        "text": "Send the clear channel signal"
+      }
+    ],
+    "answer": "light"
+  },
+  {
+    "title": "The answering light",
+    "body": [
+      "A light answers from the inner cove. Then a second. Orison comes around the breakwater under its own power.",
+      "At dawn you give the inquiry the paper strip and the manifest. Six witnesses step onto the quay. Mara signs her name without crossing it out.",
+      "Case closed. The ship was missing from the log, not from the sea."
+    ],
+    "choices": [],
+    "answer": null
+  }
+]
