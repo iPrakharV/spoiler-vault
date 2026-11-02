@@ -132,7 +132,8 @@ try {
             k,
             getComputedStyle(document.documentElement)
               .getPropertyValue('--' + k)
-              .trim().toUpperCase(),
+              .trim()
+              .toUpperCase(),
           ]),
         ),
       };
@@ -160,6 +161,23 @@ try {
     };
     assert.deepEqual(layout.tokens, expected);
     await page.locator('.past-tag').last().waitFor({ state: 'visible' });
+    const redaction = await page
+      .locator('.redacted')
+      .first()
+      .evaluate((el) => {
+        const css = getComputedStyle(el);
+        return [css.backgroundColor, css.height, css.borderRadius];
+      });
+    assert.deepEqual(redaction, ['rgb(42, 46, 53)', '8px', '2px']);
+    assert.equal(
+      await page
+        .locator('.stat-strip > span')
+        .nth(1)
+        .evaluate((el) => getComputedStyle(el, '::before').content),
+      '" · "',
+    );
+    assert.match(await page.locator('.stat-strip').innerText(), /avg \d+ ms/);
+    assert.match(await page.locator('.stat-strip').innerText(), /p95 \d+ ms/);
     await page.screenshot({ path: join(out, `dashboard-${width}.png`) });
     record(
       `dashboard ${width}x${height}: dimensions, fonts, tokens, redaction, future steps and row types`,
@@ -178,7 +196,9 @@ try {
   const before = (await (await fetch(`${base}/api/desk`)).json()).jarCount;
   await page.keyboard.press('h');
   await until(async () => (await (await fetch(`${base}/api/desk`)).json()).jarCount === before - 1);
-  await page.waitForFunction(() => document.getElementById('latest-hint').textContent === '@owen: Read the times on the ledger.');
+  await page.waitForFunction(
+    () => document.getElementById('latest-hint').textContent === '@owen: Read the times on the ledger.',
+  );
   record('H releases one hint and renders its text');
   await page.keyboard.press('n');
   await page.waitForFunction(() => document.getElementById('beat-number').textContent === 'Beat 4 of 6');
@@ -206,9 +226,34 @@ try {
     });
     await page.evaluate(() => document.fonts.ready);
     await page.waitForSelector(`#${scene}:visible`);
-    if (scene === 'reveal')
+    if (scene === 'reveal') {
+      assert.equal(await page.locator('#crack').evaluate((el) => el.getBoundingClientRect().width), 40);
+      assert.equal(await page.locator('.seal-whole').evaluate((el) => getComputedStyle(el).opacity), '1');
+      assert.equal(
+        await page
+          .locator('.seal-whole .wax, .seal-whole path')
+          .first()
+          .evaluate((el) => getComputedStyle(el).fill),
+        'rgb(229, 72, 77)',
+      );
+      await page.screenshot({ path: join(out, 'overlay-seal.png'), omitBackground: true });
       await page.waitForFunction(() => document.getElementById('reveal-text').textContent.endsWith('safe.'));
-    else await page.waitForTimeout(300);
+      assert.equal(await page.locator('#more').isVisible(), false);
+      assert.equal(await page.locator('#more').textContent(), '');
+      const gap = await page.evaluate(
+        () =>
+          document.getElementById('status').getBoundingClientRect().top -
+          document.getElementById('reveal').getBoundingClientRect().bottom,
+      );
+      assert(gap >= 24, `Reveal gap is ${gap}px`);
+    } else await page.waitForTimeout(300);
+    if (scene === 'toast') assert.equal(await page.locator('#sealed-count').textContent(), '4');
+    if (scene === 'hint') assert.equal(await page.locator('#hint-count').textContent(), '3');
+    assert.equal(await page.locator('#status [data-icon=jar]').count(), 1);
+    assert.notEqual(
+      await page.locator('#status [data-icon=jar]').innerHTML(),
+      await page.locator('#status [data-icon=lock]').innerHTML(),
+    );
     const rect = await page.locator('#' + scene).boundingBox();
     if (scene === 'reveal') {
       assert.equal(rect.width, 1824);
@@ -231,7 +276,29 @@ try {
   await page.goto(`${base}/overlay/?demo=1&scene=toast`);
   await page.waitForSelector('#toast:visible');
   assert.equal(await page.locator('#toast').evaluate((el) => getComputedStyle(el).animationName), 'fade-in');
-  record('reduced motion replaces the toast slide with a fade');
+  assert((await page.locator('#toast').boundingBox()).x < 1920);
+  record('reduced motion replaces the toast slide with a visible fade');
+  await page.goto(`${base}/overlay/?demo=1&scene=leaderboard`);
+  await page.locator('#leaderboard:visible').waitFor();
+  await page.evaluate(() => {
+    const toast = document.getElementById('toast');
+    toast.hidden = false;
+    toast.classList.remove('enter', 'leave');
+  });
+  const inactive = await page
+    .locator('#toast')
+    .evaluate((el) => ({ opacity: getComputedStyle(el).opacity, left: el.getBoundingClientRect().left }));
+  assert.equal(inactive.opacity, '0');
+  assert(inactive.left >= 1920);
+  await page.evaluate(() => {
+    document.getElementById('toast').hidden = true;
+    document.getElementById('leaderboard').hidden = true;
+  });
+  await page.addStyleTag({
+    content: `body { background-image:url("data:image/svg+xml,${encodeURIComponent(checker)}"); }`,
+  });
+  await page.screenshot({ path: join(out, 'overlay-idle.png'), omitBackground: true });
+  record('inactive toast is fully off-screen and transparent, jar icon is distinct, and demo counts change');
   const motion = await context.newPage();
   motion.on('pageerror', (error) => errors.push(error.message));
   await motion.addInitScript(() => {
@@ -279,24 +346,34 @@ try {
     type: 'reveal',
     beatId: 'b5',
     items: [
-      { user: 'first', text: 'A held prediction.', sealedAt: new Date(Date.now() - 60000).toISOString() },
+      {
+        user: 'first',
+        text: 'A held prediction.',
+        sealedAt: new Date(Date.now() - 60000).toISOString(),
+        firstCall: true,
+      },
     ],
   });
   await motion.locator('#reveal:visible').waitFor();
-  const revealStart = Date.now();
+  await motion.locator('#first-call').waitFor({ state: 'visible' });
+  await motion.waitForSelector('#crack.cracking');
   assert.equal(
     await motion.locator('.seal-half.left').evaluate((el) => getComputedStyle(el).animationDuration),
     '0.5s',
   );
+  await motion.waitForFunction(
+    () => document.getElementById('reveal-text').textContent === 'A held prediction.',
+  );
+  const readStart = Date.now();
   await motion.locator('#leaderboard:visible').waitFor({ timeout: 6500 });
-  const revealTime = Date.now() - revealStart;
-  assert(revealTime >= 4900 && revealTime < 6000);
+  const revealTime = Date.now() - readStart;
+  assert(revealTime >= 4900 && revealTime < 6200);
   const boardStart = Date.now();
   await motion.locator('#leaderboard').waitFor({ state: 'hidden', timeout: 7000 });
   const boardTime = Date.now() - boardStart;
   assert(boardTime >= 5900 && boardTime < 7000);
   record(
-    'reveal items last five seconds, crack for 500ms, then show the leaderboard for six seconds',
+    'reveal items stay five seconds after typing, crack for 500ms, then show the leaderboard for six seconds',
     `${revealTime}ms reveal; ${boardTime}ms board`,
   );
   await send({
@@ -308,7 +385,7 @@ try {
       sealedAt: new Date().toISOString(),
     })),
   });
-  await motion.locator('#more').waitFor({ state: 'visible', timeout: 29_000 });
+  await motion.locator('#more').waitFor({ state: 'visible', timeout: 40_000 });
   assert.equal(await motion.locator('#more').textContent(), '+2 more in the vault log');
   assert.equal(await motion.locator('#reveal-text').textContent(), 'prediction 5');
   record('a reveal shows at most five items and then the remaining count');
@@ -317,11 +394,17 @@ try {
   record('no browser JavaScript errors');
   writeFileSync(
     join(out, 'verification.json'),
-    JSON.stringify({ status: 'passed', checks, browser: await browser.version(), date: new Date().toISOString() }, null, 2) +
-      '\n',
+    JSON.stringify(
+      { status: 'passed', checks, browser: await browser.version(), date: new Date().toISOString() },
+      null,
+      2,
+    ) + '\n',
   );
 } catch (error) {
-  writeFileSync(join(out, 'verification.json'), JSON.stringify({ status: 'failed', error: error.message, checks }, null, 2) + '\n');
+  writeFileSync(
+    join(out, 'verification.json'),
+    JSON.stringify({ status: 'failed', error: error.message, checks }, null, 2) + '\n',
+  );
   throw error;
 } finally {
   writeFileSync(join(root, 'work/verify-replay.log'), output);

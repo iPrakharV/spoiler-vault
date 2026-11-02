@@ -221,7 +221,7 @@
     "hintLevel": null
   },
   {
-    "delayMs": 3500,
+    "delayMs": 12000,
     "progress": "b3"
   },
   {
@@ -249,7 +249,7 @@
     "hintLevel": null
   },
   {
-    "delayMs": 6500,
+    "delayMs": 12000,
     "progress": "b4"
   },
   {
@@ -269,7 +269,7 @@
     "hintLevel": null
   },
   {
-    "delayMs": 6500,
+    "delayMs": 12000,
     "progress": "b5"
   },
   {
@@ -290,7 +290,7 @@
     "hintLevel": null
   },
   {
-    "delayMs": 6500,
+    "delayMs": 22000,
     "progress": "b6"
   },
   {

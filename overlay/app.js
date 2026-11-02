@@ -11,6 +11,7 @@ let entries = [],
   revealRunning = false,
   hintTimer,
   boardTimer;
+const demoCounts = { vaultCount: 3, jarCount: 2 };
 const toasts = [],
   reveals = [];
 function beatNumber(id) {
@@ -92,30 +93,31 @@ async function runReveals() {
     $('reveal-beat').textContent = `beat ${beatNumber(data.beatId)}`;
     const more = Math.max(0, data.items.length - 5);
     $('more').hidden = true;
-    $('more').textContent = `+${more} more in the vault log`;
+    $('more').textContent = more ? `+${more} more in the vault log` : '';
     scene('reveal');
     show('reveal');
     for (const item of data.items.slice(0, 5)) {
-      const start = performance.now(),
-        text = item.text;
+      const text = item.text;
       const minutes = Math.max(0, Math.floor((Date.now() - Date.parse(item.sealedAt)) / 60000));
       $('reveal-byline').textContent = `sealed ${minutes} min ago by @${item.user}`;
-      $('first-call').hidden = !awards.some(
-        (a) => a.user.toLowerCase() === item.user.toLowerCase() && a.sealedAt === item.sealedAt,
-      );
+      const firstCall =
+        item.firstCall ??
+        awards.some((a) => a.user.toLowerCase() === item.user.toLowerCase() && a.sealedAt === item.sealedAt);
+      $('first-call').hidden = !firstCall;
       $('reveal-text').textContent = reduced.matches ? text : '';
       $('crack').classList.remove('cracking');
       void $('crack').offsetWidth;
+      await wait(800);
       $('crack').classList.add('cracking');
       await wait(500);
       if (!reduced.matches) {
-        const charMs = Math.min(25, 4000 / Math.max(1, text.length));
+        const charMs = 25;
         for (let i = 1; i <= text.length; i++) {
           $('reveal-text').textContent = text.slice(0, i);
           await wait(charMs);
         }
       }
-      await wait(Math.max(0, 5000 - (performance.now() - start)));
+      await wait(5000);
     }
     if (more) {
       $('more').hidden = false;
@@ -127,6 +129,14 @@ async function runReveals() {
   board();
 }
 function event(data) {
+  if (demo && ['sealed', 'hint', 'reveal'].includes(data.type)) {
+    if (data.type === 'sealed') demoCounts.vaultCount++;
+    if (data.type === 'hint') demoCounts.jarCount++;
+    if (data.type === 'reveal')
+      demoCounts.vaultCount = Math.max(0, demoCounts.vaultCount - data.items.length);
+    setCount('sealed-count', demoCounts.vaultCount);
+    setCount('hint-count', demoCounts.jarCount);
+  }
   if (data.type === 'status') {
     setCount('sealed-count', data.vaultCount);
     setCount('hint-count', data.jarCount);
@@ -146,7 +156,7 @@ function event(data) {
   }
   if (data.type === 'reveal') {
     reveals.push(data);
-    runReveals();
+    return runReveals();
   }
   if (data.type === 'leaderboard') {
     entries = data.entries;
@@ -160,7 +170,9 @@ addEventListener('resize', fit);
 fit();
 function connect() {
   const socket = new WebSocket(`ws://${location.host}/ws`);
-  socket.onmessage = (e) => event(JSON.parse(e.data));
+  socket.onmessage = (e) => {
+    void event(JSON.parse(e.data));
+  };
   socket.onclose = () => setTimeout(connect, 1500);
   socket.onerror = () => socket.close();
 }
@@ -183,6 +195,7 @@ if (demo) {
           user: 'tali',
           text: 'Mara is the captain of Orison. She hid the ship to keep the witnesses safe.',
           sealedAt,
+          firstCall: true,
         },
         {
           user: 'reed',
@@ -216,8 +229,8 @@ if (demo) {
       await wait(4200);
       event(fake.hint);
       await wait(8500);
-      event(fake.reveal);
-      await wait(17_000);
+      await event(fake.reveal);
+      await wait(6500);
       cycle();
     }
     setTimeout(cycle, 400);

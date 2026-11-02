@@ -13,14 +13,15 @@ Use Node 20. No Twitch account or API key is needed.
 cd ~/spoiler-vault
 nvm use
 npm ci
-npm run replay -- --offline --manual
+npm run replay -- --offline
 ```
 
 Open [the dashboard](http://localhost:3000/dashboard/),
 [the game](http://localhost:3000/game/) and
 [the overlay](http://localhost:3000/overlay/).
-`--manual` lets you control the story while messages arrive. Leave it out for
-a scripted run. Stop with Ctrl+C. A new replay starts with an empty SQLite session.
+Manual progress is the default. Use N or the game choices to advance. Add
+`--auto` for a roughly 90 second run through b2 to b6, with reveals and points. The
+`--manual` flag still works as an explicit alias for the default. Stop with Ctrl+C. A new replay starts with an empty SQLite session.
 
 The game is The Orison file, our own six-beat lighthouse mystery. There are
 puzzles at beats 2 and 4. The next-beat button also works as a demo control.

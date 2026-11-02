@@ -58,6 +58,10 @@ body {
   }
 }
 .toast {
+  transform: translateX(calc(100% + 48px));
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
   position: absolute;
   right: 48px;
   top: 48px;
@@ -88,9 +92,15 @@ body {
   margin-top: 6px;
 }
 .toast.enter {
+  opacity: 1;
+  transform: translateX(0);
+  visibility: visible;
   animation: slide-in 220ms ease-out both;
 }
 .toast.leave {
+  opacity: 1;
+  transform: translateX(0);
+  visibility: visible;
   animation: slide-out 220ms ease-in both;
 }
 @keyframes slide-in {
@@ -115,7 +125,7 @@ body {
 .reveal {
   position: absolute;
   left: 48px;
-  bottom: 128px;
+  bottom: 144px;
   width: 1824px;
   height: 260px;
   padding: 22px 32px;
@@ -141,18 +151,29 @@ body {
 }
 .crack {
   position: relative;
-  flex: 0 0 42px;
-  width: 42px;
-  height: 46px;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
   color: var(--seal);
 }
+.seal-whole,
 .seal-half {
   position: absolute;
   inset: 0;
 }
+.seal-whole svg,
 .seal-half svg {
-  width: 42px;
-  height: 46px;
+  width: 40px;
+  height: 40px;
+}
+.seal-half {
+  opacity: 0;
+}
+.crack.cracking .seal-whole {
+  opacity: 0;
+}
+.crack.cracking .seal-half {
+  opacity: 1;
 }
 .seal-half.left {
   clip-path: polygon(0 0, 58% 0, 48% 24%, 58% 43%, 43% 63%, 55% 82%, 48% 100%, 0 100%);
@@ -169,13 +190,13 @@ body {
 @keyframes crack-left {
   to {
     transform: translateX(-12px) rotate(-16deg);
-    opacity: 0.25;
+    opacity: 1;
   }
 }
 @keyframes crack-right {
   to {
     transform: translateX(12px) rotate(16deg);
-    opacity: 0.25;
+    opacity: 1;
   }
 }
 .reveal-text {
@@ -237,7 +258,7 @@ body {
 .leaderboard {
   position: absolute;
   right: 48px;
-  bottom: 128px;
+  bottom: 144px;
   width: 440px;
   padding: 24px 28px;
   border: 1px solid var(--line);
@@ -295,9 +316,15 @@ body {
     animation: fade-in 150ms both;
   }
   .toast.enter {
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
     animation: fade-in 220ms both;
   }
   .toast.leave {
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
     animation: fade-out 220ms both;
   }
 }

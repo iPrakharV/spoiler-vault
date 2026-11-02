@@ -12,7 +12,8 @@
     <main id="overlay">
       <div id="status" class="status">
         <span data-icon="lock"></span><span><b id="sealed-count">0</b> sealed</span
-        ><span class="divider"></span><span data-icon="jar"></span><span><b id="hint-count">0</b> hints</span>
+        ><span class="divider"></span><span class="status-jar" data-icon="jar"></span
+        ><span><b id="hint-count">0</b> hints</span>
       </div>
       <section id="toast" class="toast" aria-live="polite" hidden>
         <span class="toast-seal" data-icon="seal"></span>
@@ -24,8 +25,9 @@
       <section id="reveal" class="reveal" aria-live="polite" hidden>
         <div class="reveal-header">
           <div id="crack" class="crack">
-            <span class="seal-half left" data-icon="seal"></span
-            ><span class="seal-half right" data-icon="seal"></span>
+            <span class="seal-whole" data-icon="seal-solid"></span
+            ><span class="seal-half left" data-icon="seal-solid"></span
+            ><span class="seal-half right" data-icon="seal-solid"></span>
           </div>
           <h1>The vault opens <span id="reveal-beat"></span></h1>
           <span id="more" class="mono" hidden></span>

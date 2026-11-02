@@ -135,8 +135,8 @@ required dashboard sizes.
 | Reveal width 1824px and height 260px | done | overlay-reveal.png and browser bounds. |
 | Uppercase condensed 44px reveal heading and red beat | done | Reveal capture and CSS inspection. |
 | Two seal halves move over 500ms | done | Reveal capture and animation-duration assertion. |
-| Message types at about 40 characters per second | done | overlay/app.js; longer text speeds up to fit the item time. |
-| One item at a time, five seconds per item | done | Timed browser check. |
+| Message types at about 40 characters per second | done | overlay/app.js; typing runs at about 40 characters per second. |
+| One item at a time, five seconds after typing | done | Timed browser check. |
 | At most five items, then the remaining count | done | Seven-item browser event shows item five and +2. |
 | Age, author and first-call tag | done | Reveal capture and reached-beat award metadata. |
 | Left hint card, width 520px and 28px text | done | overlay-hint.png and browser bounds. |
@@ -181,16 +181,16 @@ own server. It records failures rather than leaving a passing report on error.
 | Command | Status | Result |
 | --- | --- | --- |
 | npm run typecheck | done | Passed with Node 20. |
-| npm test | done | 26 passed, zero failed. |
+| npm test | done | 28 passed, zero failed. |
 | npm run build | done | Compiled successfully. |
-| npm run replay -- --offline | done | Scripted smoke run reached b6. Vault empty, three hints remain. |
+| npm run replay -- --offline --auto | done | Scripted smoke run reached b6. Vault empty, three hints remain. |
 | npm run eval | partial | Attempted again. Exit 1 because OPENAI_API_KEY is not set. |
 | npm run eval -- --offline | done | All 150 examples evaluated with the marked heuristic baseline. |
 | npm run verify | done | All browser checks passed. All seven images opened and inspected. |
 
 The fast smoke run adds --speed=1000 and --exit. It uses port 3001 while the
-capture server uses 3000. The server left running for the user uses normal-speed
-manual offline replay on 3000, so the game controls its own progress.
+capture server uses 3000. The server left running for the user now uses normal-speed
+automatic offline replay on 3000. Manual progress remains the default CLI mode.
 
 The empty database from the earlier sample story was archived under ignored
 .data-archive. No user messages or points were in it. This lets live mode start
@@ -206,3 +206,41 @@ model evaluation. Neither can be completed without the project credentials.
 Final source copy scan: zero banned-copy or long-dash hits. Credential pattern
 scan of tracked text and git history found no secrets. Environment, token, archive
 and scratch paths are ignored. The environment example has exactly six settings.
+
+
+## Review pass, Nov 2
+
+| Requirement | Status | File | Notes |
+| --- | --- | --- | --- |
+| Manual replay is the default; --auto advances b2 through b6 | done | server/replay.ts, fixtures/demo-chat.json | Manual mode skips progress entries and their waits. Auto beats leave room for reveals. --manual remains an explicit alias. |
+| Test replay --auto emits a reveal | done | server/tests/replay.test.ts | Runs the real CLI and reads real WebSocket frames. Also checks a vault count drop, points and b6. Default mode stays at b1. |
+| Hint status uses a distinct jar icon | done | shared/icons.js, overlay/index.html | Redrawn wide jar, lid and contents. Browser compares it with the lock icon. |
+| No overflow line when the remaining count is zero | done | overlay/app.js | Both hidden and empty. Browser asserts both conditions. |
+| Solid 40px seal visible before cracking | done | shared/icons.js, overlay/style.css, overlay/app.js | Whole filled seal shows for 800ms, then the halves crack over 500ms. Captured separately. |
+| Each item stays five full seconds after typing | done | overlay/app.js | The reading timer starts after the last character. Timed browser assertion measures this interval. |
+| First-call tag renders when firstCall is true | done | overlay/app.js | Preview items can supply the flag. Live items derive it from /api/awards, preserving the wire contract. Both paths checked. |
+| Reveal band stays at least 24px above the status panel | done | overlay/style.css | Band bottom is 144px from the canvas bottom. Browser measures the actual gap. |
+| Hidden toast is entirely outside the canvas and transparent | done | overlay/style.css | Inactive base state translates beyond the right edge with opacity 0. The reduced-motion active state stays on screen. |
+| Demo counts change and bump on events | done | overlay/app.js | Seal events increment sealed count; hint events increment hints. Reveals lower the demo vault count. |
+| Redacted bars use the requested visible treatment | done | dashboard/style.css | #2A2E35, 8px high, radius 2px. Computed styles checked. |
+| Compact stats strip with middle-dot separators | done | dashboard/index.html, dashboard/style.css | processed, sealed, hints, avg N ms, p95 N ms. Values remain measured, not fixed examples. |
+
+Fresh Playwright captures include the seven core images plus overlay-seal.png,
+overlay-idle.png, dashboard-auto.png, overlay-auto-reveal.png and
+overlay-auto-leaderboard.png. All twelve were opened and inspected.
+
+The first timing probe waited for the returned reveal promise, so it reached the
+visibility assertion after the animation had finished. The WebSocket callback
+now dispatches without returning that animation promise. The revised probe
+observes the whole reading interval and passes.
+
+Checks: typecheck, 28 tests and build pass. npm run verify covers the screens and
+review details. npm run verify:auto starts actual automatic offline replay and
+checks five real reveals, vault count decreases, nonzero points, the overlay
+reveal and its final leaderboard. The auto run ends at b6 with an empty vault.
+Moss has 8 points; ellis, mira and tali have 4 each; reed has 1.
+
+Replay is left running with --offline --auto on localhost:3000 after this commit.
+Default replay still uses N or game choices. Reproduce browser checks with
+npm run verify and npm run verify:auto after stopping that running instance.
+Live Twitch and model eval still need the project credentials, as noted above.

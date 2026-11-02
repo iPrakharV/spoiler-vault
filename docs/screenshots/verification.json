@@ -67,24 +67,29 @@
       "details": ""
     },
     {
-      "name": "reduced motion replaces the toast slide with a fade",
+      "name": "reduced motion replaces the toast slide with a visible fade",
+      "status": "passed",
+      "details": ""
+    },
+    {
+      "name": "inactive toast is fully off-screen and transparent, jar icon is distinct, and demo counts change",
       "status": "passed",
       "details": ""
     },
     {
       "name": "seal toasts queue one at a time, stay 3.5 seconds, and use a 220ms slide",
       "status": "passed",
-      "details": "3760ms until next toast"
+      "details": "3727ms until next toast"
     },
     {
       "name": "hint stays for eight seconds",
       "status": "passed",
-      "details": "8373ms including exit fade"
+      "details": "8368ms including exit fade"
     },
     {
-      "name": "reveal items last five seconds, crack for 500ms, then show the leaderboard for six seconds",
+      "name": "reveal items stay five seconds after typing, crack for 500ms, then show the leaderboard for six seconds",
       "status": "passed",
-      "details": "5325ms reveal; 6358ms board"
+      "details": "5324ms reveal; 6347ms board"
     },
     {
       "name": "a reveal shows at most five items and then the remaining count",
@@ -98,5 +103,5 @@
     }
   ],
   "browser": "156.0.8078.4",
-  "date": "2026-11-02T04:22:31.932Z"
+  "date": "2026-11-02T05:19:15.426Z"
 }
