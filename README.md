@@ -170,6 +170,11 @@ Both write `eval/results.md` and `eval/results.json`. Pending predictions count 
 
 ## Team
 
-TODO: add team member names and roles.
+| Name | Role |
+| --- | --- |
+| Prakhar Verma | backend, Twitch integration (OAuth, EventSub, Helix moderation), classifier and eval, streamer dashboard |
+| Samayeeta Maitra | story and game, stream overlay, demo video and Devpost write-up |
+
+Built for the Codex x TwitchCon Hackathon 2026.
 
 License: [MIT](LICENSE). The IBM Plex fonts retain their included [OFL licenses](shared/fonts/).
