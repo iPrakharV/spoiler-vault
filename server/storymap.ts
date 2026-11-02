@@ -7,6 +7,7 @@ import type { Story } from './types.js';
 import type { Pipeline } from './pipeline.js';
 import { HttpError } from './controls.js';
 import { route } from './twitch.js';
+import { StoryMapGenerateRequestSchema, StoryMapSelectRequestSchema } from './schemas.js';
 
 const demoFingerprint = JSON.stringify(loadStory());
 export const isDemoStory = (story: Story) => JSON.stringify(story) === demoFingerprint;
@@ -74,9 +75,10 @@ export function mountStoryMaps(app: Express, pipeline: Pipeline, options: StoryM
   app.get('/api/storymap', (_req, res) => res.json({ ...safe(), canGenerate: !!key }));
   app.post('/api/storymap/generate', route(async (req, res) => {
     if (!key) throw new HttpError(503, 'Add OPENAI_API_KEY to .env to build maps for other games.');
-    const { game, howFar = '' } = req.body || {};
-    if (typeof game !== 'string' || !game.trim() || game.length > 120 || typeof howFar !== 'string' || howFar.length > 400)
+    const parsed = StoryMapGenerateRequestSchema.safeParse(req.body);
+    if (!parsed.success || !parsed.data.game.trim() || parsed.data.game.length > 120 || (parsed.data.howFar && parsed.data.howFar.length > 400))
       throw new HttpError(400, 'Enter a game name and a short progress note.');
+    const { game, howFar = '' } = parsed.data;
     if (busy) throw new HttpError(409, 'A story map is already being built.');
     busy = true;
     try {
@@ -98,7 +100,8 @@ export function mountStoryMaps(app: Express, pipeline: Pipeline, options: StoryM
   }));
   app.post('/api/storymap/select', route((req, res) => {
     if (busy) throw new HttpError(409, 'A story map is already being built.');
-    if (req.body?.map !== 'demo') throw new HttpError(400, 'Choose the demo game map.');
+    const parsed = StoryMapSelectRequestSchema.safeParse(req.body);
+    if (!parsed.success || parsed.data.map !== 'demo') throw new HttpError(400, 'Choose the demo game map.');
     const demo = loadStory();
     if (options.persist !== false) {
       const pointer = options.activeFile || activeFile;

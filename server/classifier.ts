@@ -1,15 +1,14 @@
 import { config } from './config.js';
 import { findBeat } from './story.js';
 import { labels, type Classification, type Classifier, type Story } from './types.js';
+import { ClassificationSchema } from './schemas.js';
 
 export function validateClassification(value: unknown, story: Story, currentBeat: string): Classification {
-  const result = value as Classification;
-  if (!result || !labels.includes(result.label) || !Number.isFinite(result.confidence) ||
-      result.confidence < 0 || result.confidence > 1 ||
-      !(result.beatId === null || typeof result.beatId === 'string') ||
-      !(result.hintLevel === null || (Number.isInteger(result.hintLevel) && result.hintLevel >= 1 && result.hintLevel <= 5))) {
+  const parsed = ClassificationSchema.safeParse(value);
+  if (!parsed.success) {
     throw new Error('Invalid classifier output');
   }
+  const result = parsed.data as Classification;
   const beat = result.beatId === null ? null : findBeat(story, result.beatId);
   const reached = findBeat(story, currentBeat).order;
   if (result.label === 'future_spoiler' && (!beat || beat.order <= reached)) throw new Error('Spoiler target must be in the future');
