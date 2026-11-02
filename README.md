@@ -15,6 +15,21 @@ Story-game chat spoils plot twists and drops unsolicited advice before streamers
 
 [Watch the demo on YouTube](https://youtu.be/S2pbeVYrZVY).
 
+## Live Demo & Showcase
+
+Test the live application directly in your browser:
+
+🔗 **Live Showcase**: **[https://vat-travel-disk-den.trycloudflare.com/showcase/](https://vat-travel-disk-den.trycloudflare.com/showcase/)**
+
+### How to test it live:
+1. **Open the Showcase**: Navigate to [https://vat-travel-disk-den.trycloudflare.com/showcase/](https://vat-travel-disk-den.trycloudflare.com/showcase/). The left panel is the Streamer Console with Safe Chat and sealed vault; the right panel is the 1080p OBS Broadcast Overlay.
+2. **Test Real-Time Classification**: Use the test chips at the bottom:
+   - **`Test Future Spoiler`**: Evaluates against the active beat and seals the prediction in under 2 seconds.
+   - **`Test Backseat Hint`**: Automatically holds unsolicited advice in the tiered Hint Jar.
+   - **`Test Safe Chat`**: Passes spoiler-free chat straight through to the streamer.
+3. **Trigger Prophet Reveals**: Click **Next Beat [N]** in the header. The sealed wax prediction opens with an animation on the broadcast overlay and awards community Prophet points.
+4. **Release Hints**: Click **Release Hint [H]** to pop one advisory hint from the jar.
+
 ## What it does
 
 - **Real-Time Quarantine**: Evaluates incoming chat against the active story beat. Spoilers are deleted within Twitch's 6-second non-mod chat delay.
@@ -25,10 +40,10 @@ Story-game chat spoils plot twists and drops unsolicited advice before streamers
 
 ### Core interfaces
 
-- **[Spoiler Vault Showcase](http://localhost:3000/showcase/)**: Unified split-screen interface featuring the Streamer Console with Safe Chat and the OBS Broadcast Overlay side-by-side, along with a live EventSub ingest tester and SLA telemetry waterfall.
-- **[Streamer Dashboard](http://localhost:3000/dashboard/)**: Broadcaster controls, safe redacted chat, story progress tracking, and on-demand hint jar.
-- **[OBS Stream Overlay](http://localhost:3000/overlay/)**: 1080p transparent browser source with animated wax seals, Prophet reveals, and community points.
-- **[The Orison File (Mystery Game)](http://localhost:3000/game/)**: An interactive 6-beat lighthouse mystery game demonstrating real-time spoiler detection.
+- **[Spoiler Vault Showcase](https://vat-travel-disk-den.trycloudflare.com/showcase/)** ([Local](http://localhost:3000/showcase/)): Unified split-screen interface featuring the Streamer Console with Safe Chat and the OBS Broadcast Overlay side-by-side, along with a live EventSub ingest tester and SLA telemetry waterfall.
+- **[Streamer Dashboard](https://vat-travel-disk-den.trycloudflare.com/dashboard/)** ([Local](http://localhost:3000/dashboard/)): Broadcaster controls, safe redacted chat, story progress tracking, and on-demand hint jar.
+- **[OBS Stream Overlay](https://vat-travel-disk-den.trycloudflare.com/overlay/)** ([Local](http://localhost:3000/overlay/)): 1080p transparent browser source with animated wax seals, Prophet reveals, and community points.
+- **[The Orison File (Mystery Game)](https://vat-travel-disk-den.trycloudflare.com/game/)** ([Local](http://localhost:3000/game/)): An interactive 6-beat lighthouse mystery game demonstrating real-time spoiler detection.
 
 ## Tested live
 
