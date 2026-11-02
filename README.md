@@ -1,6 +1,6 @@
-<p align="center">
-  <img src="docs/media/banner.svg" width="1280" alt="Spoiler Vault. Chat can call the twist. Nobody sees it until the streamer gets there.">
-</p>
+# BlindSight: The Twitch Prophet Engine
+
+> Real-time spoiler quarantine, backseat hint jar, and community prediction reveals for Twitch story streams.
 
 <p align="center">
   <img src="https://img.shields.io/badge/Node-20-1E2126?style=flat&amp;labelColor=16181C" alt="Node 20">
@@ -11,29 +11,21 @@
   <img src="https://img.shields.io/badge/Codex%20x%20TwitchCon-2026-1E2126?style=flat&amp;labelColor=16181C" alt="Codex x TwitchCon 2026">
 </p>
 
-Story-game chat spoils twists and drops advice before streamers ask for it. Twitch never shipped spoiler tags. Spoiler Vault tracks story progress, holds future spoilers and advice, and releases them when the streamer gets there.
-
-<a href="https://www.youtube.com/watch?v=TODO_VIDEO_ID"><img src="docs/media/demo.gif" width="1200" alt="Offline replay: the dashboard catches a spoiler, the seal cracks, and the overlay shows the reveal and leaderboard."></a>
-
-[TODO: add the full YouTube demo link](https://www.youtube.com/watch?v=TODO_VIDEO_ID). This clip uses offline replay labels. It shows the product flow, not model accuracy. [MP4 version](docs/media/demo.mp4).
+Story-game chat spoils plot twists and drops unsolicited advice before streamers ask for it. Twitch has never shipped native spoiler tags. BlindSight (Spoiler Vault) tracks story progress, holds future spoilers and backseat advice inside Twitch's 6-second non-mod delay, and turns accurate predictions into on-stream reveals and community Prophet points when the broadcaster reaches that story beat.
 
 ## What it does
 
-- Catches future story details against the current beat. Past talk passes.
-- Seals spoilers inside Twitch's six second non-mod chat delay.
-- Reveals saved predictions on stream and awards Prophet points.
-- Holds advice in a hint jar. The broadcaster types `!hint` to release one, vaguest first.
+- **Real-Time Quarantine**: Evaluates incoming chat against the active story beat. Spoilers are deleted within Twitch's 6-second non-mod chat delay.
+- **Prophet Engine & Reveals**: Sealed predictions crack open with wax seal animations on the stream overlay when the story beat is unlocked, awarding Prophet points and leaderboard status to viewers who called it early.
+- **Backseat Hint Jar**: Quarantines unsolicited advice into a tiered hint jar (`vaguest` to `direct`). The streamer accesses advice only when prompted (`!hint` or dashboard button).
+- **Safe Chat for Streamers**: Broadcaster and moderator consoles display a redacted safe chat feed so streamers never get spoiled.
+- **Universal Story Mapper**: Generates dynamic story beat maps for any game using structured OpenAI output or custom beat maps.
 
-<table>
-  <tr>
-    <td width="50%" valign="top"><img src="docs/media/dashboard.png" alt="Dashboard with safe chat, redacted spoilers, story progress and hint jar."><br><sub><strong>Dashboard</strong><br>Caught messages stay redacted.</sub></td>
-    <td width="50%" valign="top"><img src="docs/media/overlay-reveal.png" alt="Overlay reveal with a cracked seal, prediction, author and first-call points."><br><sub><strong>Overlay reveal</strong><br>The prediction opens at its story beat.</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top"><img src="docs/media/overlay-hint.png" alt="Amber hint card over a dark checkerboard, with status counts below."><br><sub><strong>Overlay hint</strong><br>One piece of advice, only when asked.</sub></td>
-    <td width="50%" valign="top"><img src="docs/media/game.png" alt="The Orison file, an original lighthouse mystery presented as a case file."><br><sub><strong>Game</strong><br>Our six-beat lighthouse mystery has two puzzles.</sub></td>
-  </tr>
-</table>
+### Core Interfaces
+- **[BlindSight Showcase](http://localhost:3000/showcase/)**: Unified split-screen interface featuring the Streamer Console with Safe Chat and the OBS Broadcast Overlay side-by-side, along with a live EventSub ingest tester and SLA telemetry waterfall.
+- **[Streamer Dashboard](http://localhost:3000/dashboard/)**: Broadcaster controls, safe redacted chat, story progress tracking, and on-demand hint jar.
+- **[OBS Stream Overlay](http://localhost:3000/overlay/)**: 1080p transparent browser source with animated wax seals, Prophet reveals, and community points.
+- **[The Orison File (Mystery Game)](http://localhost:3000/game/)**: An interactive 6-beat lighthouse mystery game demonstrating real-time spoiler detection.
 
 ## Try it in 60 seconds
 
@@ -193,8 +185,8 @@ Both write `eval/results.md` and `eval/results.json`. Pending predictions count 
 
 | Name | Role |
 | --- | --- |
-| Prakhar Verma | backend, Twitch integration (OAuth, EventSub, Helix moderation), classifier and eval, streamer dashboard |
-| Samayeeta Maitra | story and game, stream overlay, demo video and Devpost write-up |
+| Prakhar Verma | Full-stack engineering, Twitch integration (OAuth, EventSub, Helix moderation), classifier & eval pipeline, streamer dashboard |
+| Samayeeta Maitra | Full-stack engineering, stream overlay & interactive UI, mystery game engine, story design, demo & documentation |
 
 Built for the Codex x TwitchCon Hackathon 2026.
 
