@@ -1,14 +1,14 @@
 @import url('/shared/fonts/fonts.css');
 :root {
-  --bg: #0E0F11;
-  --surface: #16181C;
-  --surface-2: #1E2126;
-  --line: #2A2E35;
-  --text: #E8E6E1;
-  --muted: #8B8F98;
-  --seal: #E5484D;
-  --hint: #F5A524;
-  --ok: #3DD68C;
+  --bg: #0e0f11;
+  --surface: #16181c;
+  --surface-2: #1e2126;
+  --line: #2a2e35;
+  --text: #e8e6e1;
+  --muted: #8b8f98;
+  --seal: #e5484d;
+  --hint: #f5a524;
+  --ok: #3dd68c;
   --ui: 'IBM Plex Sans', sans-serif;
   --headline: 'IBM Plex Sans Condensed', sans-serif;
   --mono: 'IBM Plex Mono', monospace;
@@ -16,22 +16,84 @@
   font-family: var(--ui);
   font-variant-numeric: tabular-nums;
 }
-* { box-sizing: border-box; }
-body { color: var(--text); font: 15px/1.45 var(--ui); }
-button, input { font: inherit; }
-button, .button {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  min-height: 36px; padding: 7px 12px; color: var(--text); background: var(--surface-2);
-  border: 1px solid var(--line); border-radius: 4px; cursor: pointer; text-decoration: none;
+* {
+  box-sizing: border-box;
 }
-button:hover, .button:hover { border-color: var(--muted); }
-button:focus-visible, a:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
-button:disabled { opacity: .4; cursor: default; }
-button.primary { color: var(--bg); background: var(--text); border-color: var(--text); }
-button.primary:hover { border-color: var(--muted); }
-a { color: inherit; }
-svg.icon { width: 18px; height: 18px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-.mono, time, kbd { font-family: var(--mono); font-variant-numeric: tabular-nums; }
-kbd { font-size: 11px; color: var(--muted); font-weight: 400; }
-[hidden] { display: none !important; }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; } }
+body {
+  color: var(--text);
+  font: 15px/1.45 var(--ui);
+}
+button,
+input {
+  font: inherit;
+}
+button,
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 7px 12px;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+button:hover,
+.button:hover {
+  border-color: var(--muted);
+}
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
+button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+button.primary {
+  color: var(--bg);
+  background: var(--text);
+  border-color: var(--text);
+}
+button.primary:hover {
+  border-color: var(--muted);
+}
+a {
+  color: inherit;
+}
+svg.icon {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.mono,
+time,
+kbd {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+kbd {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 400;
+}
+[hidden] {
+  display: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+}

@@ -295,8 +295,16 @@
   },
   {
     "delayMs": 650,
+    "user": "kit",
+    "text": "That dry envelope at the door was a good clue.",
+    "label": "past_talk",
+    "beatId": "b1",
+    "hintLevel": null
+  },
+  {
+    "delayMs": 650,
     "user": "fen",
-    "text": "Good work. The ship is home.",
+    "text": "Good work. I am keeping notes.",
     "label": "normal",
     "beatId": null,
     "hintLevel": null

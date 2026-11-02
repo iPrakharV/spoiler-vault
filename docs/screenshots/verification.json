@@ -1,0 +1,102 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "name": "offline replay has at least 20 messages and every caught row type",
+      "status": "passed",
+      "details": "34 processed"
+    },
+    {
+      "name": "game puzzle 2 rejects a wrong answer and stays at the same beat",
+      "status": "passed",
+      "details": ""
+    },
+    {
+      "name": "game puzzle 2 accepts the correct answer and posts progress",
+      "status": "passed",
+      "details": ""
+    },
+    {
+      "name": "dashboard 1440x900: dimensions, fonts, tokens, redaction, future steps and row types",
+      "status": "passed",
+      "details": "{\"width\":1440,\"scrollWidth\":1440,\"header\":{\"x\":0,\"y\":0,\"width\":1440,\"height\":56,\"bottom\":56,\"right\":1440},\"side\":{\"x\":1044,\"y\":72,\"width\":380,\"height\":812,\"bottom\":884,\"right\":1424},\"font\":\"\\\"IBM Plex Sans\\\", sans-serif\",\"size\":\"15px\",\"line\":\"21.75px\",\"rows\":34,\"types\":[true,true,true],\"future\":[\"04Beat 4\",\"05Beat 5\",\"06Beat 6\"],\"buttons\":[true,true],\"leaks\":false,\"tokens\":{\"bg\":\"#0E0F11\",\"surface\":\"#16181C\",\"surface-2\":\"#1E2126\",\"line\":\"#2A2E35\",\"text\":\"#E8E6E1\",\"muted\":\"#8B8F98\",\"seal\":\"#E5484D\",\"hint\":\"#F5A524\",\"ok\":\"#3DD68C\"}}"
+    },
+    {
+      "name": "dashboard 1280x800: dimensions, fonts, tokens, redaction, future steps and row types",
+      "status": "passed",
+      "details": "{\"width\":1280,\"scrollWidth\":1280,\"header\":{\"x\":0,\"y\":0,\"width\":1280,\"height\":56,\"bottom\":56,\"right\":1280},\"side\":{\"x\":884,\"y\":72,\"width\":380,\"height\":712,\"bottom\":784,\"right\":1264},\"font\":\"\\\"IBM Plex Sans\\\", sans-serif\",\"size\":\"15px\",\"line\":\"21.75px\",\"rows\":34,\"types\":[true,true,true],\"future\":[\"04Beat 4\",\"05Beat 5\",\"06Beat 6\"],\"buttons\":[true,true],\"leaks\":false,\"tokens\":{\"bg\":\"#0E0F11\",\"surface\":\"#16181C\",\"surface-2\":\"#1E2126\",\"line\":\"#2A2E35\",\"text\":\"#E8E6E1\",\"muted\":\"#8B8F98\",\"seal\":\"#E5484D\",\"hint\":\"#F5A524\",\"ok\":\"#3DD68C\"}}"
+    },
+    {
+      "name": "chat respects scroll position and Jump to latest restores following",
+      "status": "passed",
+      "details": ""
+    },
+    {
+      "name": "H releases one hint and renders its text",
+      "status": "passed",
+      "details": ""
+    },
+    {
+      "name": "N advances exactly one beat",
+      "status": "passed",
+      "details": ""
+    },
+    {
+      "name": "puzzle 4, twist at beat 5 and the ending work",
+      "status": "passed",
+      "details": ""
+    },
+    {
+      "name": "overlay reveal: transparent canvas, safe margins, required size and content",
+      "status": "passed",
+      "details": ""
+    },
+    {
+      "name": "overlay hint: transparent canvas, safe margins, required size and content",
+      "status": "passed",
+      "details": ""
+    },
+    {
+      "name": "overlay toast: transparent canvas, safe margins, required size and content",
+      "status": "passed",
+      "details": ""
+    },
+    {
+      "name": "overlay leaderboard: transparent canvas, safe margins, required size and content",
+      "status": "passed",
+      "details": ""
+    },
+    {
+      "name": "reduced motion replaces the toast slide with a fade",
+      "status": "passed",
+      "details": ""
+    },
+    {
+      "name": "seal toasts queue one at a time, stay 3.5 seconds, and use a 220ms slide",
+      "status": "passed",
+      "details": "3760ms until next toast"
+    },
+    {
+      "name": "hint stays for eight seconds",
+      "status": "passed",
+      "details": "8373ms including exit fade"
+    },
+    {
+      "name": "reveal items last five seconds, crack for 500ms, then show the leaderboard for six seconds",
+      "status": "passed",
+      "details": "5325ms reveal; 6358ms board"
+    },
+    {
+      "name": "a reveal shows at most five items and then the remaining count",
+      "status": "passed",
+      "details": ""
+    },
+    {
+      "name": "no browser JavaScript errors",
+      "status": "passed",
+      "details": ""
+    }
+  ],
+  "browser": "156.0.8078.4",
+  "date": "2026-11-02T04:22:31.932Z"
+}

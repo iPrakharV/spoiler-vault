@@ -15,7 +15,7 @@ async function boot() {
 test('HTTP routing serves UI, validates progress and excludes future secrets from session', async t => {
   const { runtime, base } = await boot(); t.after(() => runtime.close());
   assert.deepEqual(await (await fetch(`${base}/api/health`)).json(), { ok: true });
-  const page = await fetch(`${base}/dashboard/`); assert.equal(page.status, 200); assert.match(await page.text(), /Safe chat/);
+  const page = await fetch(`${base}/dashboard/`); assert.equal(page.status, 200); assert.match(page.headers.get('content-type') || '', /text\/html/); assert.match(await page.text(), /id="chat"/);
   const session = await (await fetch(`${base}/api/session`)).json() as { current: { id: string } };
   assert.equal(session.current.id, 'b1'); assert(!JSON.stringify(session).includes('The keeper is you.'));
   const post = (body: unknown) => fetch(`${base}/api/progress`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
@@ -69,7 +69,11 @@ test('wire events keep exact contract keys and caught text stays out of desk dat
   runtime.store.hold(message('look around', 'bob'), 'hint', { label:'backseat',beatId:null,confidence:1,hintLevel:2 });
   await runtime.controls.hint(); await runtime.pipeline.process(message('hello')); runtime.controls.progress('b3');
   await new Promise(resolve => setTimeout(resolve, 30));
-  for (const event of events) assert.deepEqual(Object.keys(event).sort(), keys[String(event.type)].sort());
+  for (const event of events) {
+    assert.deepEqual(Object.keys(event).sort(), keys[String(event.type)].sort());
+    if (event.type === 'reveal') for (const item of event.items as object[]) assert.deepEqual(Object.keys(item).sort(), ['sealedAt','text','user']);
+    if (event.type === 'leaderboard') for (const item of event.entries as object[]) assert.deepEqual(Object.keys(item).sort(), ['points','user']);
+  }
   assert.deepEqual([...new Set(events.map(e => e.type))].sort(), Object.keys(keys).sort());
   const desk = JSON.stringify(await (await fetch(`${base}/api/desk`)).json()); assert(!desk.includes('private text'));
   socket.close();

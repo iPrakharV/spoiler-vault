@@ -1,29 +1,78 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Spoiler Vault | Streamer desk</title>
-  <link rel="stylesheet" href="/shared/tokens.css"><link rel="stylesheet" href="/dashboard/style.css">
-  <script type="module" src="/dashboard/app.js"></script>
-</head>
-<body>
-  <header class="topbar">
-    <div class="brand"><span data-icon="lock"></span><span>Spoiler Vault</span><span id="channel">harbor_watch</span></div>
-    <div id="connection" class="connection offline"><span class="dot"></span><span id="connection-label">Offline</span></div>
-    <div class="beat-heading"><span id="beat-number" class="mono">Beat 1 of 6</span><span id="beat-chapter">The empty berth</span></div>
-  </header>
-  <main class="desk">
-    <section class="panel chat-panel" aria-labelledby="chat-heading">
-      <div class="panel-heading"><h1 id="chat-heading">Chat</h1><span class="panel-note">Filtered feed</span></div>
-      <div id="notice" class="notice" role="status" hidden></div>
-      <div class="chat-wrap"><div id="chat" class="chat" role="log" aria-live="polite" aria-relevant="additions"><p class="empty">No messages yet. Start replay or go live.</p></div><button id="jump" class="jump" hidden>Jump to latest <span data-icon="arrow"></span></button></div>
-      <div class="stat-strip mono" aria-label="Classifier statistics"><span><b id="processed">0</b> processed</span><span><b id="sealed-stat">0</b> sealed</span><span><b id="hint-stat">0</b> hints</span><span><b id="average">0</b> avg ms</span><span><b id="p95">0</b> p95 ms</span></div>
-    </section>
-    <aside class="side-panels">
-      <section class="panel progress-panel" aria-labelledby="progress-heading"><div class="panel-heading"><h2 id="progress-heading">Story progress</h2><a id="connect" href="/auth/login">Connect Twitch</a></div><ol id="stepper" class="stepper"></ol><div class="panel-actions"><button id="next" class="primary" disabled><span>Next beat</span><kbd>N</kbd><span data-icon="arrow"></span></button></div></section>
-      <section class="panel vault-panel" aria-labelledby="vault-heading"><div class="panel-heading"><h2 id="vault-heading"><span data-icon="lock"></span> Vault</h2></div><div class="count-row"><strong id="vault-count" class="count mono">0</strong><span>sealed</span></div><div id="vault-list" class="vault-list"><p class="empty">No spoilers sealed.</p></div></section>
-      <section class="panel hint-panel" aria-labelledby="hint-heading"><div class="panel-heading"><h2 id="hint-heading"><span data-icon="jar"></span> Hint jar</h2></div><div class="jar-summary"><strong id="jar-count" class="count mono">0</strong><div id="pips" class="level-pips" aria-label="Hint counts by level"></div></div><div class="panel-actions"><button id="release" disabled><span>Release next hint</span><kbd>H</kbd></button><p id="latest-hint" class="latest-hint" hidden></p><p id="empty-hint" class="empty">No hints waiting.</p></div></section>
-    </aside>
-  </main>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Spoiler Vault | Streamer desk</title>
+    <link rel="stylesheet" href="/shared/tokens.css" />
+    <link rel="stylesheet" href="/dashboard/style.css" />
+    <script type="module" src="/dashboard/app.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span data-icon="lock"></span><span>Spoiler Vault</span><span id="channel">harbor_watch</span>
+      </div>
+      <div id="connection" class="connection offline">
+        <span class="dot"></span><span id="connection-label">Offline</span>
+      </div>
+      <div class="beat-heading">
+        <span id="beat-number" class="mono">Beat 1 of 6</span><span id="beat-chapter">The empty berth</span>
+      </div>
+    </header>
+    <main class="desk">
+      <section class="panel chat-panel" aria-labelledby="chat-heading">
+        <div class="panel-heading"><h1 id="chat-heading">Chat</h1></div>
+        <div id="notice" class="notice" role="status" hidden></div>
+        <div class="chat-wrap">
+          <div id="chat" class="chat" role="log" aria-live="polite" aria-relevant="additions">
+            <p class="empty">No messages yet. Start replay or go live.</p>
+          </div>
+          <button id="jump" class="jump" hidden>Jump to latest <span data-icon="arrow"></span></button>
+        </div>
+        <div class="stat-strip mono" aria-label="Classifier statistics">
+          <span><b id="processed">0</b> processed</span><span><b id="sealed-stat">0</b> sealed</span
+          ><span><b id="hint-stat">0</b> hints</span><span><b id="average">0</b> avg classify ms</span
+          ><span><b id="p95">0</b> p95 ms</span>
+        </div>
+      </section>
+      <aside class="side-panels">
+        <section class="panel progress-panel" aria-labelledby="progress-heading">
+          <div class="panel-heading">
+            <h2 id="progress-heading">Story progress</h2>
+            <a id="connect" href="/auth/login">Connect Twitch</a>
+          </div>
+          <ol id="stepper" class="stepper"></ol>
+          <div class="panel-actions">
+            <button id="next" class="primary" disabled>
+              <span>Next beat</span><kbd>N</kbd><span data-icon="arrow"></span>
+            </button>
+          </div>
+        </section>
+        <section class="panel vault-panel" aria-labelledby="vault-heading">
+          <div class="panel-heading">
+            <h2 id="vault-heading"><span data-icon="lock"></span> Vault</h2>
+          </div>
+          <div class="count-row">
+            <strong id="vault-count" class="count mono">0</strong><span>sealed</span>
+          </div>
+          <div id="vault-list" class="vault-list"><p class="empty">No spoilers sealed.</p></div>
+        </section>
+        <section class="panel hint-panel" aria-labelledby="hint-heading">
+          <div class="panel-heading">
+            <h2 id="hint-heading"><span data-icon="jar"></span> Hint jar</h2>
+          </div>
+          <div class="jar-summary">
+            <strong id="jar-count" class="count mono">0</strong>
+            <div id="pips" class="level-pips" aria-label="Hint counts by level"></div>
+          </div>
+          <div class="panel-actions">
+            <button id="release" disabled><span>Release next hint</span><kbd>H</kbd></button>
+            <p id="latest-hint" class="latest-hint" hidden></p>
+            <p id="empty-hint" class="empty">No hints waiting.</p>
+          </div>
+        </section>
+      </aside>
+    </main>
+  </body>
 </html>

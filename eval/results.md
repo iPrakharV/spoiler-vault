@@ -1,6 +1,6 @@
 # Spoiler vault evaluation
 
-Run: 2026-11-02T03:48:45.199Z
+Run: 2026-11-02T04:21:45.495Z
 
 Mode: OFFLINE HEURISTIC BASELINE. These are not OpenAI model results.
 
@@ -26,7 +26,7 @@ Rows are actual labels. Columns are predictions. Pending counts as a false negat
 
 ## Latency
 
-Classifier latency p50: 0.01 ms. p95: 0.02 ms.
+Classifier latency p50: 0.01 ms. p95: 0.03 ms.
 
 Nearest-rank percentiles include errors and timeouts. This measures classification only, not Twitch deletion or reply latency.
 

@@ -62,7 +62,10 @@ export class Store {
     return this.db.transaction(() => {
       const item = this.db.prepare(`SELECT * FROM holds WHERE kind = 'hint' AND released = 0
         ORDER BY hintLevel ASC, sealedAt ASC, rowid ASC LIMIT 1`).get() as Held | undefined;
-      if (item) this.db.prepare('UPDATE holds SET released = 1 WHERE id = ?').run(item.id);
+      if (item) {
+        this.db.prepare('UPDATE holds SET released = 1 WHERE id = ?').run(item.id);
+        this.db.prepare(`INSERT INTO state (key,value) VALUES ('lastHintId',?) ON CONFLICT(key) DO UPDATE SET value = excluded.value`).run(item.id);
+      }
       return item;
     })();
   }
@@ -96,7 +99,7 @@ export class Store {
     const levels = [1, 2, 3, 4, 5].map(level => (this.db.prepare(`SELECT count(*) AS n FROM holds
       WHERE kind = 'hint' AND released = 0 AND hintLevel = ?`).get(level) as { n: number }).n);
     const lastHint = this.db.prepare(`SELECT text, user, hintLevel AS level FROM holds WHERE kind = 'hint'
-      AND released = 1 ORDER BY rowid DESC LIMIT 1`).get() || null;
+      AND id = (SELECT value FROM state WHERE key = 'lastHintId')`).get() || null;
     const latency = this.db.prepare('SELECT ms, outcome FROM latency ORDER BY id').all() as { ms: number; outcome: string }[];
     const sorted = latency.map(r => r.ms).sort((a, b) => a - b);
     const stats = { processed: latency.length, sealed: latency.filter(r => r.outcome === 'sealed').length,

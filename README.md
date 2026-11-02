@@ -38,7 +38,7 @@ to preview one scene.
    Use `http://localhost:3000/auth/callback` as the redirect URL.
 2. Copy `.env.example` to `.env`. Fill the Twitch client ID, secret, channel login
    and OpenAI key. Keep PORT=3000 for that callback URL. The example lists all
-   seven required settings. OPENAI_MODEL defaults to gpt-4o-mini.
+   six required settings. OPENAI_MODEL defaults to gpt-4o-mini.
 3. Run `npm run dev`, or `npm run build && npm start`.
 4. Open [Connect Twitch](http://localhost:3000/auth/login) as the channel owner.
    Grant user:read:chat, user:write:chat, moderator:manage:chat_messages and
@@ -91,7 +91,7 @@ does not read the expected labels.
 | future_spoiler | 1.000 | 1.000 | 1.000 |
 | backseat | 0.963 | 0.743 | 0.839 |
 
-Baseline latency p50: 0.01 ms. p95: 0.02 ms.
+Baseline latency p50: 0.01 ms. p95: 0.03 ms.
 
 
 Run `npm run eval` with a key for real model results. It reports precision,

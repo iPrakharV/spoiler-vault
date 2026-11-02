@@ -35,3 +35,8 @@ test('OpenAI refusals, incomplete outputs, HTTP errors and invalid classificatio
   assert.throws(() => validateClassification({ ...normal, label: 'backseat' }, story, 'b1'));
   assert.throws(() => validateClassification(spoiler('b1'), story, 'b1'));
 });
+
+
+test('advice targeting an unreached beat cannot enter the hint jar', () => {
+  assert.throws(() => validateClassification({ label: 'backseat', beatId: 'b3', confidence: 1, hintLevel: 2 }, story, 'b1'), /unreached beat/);
+});

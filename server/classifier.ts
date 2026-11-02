@@ -15,6 +15,7 @@ export function validateClassification(value: unknown, story: Story, currentBeat
   if (result.label === 'future_spoiler' && (!beat || beat.order <= reached)) throw new Error('Spoiler target must be in the future');
   if (result.label === 'past_talk' && (!beat || beat.order > reached)) throw new Error('Past talk target must be reached');
   if (result.label === 'normal' && result.beatId !== null) throw new Error('Normal chat has no target beat');
+  if (result.label === 'backseat' && beat && beat.order > reached) throw new Error('Advice names an unreached beat');
   if (result.label === 'backseat' && result.hintLevel === null) throw new Error('Backseat needs a hint level');
   if (result.label !== 'backseat' && result.hintLevel !== null) throw new Error('Only backseat has a hint level');
   return result;

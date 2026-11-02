@@ -1,9 +1,50 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Spoiler Vault overlay</title><link rel="stylesheet" href="/shared/tokens.css"><link rel="stylesheet" href="/overlay/style.css"><script type="module" src="/overlay/app.js"></script></head>
-<body><main id="overlay">
-  <div id="status" class="status"><span data-icon="lock"></span><span><b id="sealed-count">0</b> sealed</span><span class="divider"></span><span data-icon="jar"></span><span><b id="hint-count">0</b> hints</span></div>
-  <section id="toast" class="toast" aria-live="polite" hidden><span class="toast-seal" data-icon="seal"></span><div><p id="toast-title"></p><p id="toast-beat" class="muted"></p></div></section>
-  <section id="reveal" class="reveal" aria-live="polite" hidden><div class="reveal-header"><div id="crack" class="crack"><span class="seal-half left" data-icon="seal"></span><span class="seal-half right" data-icon="seal"></span></div><h1>The vault opens <span id="reveal-beat"></span></h1><span id="more" class="mono" hidden></span></div><p id="reveal-text" class="reveal-text"></p><div class="reveal-meta"><p id="reveal-byline" class="mono muted"></p><span id="first-call" class="first-call mono" hidden>first call +3</span></div></section>
-  <section id="hint" class="hint" aria-live="polite" hidden><p id="hint-level" class="hint-level mono"></p><p id="hint-text"></p><p id="hint-user" class="hint-user mono muted"></p></section>
-  <section id="leaderboard" class="leaderboard" hidden><h2>Prophets</h2><ol id="leaders"></ol></section>
-</main></body></html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Spoiler Vault overlay</title>
+    <link rel="stylesheet" href="/shared/tokens.css" />
+    <link rel="stylesheet" href="/overlay/style.css" />
+    <script type="module" src="/overlay/app.js"></script>
+  </head>
+  <body>
+    <main id="overlay">
+      <div id="status" class="status">
+        <span data-icon="lock"></span><span><b id="sealed-count">0</b> sealed</span
+        ><span class="divider"></span><span data-icon="jar"></span><span><b id="hint-count">0</b> hints</span>
+      </div>
+      <section id="toast" class="toast" aria-live="polite" hidden>
+        <span class="toast-seal" data-icon="seal"></span>
+        <div>
+          <p id="toast-title"></p>
+          <p id="toast-beat" class="muted"></p>
+        </div>
+      </section>
+      <section id="reveal" class="reveal" aria-live="polite" hidden>
+        <div class="reveal-header">
+          <div id="crack" class="crack">
+            <span class="seal-half left" data-icon="seal"></span
+            ><span class="seal-half right" data-icon="seal"></span>
+          </div>
+          <h1>The vault opens <span id="reveal-beat"></span></h1>
+          <span id="more" class="mono" hidden></span>
+        </div>
+        <p id="reveal-text" class="reveal-text"></p>
+        <div class="reveal-meta">
+          <p id="reveal-byline" class="mono muted"></p>
+          <span id="first-call" class="first-call mono" hidden>first call +3</span>
+        </div>
+      </section>
+      <section id="hint" class="hint" aria-live="polite" hidden>
+        <p id="hint-level" class="hint-level mono"></p>
+        <p id="hint-text"></p>
+        <p id="hint-user" class="hint-user mono muted"></p>
+      </section>
+      <section id="leaderboard" class="leaderboard" hidden>
+        <h2>Prophets</h2>
+        <ol id="leaders"></ol>
+      </section>
+    </main>
+  </body>
+</html>

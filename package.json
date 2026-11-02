@@ -14,7 +14,8 @@
     "eval": "tsx eval/run.ts",
     "test": "tsx --test server/tests/*.test.ts",
     "check": "tsc --noEmit",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "verify": "node scripts/verify.mjs"
   },
   "dependencies": {
     "better-sqlite3": "^11.10.0",

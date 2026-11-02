@@ -76,3 +76,14 @@ test('hint release uses level then age, releases one, and ignores a viewer comma
   assert.deepEqual(env.events.filter(item => item.event.type === 'hint').map(item => item.event.text), ['vague', 'second', 'explicit']);
   assert.deepEqual(await env.controls.hint(), { released: false });
 });
+
+
+test('the desk shows the last hint released even when it was inserted earlier', async t => {
+  const env = setup(); t.after(() => env.store.close());
+  env.store.hold(message('Older explicit hint', 'first'), 'hint', { ...normal, label: 'backseat', hintLevel: 5 });
+  env.store.hold(message('Newer vague hint', 'second'), 'hint', { ...normal, label: 'backseat', hintLevel: 1 });
+  await env.controls.hint();
+  assert.equal((env.store.desk().lastHint as { text: string }).text, 'Newer vague hint');
+  await env.controls.hint();
+  assert.equal((env.store.desk().lastHint as { text: string }).text, 'Older explicit hint');
+});
