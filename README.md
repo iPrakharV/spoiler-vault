@@ -15,10 +15,6 @@ Story-game chat spoils plot twists and drops unsolicited advice before streamers
 
 [Watch the demo on YouTube](https://youtu.be/S2pbeVYrZVY).
 
-## Live Demo & Showcase
-
-Test the live application directly in your browser:
-
 ### How to test it live:
 1. **Open the Showcase**: Navigate to [https://vat-travel-disk-den.trycloudflare.com/showcase/](https://vat-travel-disk-den.trycloudflare.com/showcase/). The left panel is the Streamer Console with Safe Chat and sealed vault; the right panel is the 1080p OBS Broadcast Overlay.
 2. **Test Real-Time Classification**: Use the test chips at the bottom:
